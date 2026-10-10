@@ -8,15 +8,19 @@ The personal portfolio of Yo5on, a CSE student specializing in AI / ML, with wor
 
 An editorial, art-magazine layout built entirely in 2D:
 
-- **Palette** — midnight navy `#1B1E4A`, warm stone `#AFAEA2`, crimson `#D21319`.
-- **Type** — Instrument Serif for display headlines (crimson capitals with stone italics), Instrument Sans for navigation, labels and metadata.
+- **Palette** — midnight navy `#1B1E4A`, warm stone `#AFAEA2`, crimson `#D21319`. Crimson display text uses a fractionally brighter `#DA1E24` so it meets the 3:1 contrast minimum for large text on navy; ribbons and rules keep `#D21319`.
+- **Type** — three faces, each with one job:
+  - **Instrument Serif** for editorial headlines (crimson capitals with stone italics), the logo, and short italic lines such as project introductions and section notes.
+  - **Instrument Sans** for longer body copy (the About paragraph, project-view descriptions) and action links such as *Open study* and *Explore the work*.
+  - **JetBrains Mono** for technical labels and metadata: navigation, section and project numbers, categories, technology tags, figure captions, dates, the footer, and the hero introduction.
+- **Icons** — arrows and the close mark are inline SVG (`src/components/Icons.jsx`) rather than Unicode characters, which some platforms render as colour emoji.
 - **Hero** — a pale engraved moth, presented like a natural-history specimen, wrapped in crimson silk ribbons drawn as SVG and layered both behind and in front of it.
 - **Motion** — restrained: text reveals, a slow float on the moth, a gentle drift on the ribbons and scroll-linked parallax. Transform/layout motion and CSS animations are reduced for visitors who prefer reduced motion; short opacity transitions may remain.
 
 ## Sections
 
 - **Hero** — headline, short introduction and specimen-style labels.
-- **Selected work** — seven projects laid out as magazine spreads, each with a photo or a line-drawn plate, opening into a full-screen case view.
+- **Selected work** — seven projects laid out as magazine spreads, each with a photo or a line-drawn plate, opening into a full-screen case view. Each case view has its own link (`#work/<id>`, e.g. `#work/daymark`), and the browser's Back button closes it.
 - **About**, **Skills**, **Education & practice**, **Contact**.
 
 ### Projects featured
@@ -85,11 +89,11 @@ src/
 
 ## Credits
 
-- **Moth artwork** — a custom illustration supplied by the site owner (`Symmetrical Grayscale Moth Cutout.png`). `public/images/moth.png` and `moth.webp` are trimmed and compressed copies of it.
+- **Moth artwork** — a custom illustration supplied by the site owner (`Symmetrical Grayscale Moth Cutout.png`). `public/images/moth.webp` (1536 px), `moth-900.webp` (900 px, for phones and standard-density screens) and the `moth.png` fallback (256-colour) are trimmed and compressed copies of it.
 - **Project photos and screenshots** (`public/images/work/`) — taken from the README images of the owner's own repositories: Daymark, line-follower, Robotic-arm and oled-project (Mochi).
 - **Line-drawn project plates**, **crimson ribbons** and **favicon** — SVG drawn in code for this site (`src/components/Plate.jsx`, `src/components/Ribbons.jsx`, `public/favicon.svg`).
 - **Social preview image** (`public/images/og-preview.jpg`) — a render of this site's own hero.
-- **Fonts** — [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif) and [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans), served by Google Fonts under the SIL Open Font License.
+- **Fonts** — [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif), [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans) and [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono), served by Google Fonts under the SIL Open Font License.
 
 ## Contact
 

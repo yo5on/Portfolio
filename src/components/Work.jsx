@@ -31,10 +31,10 @@ function Entry({ project, index, onOpen }) {
         <motion.p className="entry-stack" initial={reduced ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={t(0.35)}>
           {project.stack.map((tag, i) => <span key={tag}>{i > 0 && '  ·  '}<span className="tag">{tag}</span></span>)}
         </motion.p>
+        {/* One arrow: a crimson shaft with its head attached, which lengthens on hover/focus. */}
         <button className="entry-open" onClick={() => onOpen(project)} aria-label={`Open study: ${project.title}`}>
           <span>Open study</span>
-          <motion.span className="entry-open-line" variants={{ rest: { scaleX: 0.35 }, hover: { scaleX: 1 } }} transition={{ duration: 0.6, ease }} />
-          <motion.span variants={{ rest: { x: 0 }, hover: { x: 5 } }} transition={{ duration: 0.6, ease }}>→</motion.span>
+          <span className="open-arrow" aria-hidden="true" />
         </button>
       </div>
     </motion.li>

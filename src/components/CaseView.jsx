@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { github, projects } from '../data/content.js'
 import Plate from './Plate.jsx'
+import { ArrowRight, Close, ExternalLink } from './Icons.jsx'
 
 const ease = [0.76, 0, 0.24, 1]
 const soft = [0.22, 1, 0.36, 1]
@@ -17,6 +18,9 @@ export default function CaseView({ project, onClose, onNavigate }) {
     const previous = document.activeElement
     closeBtn.current?.focus()
     document.body.style.overflow = 'hidden'
+    // Take the page behind the dialog out of the tab order and the accessibility tree.
+    const background = [...document.querySelectorAll('.skip, header.nav, main, footer')]
+    background.forEach(el => { el.inert = true })
     const onKey = e => {
       if (e.key === 'Escape') onClose()
       if (e.key !== 'Tab' || !panel.current) return
@@ -26,7 +30,12 @@ export default function CaseView({ project, onClose, onNavigate }) {
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
     }
     window.addEventListener('keydown', onKey)
-    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = ''; previous?.focus?.() }
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      background.forEach(el => { el.inert = false })
+      document.body.style.overflow = ''
+      previous?.focus?.({ preventScroll: true })
+    }
   }, [onClose])
 
   useEffect(() => { panel.current?.scrollTo(0, 0) }, [project])
@@ -47,7 +56,7 @@ export default function CaseView({ project, onClose, onNavigate }) {
     >
       <div className="case-bar">
         <span>N° {project.n} &nbsp;·&nbsp; {project.type}</span>
-        <button ref={closeBtn} className="case-close" onClick={onClose}>Close <span aria-hidden="true">×</span></button>
+        <button ref={closeBtn} className="case-close" onClick={onClose}>Close <Close /></button>
       </div>
       <div className="case-grid" key={project.id}>
         <div className="case-text">
@@ -60,15 +69,15 @@ export default function CaseView({ project, onClose, onNavigate }) {
             <div><dt>Built with</dt><dd>{project.stack.join(', ')}</dd></div>
           </motion.dl>
           <motion.div className="case-links" {...rise(0.8)}>
-            {project.repo && <a href={project.repo} target="_blank" rel="noreferrer">Repository ↗</a>}
-            <a href={github} target="_blank" rel="noreferrer">GitHub profile ↗</a>
+            {project.repo && <ExternalLink href={project.repo}>Repository</ExternalLink>}
+            <ExternalLink href={github}>GitHub profile</ExternalLink>
           </motion.div>
         </div>
-        <motion.div className="case-plate" {...rise(0.5)}><Plate project={project} large /></motion.div>
+        <motion.div className="case-plate" {...rise(0.5)}><Plate project={project} /></motion.div>
       </div>
       <button className="case-next" onClick={() => onNavigate(next)}>
         <span className="kicker">Next study — N° {next.n}</span>
-        <span className="case-next-title">{next.title} <span aria-hidden="true">→</span></span>
+        <span className="case-next-title">{next.title} <ArrowRight className="icon icon-next" /></span>
       </button>
     </motion.div>
   )

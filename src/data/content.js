@@ -7,7 +7,7 @@ export const linkedin = 'https://www.linkedin.com/in/yo5on'
 export const projects = [
   {
     id: 'fakeguard', n: '01', fig: 'FIG. 02', title: 'FakeGuard', type: 'AI / Hackathon',
-    intro: 'A social-media account risk analyzer: explainable 0–100 risk scores that help human reviewers prioritise their work.',
+    intro: 'A social-media account risk analyzer: explainable 0\u2060–\u2060100 risk scores that help human reviewers prioritise their work.',
     detail: 'A full-stack prototype that analyzes synthetic social-media account data, scores risk from 0 to 100 across four categories, and explains each score feature by feature with reason codes. It is a decision-support tool built on synthetic data — it does not access real platforms or replace human review.',
     stack: ['Python', 'FastAPI', 'React', 'TypeScript', 'AI / ML'], plate: 'graph', caption: 'Account graph, one flagged node',
     repo: 'https://github.com/yo5on/fakeguard',
@@ -32,7 +32,7 @@ export const projects = [
     intro: 'High-speed PID line follower robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
     detail: 'High-speed PID Line Follower Robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
     stack: ['ESP32', 'PID control', 'TB6612FNG', '8-array IR sensor'], plate: 'track', caption: 'On the line',
-    image: { src: '/images/work/line-follower.webp', alt: 'The line follower robot on a black track line, its IR sensor array at the front', w: 675, h: 1200, frame: 'square', position: '50% 51%', shiftX: '16%' },
+    image: { src: '/images/work/line-follower.webp', alt: 'The line follower robot on a black track line, its IR sensor array at the front', w: 675, h: 1200, frame: 'square', position: '50% 51%', crop: 'shift-right' },
     repo: 'https://github.com/yo5on/line-follower',
   },
   {
@@ -47,7 +47,7 @@ export const projects = [
     id: 'mochi', n: '06', fig: 'FIG. 07', title: 'Mochi · OLED Companion', type: 'Embedded / ESP32',
     intro: 'A tiny animated companion on a 128×64 OLED, with moods, button reactions and smooth morphs between expressions.',
     detail: 'Mochi lives on a 128×64 OLED. It has moods, reacts to two buttons, drifts between expressions with smooth morphs, falls asleep when left alone, and wakes up on its own.',
-    stack: ['ESP32', 'SSD1306', 'Arduino', 'Embedded animation'], plate: 'arm', caption: 'Mochi, smiling',
+    stack: ['ESP32', 'SSD1306', 'Arduino', 'Embedded animation'], caption: 'Mochi, smiling',
     image: { src: '/images/work/mochi.webp', still: '/images/work/mochi-still.webp', alt: 'Mochi’s pixel face on the OLED, smiling and changing expression', w: 396, h: 204, fit: 'contain', pixel: true },
     repo: 'https://github.com/yo5on/oled-project',
   },

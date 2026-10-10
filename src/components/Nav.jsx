@@ -1,22 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'motion/react'
 import { github, linkedin } from '../data/content.js'
+import { ExternalLink } from './Icons.jsx'
 
 const links = [['Work', '#work'], ['About', '#about'], ['Contact', '#contact']]
 const ease = [0.22, 1, 0.36, 1]
+// Everything outside the header and the menu sheet is taken out of reach while the sheet is open.
+const BACKGROUND = '.skip, main, footer, .nav .brand, .nav-links, .nav-aside'
 
 export default function Nav() {
   const reduced = useReducedMotion()
   const { scrollY } = useScroll()
   const [scrolled, setScrolled] = useState(false)
-  const [active, setActive] = useState('#work')
+  const [active, setActive] = useState(null) // nothing is current until a section is actually in view
   const [open, setOpen] = useState(false)
+  const menuButton = useRef(null)
+  const sheet = useRef(null)
   useMotionValueEvent(scrollY, 'change', v => setScrolled(v > 60))
 
   useEffect(() => {
-    const ids = links.map(([, h]) => h.slice(1))
+    // The hero is observed too, so returning to the top clears the current item.
+    const ids = ['top', ...links.map(([, h]) => h.slice(1))]
     const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) setActive(`#${e.target.id}`) })
+      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id === 'top' ? null : `#${e.target.id}`) })
     }, { rootMargin: '-45% 0px -50% 0px' })
     ids.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el) })
     return () => io.disconnect()
@@ -24,10 +30,28 @@ export default function Nav() {
 
   useEffect(() => {
     if (!open) return
-    const onKey = e => e.key === 'Escape' && setOpen(false)
-    window.addEventListener('keydown', onKey)
+    const background = [...document.querySelectorAll(BACKGROUND)]
+    background.forEach(el => { el.inert = true })
     document.body.style.overflow = 'hidden'
-    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+    // Focus the first link once the sheet has mounted.
+    const raf = requestAnimationFrame(() => sheet.current?.querySelector('a')?.focus())
+    const onKey = e => {
+      if (e.key === 'Escape') { e.preventDefault(); setOpen(false); return }
+      if (e.key !== 'Tab' || !sheet.current) return
+      // Cycle between the Menu/Close button and the links in the sheet.
+      const items = [menuButton.current, ...sheet.current.querySelectorAll('a[href]')]
+      const first = items[0], last = items[items.length - 1]
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('keydown', onKey)
+      background.forEach(el => { el.inert = false })
+      document.body.style.overflow = ''
+      menuButton.current?.focus({ preventScroll: true })
+    }
   }, [open])
 
   return <>
@@ -35,7 +59,7 @@ export default function Nav() {
       <a className="brand" href="#top" aria-label="YO5ON — back to top"><span className="brand-star" aria-hidden="true">✦</span>YO5ON</a>
       <nav className="nav-links" aria-label="Primary">
         {links.map(([label, href]) => (
-          <a key={href} href={href} aria-current={active === href ? 'true' : undefined}>
+          <a key={href} href={href} aria-current={active === href ? 'location' : undefined}>
             {label}
             {active === href && <motion.span className="nav-underline" layoutId="nav-underline" transition={{ type: 'spring', stiffness: 320, damping: 32 }} />}
           </a>
@@ -43,21 +67,21 @@ export default function Nav() {
       </nav>
       <div className="nav-aside">
         <span className="nav-divider" aria-hidden="true" />
-        <a href={github} target="_blank" rel="noreferrer">GitHub ↗</a>
-        <a href={linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <ExternalLink href={github}>GitHub</ExternalLink>
+        <ExternalLink href={linkedin}>LinkedIn</ExternalLink>
       </div>
-      <button className="nav-menu" aria-expanded={open} aria-controls="menu-sheet" onClick={() => setOpen(v => !v)}>{open ? 'Close' : 'Menu'}</button>
+      <button ref={menuButton} className="nav-menu" aria-expanded={open} aria-controls="menu-sheet" onClick={() => setOpen(v => !v)}>{open ? 'Close' : 'Menu'}</button>
     </motion.header>
 
     <AnimatePresence>
       {open && (
-        <motion.div id="menu-sheet" className="menu-sheet" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : 0.5, ease }}>
+        <motion.div ref={sheet} id="menu-sheet" className="menu-sheet" role="dialog" aria-modal="true" aria-label="Site menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : 0.5, ease }}>
           <nav aria-label="Mobile">
             {links.map(([label, href], i) => (
-              <motion.a key={href} href={href} onClick={() => setOpen(false)} initial={reduced ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 + i * 0.07, ease }}>{label}</motion.a>
+              <motion.a key={href} href={href} onClick={() => setOpen(false)} initial={reduced ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.1 + i * 0.07, ease }}>{label}</motion.a>
             ))}
           </nav>
-          <div className="menu-foot"><a href={github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
+          <div className="menu-foot"><ExternalLink href={github}>GitHub</ExternalLink><ExternalLink href={linkedin}>LinkedIn</ExternalLink></div>
         </motion.div>
       )}
     </AnimatePresence>

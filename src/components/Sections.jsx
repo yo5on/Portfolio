@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { email, focus, github, linkedin, practice } from '../data/content.js'
+import { ArrowUp, ArrowUpRight, ExternalLink } from './Icons.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -25,7 +26,7 @@ export function About() {
       <motion.div className="about-body" {...r(0.1)}>
         <p>I’m a CSE student specializing in AI / ML. My projects span AI-powered fake account detection, personalized study planning, agentic pest monitoring, ESP32 robotics, and a Unity 2D platformer.</p>
         <p className="muted">This portfolio follows that work from software and models into embedded systems and the physical world.</p>
-        <a className="text-link" href={github} target="_blank" rel="noreferrer">GitHub ↗</a>
+        <ExternalLink className="text-link" href={github}>GitHub</ExternalLink>
       </motion.div>
     </section>
   )
@@ -78,11 +79,11 @@ export function Contact() {
     <section className="contact" id="contact" aria-labelledby="contact-title">
       <span className="kicker">06 — Contact</span>
       <motion.h2 id="contact-title" className="contact-title" {...r()}>Let’s make <em>something.</em></motion.h2>
-      <motion.a className="contact-mail" href={`mailto:${email}`} {...r(0.15)}>{email}<span aria-hidden="true"> ↗</span></motion.a>
+      <motion.a className="contact-mail" href={`mailto:${email}`} {...r(0.15)}>{email}<ArrowUpRight className="icon icon-mail" /></motion.a>
       <motion.div className="contact-links" {...r(0.25)}>
         <button onClick={copy} aria-live="polite">{copied ? 'Copied' : 'Copy email'}</button>
-        <a href={github} target="_blank" rel="noreferrer">GitHub ↗</a>
-        <a href={linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <ExternalLink href={github}>GitHub</ExternalLink>
+        <ExternalLink href={linkedin}>LinkedIn</ExternalLink>
       </motion.div>
     </section>
   )
@@ -93,7 +94,7 @@ export function Footer() {
     <footer className="footer">
       <a className="brand" href="#top"><span className="brand-star" aria-hidden="true">✦</span>YO5ON</a>
       <span>CSE · AI / ML · Robotics · Software</span>
-      <a href="#top">Back to top ↑</a>
+      <a className="back-top" href="#top">Back to top <ArrowUp /></a>
     </footer>
   )
 }

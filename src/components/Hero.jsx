@@ -4,6 +4,15 @@ import { RibbonLayer } from './Ribbons.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 
+// "Small, sharp tools over big, vague ideas." — set as four lines: the claim in
+// crimson capitals, the contrast in stone italic. Text content stays verbatim.
+const HEADLINE = [
+  [['Small, sharp']],
+  [['tools'], ['over', 'em']],
+  [['big, vague', 'em']],
+  [['ideas.', 'em']],
+]
+
 export default function Hero() {
   const reduced = useReducedMotion()
   const ref = useRef(null)
@@ -33,9 +42,11 @@ export default function Hero() {
       <motion.div className="hero-copy" style={{ y: copyY }}>
         <motion.p className="hero-eyebrow" {...enter(0.3, 8)}>AI / ML ·<br />Robotics ·<br />Software</motion.p>
         <h1 className="hero-title" id="hero-title">
-          {['Models', 'into', 'motion.'].map((word, i) => (
-            <span className="line" key={word}>
-              <motion.span initial={reduced ? false : { y: '102%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.3, delay: reduced ? 0 : 0.45 + i * 0.12, ease }}>{word}</motion.span>
+          {HEADLINE.map((line, i) => (
+            <span className="line" key={i}>
+              <motion.span initial={reduced ? false : { y: '102%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.3, delay: reduced ? 0 : 0.45 + i * 0.1, ease }}>
+                {line.map(([text, voice], j) => <span key={j} className={voice === 'em' ? 'title-em' : undefined}>{j ? ' ' : ''}{text}</span>)}
+              </motion.span>{' '}
             </span>
           ))}
         </h1>
@@ -45,7 +56,7 @@ export default function Hero() {
 
       <motion.div className="hero-meta" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: reduced ? 0 : 1.4 }}>
         <p className="meta-fig">Fig. 01<br />Digital<br />specimen<br />— 2026</p>
-        <p className="meta-side">Selected work 01 — 06</p>
+        <p className="meta-side">Selected work 01 — 07</p>
         <p className="meta-note">Portfolio of<br />Yo5on, CSE<br />AI / ML<span className="meta-rule" /></p>
         <a className="meta-scroll" href="#work"><span className="scroll-mark" aria-hidden="true" />Scroll to explore</a>
       </motion.div>

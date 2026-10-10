@@ -128,14 +128,26 @@ function Platform() {
 
 const PLATES = { graph: Graph, dial: Dial, leaf: Leaf, track: Track, arm: Arm, platform: Platform }
 
+function Photo({ image }) {
+  const cls = ['plate-photo', image.fit === 'contain' && 'is-contain', image.pixel && 'is-pixel'].filter(Boolean).join(' ')
+  return (
+    <picture className={cls}>
+      {image.still && <source srcSet={image.still} media="(prefers-reduced-motion: reduce)" />}
+      <img src={image.src} alt={image.alt} width={image.w} height={image.h} loading="lazy" decoding="async" style={image.position ? { objectPosition: image.position } : undefined} />
+    </picture>
+  )
+}
+
 export default function Plate({ project, large = false }) {
   const Drawing = PLATES[project.plate]
   return (
-    <figure className={large ? 'plate plate-large' : 'plate'}>
+    <figure className={['plate', large && 'plate-large', project.image?.frame === 'square' && 'is-square'].filter(Boolean).join(' ')}>
       <span className="plate-corner tl" /><span className="plate-corner tr" /><span className="plate-corner bl" /><span className="plate-corner br" />
-      <svg viewBox="0 0 480 360" role="img" aria-label={`${project.title} — ${project.caption}`}>
-        <Drawing />
-      </svg>
+      {project.image ? <Photo image={project.image} /> : (
+        <svg viewBox="0 0 480 360" role="img" aria-label={`${project.title} — ${project.caption}`}>
+          <Drawing />
+        </svg>
+      )}
       <figcaption><span>{project.fig}</span><span>{project.caption}</span></figcaption>
     </figure>
   )

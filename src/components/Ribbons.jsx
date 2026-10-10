@@ -18,22 +18,22 @@ const RIBBONS = [
   {
     // Upper ribbon: rises from behind the headline, crosses the head, curls
     // over the right forewing and loops round its tip.
-    width: 15, twists: 3.4, phase: 0.3,
-    points: [[130, 330], [210, 270], [330, 228], [520, 192], [700, 174], [830, 150], [950, 96], [1030, 80], [1046, 150], [960, 196], [860, 230], [860, 330], [960, 380], [1100, 320], [1250, 300], [1410, 360], [1450, 470], [1370, 590], [1220, 600], [1080, 530], [990, 470]],
-    front: [[0.4, 0.62], [0.82, 1]],
+    width: 18, twists: 3.4, phase: 0.3,
+    points: [[290, 262], [400, 222], [520, 192], [700, 174], [830, 170], [950, 128], [1030, 116], [1044, 178], [960, 214], [860, 230], [860, 330], [960, 380], [1100, 320], [1250, 300], [1410, 360], [1450, 470], [1370, 590], [1220, 600], [1080, 530], [990, 470]],
+    front: [[0.4, 0.62]],
   },
   {
     // Lower ribbon: sweeps beneath the left hindwing, curls through the gap
     // between the lobes, then trails out to the right.
-    width: 14, twists: 3.1, phase: 1.2,
-    points: [[330, 560], [250, 640], [215, 740], [270, 850], [400, 900], [560, 880], [680, 800], [780, 760], [820, 840], [760, 930], [840, 975], [980, 920], [1130, 820], [1270, 790], [1380, 850], [1440, 900], [1500, 860]],
+    width: 16, twists: 3.1, phase: 1.8,
+    points: [[330, 560], [250, 640], [215, 740], [270, 850], [400, 900], [560, 880], [680, 800], [780, 760], [820, 840], [760, 930], [840, 975], [980, 920], [1130, 820], [1270, 790], [1370, 850], [1430, 905]],
     front: [[0.28, 0.6], [0.78, 0.9]],
   },
   {
     // Thin trailing loop under the moth — the faint hairline ellipse.
-    width: 5, twists: 2.2, phase: 0.6,
+    width: 4.5, twists: 2.2, phase: 0.6,
     points: [[440, 930], [560, 1050], [760, 1085], [1010, 1060], [1240, 1000], [1330, 900], [1220, 820], [1040, 840], [900, 900], [780, 990]],
-    front: [[0.0, 0.18]],
+    front: [],
   },
 ]
 
@@ -73,7 +73,7 @@ function build({ points, width, twists, phase, front }) {
     const a = line[Math.max(i - 1, 0)], b = line[Math.min(i + 1, line.length - 1)]
     const dx = b[0] - a[0], dy = b[1] - a[1], d = Math.hypot(dx, dy) || 1
     const t = len[i] / total
-    const twist = 0.1 + 0.9 * Math.abs(Math.cos(twists * Math.PI * t + phase))
+    const twist = 0.24 + 0.76 * Math.abs(Math.cos(twists * Math.PI * t + phase))
     const w = (width / 2) * twist * smooth(0, 0.06, t) * smooth(1, 0.9, t) + 0.45
     return { p, n: [-dy / d, dx / d], w, t }
   })

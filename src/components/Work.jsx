@@ -29,7 +29,7 @@ function Entry({ project, index, onOpen }) {
         </motion.h3>
         <motion.p className="entry-intro" initial={reduced ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.6 }} transition={t(0.2)}>{project.intro}</motion.p>
         <motion.p className="entry-stack" initial={reduced ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={t(0.35)}>
-          {project.stack.join('  ·  ')}
+          {project.stack.map((tag, i) => <span key={tag}>{i > 0 && '  ·  '}<span className="tag">{tag}</span></span>)}
         </motion.p>
         <button className="entry-open" onClick={() => onOpen(project)} aria-label={`Open study: ${project.title}`}>
           <span>Open study</span>

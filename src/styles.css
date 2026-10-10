@@ -11,6 +11,7 @@
   --crimson: #d21319;
   --serif: 'Instrument Serif', 'Didot', 'Bodoni 72', 'Times New Roman', serif;
   --sans: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --gutter: clamp(20px, 4.5vw, 72px);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: dark;
@@ -37,10 +38,16 @@ ol { list-style: none; }
 .mask, .line { display: block; overflow: hidden; padding-bottom: 0.04em; }
 .mask > span, .line > span { display: inline-block; will-change: transform; }
 
-/* small-caps label voice used across the site */
+/* small-caps label voice: calls to action stay in Instrument Sans */
 .kicker, .label, .hero-eyebrow, .hero-cta, .hero-meta, .nav-links a, .nav-aside a, .nav-menu,
 .entry-rule, .plate figcaption, .case-bar, .entry-stack, .entry-open, .text-link, .contact-links a, .contact-links button, .footer {
   font-family: var(--sans); font-size: 10.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+}
+/* technical voice: navigation, section numbers, categories, tags, figures and dates in JetBrains Mono.
+   Mono glyphs are already evenly spaced, so tracking is much tighter than the sans labels. */
+.kicker, .hero-eyebrow, .hero-meta, .nav-links a, .nav-aside a, .nav-menu,
+.entry-rule, .plate figcaption, .case-bar, .entry-stack, .footer {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 400; letter-spacing: 0.08em;
 }
 .kicker { color: var(--stone); }
 
@@ -126,7 +133,7 @@ ol { list-style: none; }
 
 .hero-meta p, .hero-meta a { position: absolute; z-index: 4; color: var(--stone); font-size: 9.5px; line-height: 1.85; }
 .meta-fig { right: var(--gutter); top: 17%; text-align: left; }
-.meta-side { right: 1.6vw; top: 62%; writing-mode: vertical-rl; letter-spacing: 0.28em; }
+.meta-side { right: 1.6vw; top: 62%; writing-mode: vertical-rl; letter-spacing: 0.16em; }
 .meta-note { right: var(--gutter); bottom: 7%; font: italic 400 15px/1.35 var(--serif) !important; letter-spacing: 0 !important; text-transform: none !important; color: var(--stone-soft) !important; }
 .meta-rule { display: block; width: 26px; height: 1px; margin-top: 12px; background: var(--crimson); }
 .meta-scroll { left: var(--gutter); bottom: 4.5%; display: inline-flex; align-items: center; gap: 14px; color: var(--stone-soft) !important; }
@@ -159,13 +166,14 @@ ol { list-style: none; }
 .entry-title { font: 400 clamp(40px, 4.4vw, 72px)/0.95 var(--serif); text-transform: uppercase; color: var(--crimson); }
 .entry-intro { margin-top: 22px; font: italic 400 19px/1.45 var(--serif); color: var(--stone); max-width: 380px; }
 .entry-stack { margin-top: 22px; line-height: 1.9; color: var(--stone); font-size: 10px; }
+.entry-stack .tag { white-space: nowrap; } /* wrap between tags, never inside one */
 .entry-open { margin-top: 30px; display: inline-flex; align-items: center; gap: 12px; color: var(--stone); padding: 6px 0; }
 .entry-open-line { display: block; width: 44px; height: 1px; background: var(--crimson); transform-origin: left; }
 .entry-open > span:last-child { color: var(--crimson); letter-spacing: 0; }
 
 .plate { position: relative; padding: 26px; aspect-ratio: 4 / 3; display: flex; flex-direction: column; background: rgba(20, 22, 58, 0.6); }
 .plate svg { flex: 1; width: 100%; min-height: 0; overflow: visible; fill: none; stroke: var(--stone); stroke-width: 1; stroke-opacity: 0.7; stroke-linecap: round; }
-.plate svg text { fill: var(--stone); fill-opacity: 0.9; stroke: none; font: 500 9px var(--sans); letter-spacing: 0.16em; }
+.plate svg text { fill: var(--stone); fill-opacity: 0.9; stroke: none; font: 400 9px var(--mono); letter-spacing: 0.06em; }
 .plate .ink-accent { stroke: var(--crimson); stroke-opacity: 1; }
 .plate-photo { position: relative; flex: 1; min-height: 0; display: block; overflow: hidden; }
 .plate-photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) sepia(0.12) contrast(1.04) brightness(0.86); transition: filter 0.9s var(--ease), transform 1.2s var(--ease); }
@@ -200,7 +208,7 @@ ol { list-style: none; }
 .case-detail { margin-top: 32px; max-width: 440px; font: italic 400 22px/1.45 var(--serif); color: var(--stone); }
 .case-facts { margin-top: 44px; border-top: 1px solid var(--hair); }
 .case-facts div { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
-.case-facts dt { font: 500 10px var(--sans); letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); padding-top: 3px; }
+.case-facts dt { font: 400 10px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone); padding-top: 3px; }
 .case-facts dd { color: var(--stone); font-size: 14px; }
 .case-links { display: flex; gap: 32px; margin-top: 40px; }
 .case-links a { font: 500 10.5px var(--sans); letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); padding-bottom: 6px; border-bottom: 1px solid var(--crimson); }
@@ -221,7 +229,7 @@ ol { list-style: none; }
 
 .skill-index { margin-left: calc(25% + 0.75vw); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 3vw; border-top: 1px solid var(--hair); }
 .skill-index li { display: flex; align-items: baseline; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--hair); font: 400 clamp(20px, 1.7vw, 26px)/1.2 var(--serif); color: var(--stone); }
-.skill-index span { font: 500 10px var(--sans); letter-spacing: 0.2em; color: var(--stone); }
+.skill-index span { font: 400 11px var(--mono); letter-spacing: 0.06em; color: var(--stone); }
 
 .practice { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 3vw; }
 .practice article { border-top: 1px solid var(--hair); padding-top: 20px; }

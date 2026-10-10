@@ -11,7 +11,7 @@ An editorial, art-magazine layout built entirely in 2D:
 - **Palette** — midnight navy `#1B1E4A`, warm stone `#AFAEA2`, crimson `#D21319`.
 - **Type** — Instrument Serif for display headlines (crimson capitals with stone italics), Instrument Sans for navigation, labels and metadata.
 - **Hero** — a pale engraved moth, presented like a natural-history specimen, wrapped in crimson silk ribbons drawn as SVG and layered both behind and in front of it.
-- **Motion** — restrained: text reveals, a slow float on the moth, a gentle drift on the ribbons and scroll-linked parallax. All of it is switched off for visitors who prefer reduced motion.
+- **Motion** — restrained: text reveals, a slow float on the moth, a gentle drift on the ribbons and scroll-linked parallax. Transform/layout motion and CSS animations are reduced for visitors who prefer reduced motion; short opacity transitions may remain.
 
 ## Sections
 
@@ -41,7 +41,7 @@ Everything visual is HTML, CSS, SVG and images — there is no 3D or WebGL.
 
 ## Getting started
 
-Requires Node.js 18 or newer.
+Requires Node.js 22.12+ (recommended: a supported Node.js LTS release). Vite 6 supports Node.js 18, 20 and 22+, but Node.js 18 and 20 are now end-of-life.
 
 ```bash
 npm install
@@ -54,11 +54,21 @@ npm run preview  # serve the production build locally
 
 Open Graph and X/Twitter cards need absolute URLs. Set `SITE_URL` to the deployed origin when building:
 
+**Windows PowerShell**
+
+```powershell
+$env:SITE_URL = "https://your-domain.example"
+npm run build
+Remove-Item Env:SITE_URL
+```
+
+**macOS / Linux**
+
 ```bash
 SITE_URL=https://your-domain.example npm run build
 ```
 
-This makes the preview image URLs absolute and adds `og:url` and a canonical link. Without it the build still works, but image paths stay relative.
+This makes the preview image URLs absolute and adds `og:url` and a canonical link. Without it the build still works, but image paths stay relative. Vercel also supplies `VERCEL_PROJECT_PRODUCTION_URL` during builds, which this project uses when `SITE_URL` is not set.
 
 ## Project structure
 

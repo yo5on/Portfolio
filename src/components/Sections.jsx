@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { motion, useReducedMotion } from 'motion/react'
+import { useRef, useState } from 'react'
+import { motion, useInView, useReducedMotion } from 'motion/react'
 import { email, focus, github, linkedin, practice } from '../data/content.js'
 import { ArrowUp, ArrowUpRight, ExternalLink } from './Icons.jsx'
+import InkWord from './InkWord.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -70,6 +71,10 @@ export function Education() {
 
 export function Contact() {
   const r = useReveal()
+  const reduced = useReducedMotion()
+  const title = useRef(null)
+  // "something." writes itself once the headline is properly in view (immediately under reduced motion).
+  const inView = useInView(title, { once: true, amount: 0.6 })
   const [copied, setCopied] = useState(false)
   const copy = async () => {
     try { await navigator.clipboard.writeText(email); setCopied(true); setTimeout(() => setCopied(false), 1800) }
@@ -78,7 +83,7 @@ export function Contact() {
   return (
     <section className="contact" id="contact" aria-labelledby="contact-title">
       <span className="kicker">06 — Contact</span>
-      <motion.h2 id="contact-title" className="contact-title" {...r()}>Let’s make <em>something.</em></motion.h2>
+      <motion.h2 ref={title} id="contact-title" className="contact-title" {...r()}>Let’s make <em><InkWord text="something." pending={!inView && !reduced} delay={0.45} duration={1.1} /></em></motion.h2>
       <motion.a className="contact-mail" href={`mailto:${email}`} {...r(0.15)}>{email}<ArrowUpRight className="icon icon-mail" /></motion.a>
       <motion.div className="contact-links" {...r(0.25)}>
         <button onClick={copy} aria-live="polite">{copied ? 'Copied' : 'Copy email'}</button>

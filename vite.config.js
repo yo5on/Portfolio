@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { fileURLToPath, URL } from 'node:url'
 
 // Social cards need absolute URLs. The site origin is resolved at build time from:
 //   1. SITE_URL — set explicitly (e.g. SITE_URL=https://example.com npm run build)
@@ -34,4 +35,6 @@ const socialUrls = {
 
 export default defineConfig({
   plugins: [react(), socialUrls],
+  // `@/` points at src/, the shadcn convention (e.g. `@/components/ui/handwriting-text`).
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
 })

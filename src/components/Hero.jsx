@@ -2,6 +2,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
 import { RibbonLayer } from './Ribbons.jsx'
 import { ArrowRight } from './Icons.jsx'
+import InkWord from './InkWord.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -13,6 +14,9 @@ const MOTH_SIZES = '(max-width: 760px) 92vw, (max-width: 1080px) 65vw, 59vw'
 
 // "Small, sharp tools over big, vague ideas." — set as four lines: the claim in
 // crimson capitals, the contrast in stone italic. Text content stays verbatim.
+// The italic words write themselves in sequence: [delay, duration] in seconds after the
+// font is ready, timed to follow the line reveals.
+const INK = { 'over': [0.55, 0.7], 'big, vague': [1.05, 1.0], 'ideas.': [1.85, 0.8] }
 const HEADLINE = [
   [['Small, sharp']],
   [['tools'], ['over', 'em']],
@@ -58,7 +62,9 @@ export default function Hero() {
           {HEADLINE.map((line, i) => (
             <span className="line" key={i}>
               <motion.span initial={reduced ? false : { y: '102%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.3, delay: reduced ? 0 : 0.45 + i * 0.1, ease }}>
-                {line.map(([text, voice], j) => <span key={j} className={voice === 'em' ? 'title-em' : undefined}>{j ? ' ' : ''}{text}</span>)}
+                {line.map(([text, voice], j) => voice === 'em'
+                  ? <span key={j} className="title-em">{j ? ' ' : ''}<InkWord text={text} delay={INK[text][0]} duration={INK[text][1]} /></span>
+                  : <span key={j}>{j ? ' ' : ''}{text}</span>)}
               </motion.span>{' '}
             </span>
           ))}

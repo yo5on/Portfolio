@@ -31,6 +31,12 @@ export default function Hero() {
       <div className="hero-grain" aria-hidden="true" />
 
       <motion.div className="art" style={{ y: artY }} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 1.8, delay: reduced ? 0 : 0.2, ease }}>
+        {/* The moth's soft shadow sits beneath the back ribbons, so ribbons that pass
+            behind the moth are never darkened and every crossing stays clean. */}
+        <picture className="moth moth-shadow" aria-hidden="true">
+          <source srcSet="/images/moth.webp" type="image/webp" />
+          <img src="/images/moth.png" alt="" width="1536" height="977" decoding="async" />
+        </picture>
         <RibbonLayer layer="back" className="ribbons ribbons-back" />
         <picture className="moth">
           <source srcSet="/images/moth.webp" type="image/webp" />

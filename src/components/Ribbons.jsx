@@ -16,23 +16,25 @@ export const MOTH = { x: 200, y: 168, w: 1200, h: 763 }
 
 const RIBBONS = [
   {
-    // Upper ribbon: rises from behind the headline, crosses the head, curls
-    // over the right forewing and loops round its tip.
+    // Upper ribbon: rises from behind the headline, crosses in front of the head
+    // and right forewing, then follows the wing tip closely and tucks under its
+    // lower edge, so it reads as wrapping the wing rather than a detached loop.
     width: 18, twists: 3.4, phase: 0.3,
-    points: [[290, 262], [400, 222], [520, 192], [700, 174], [830, 170], [950, 128], [1030, 116], [1044, 178], [960, 214], [860, 230], [860, 330], [960, 380], [1100, 320], [1250, 300], [1410, 360], [1450, 470], [1370, 590], [1220, 600], [1080, 530], [990, 470]],
-    front: [[0.4, 0.62]],
+    points: [[290, 262], [400, 222], [520, 192], [700, 174], [830, 170], [950, 128], [1030, 116], [1044, 178], [960, 214], [860, 230], [860, 330], [960, 380], [1100, 320], [1225, 322], [1320, 370], [1378, 445], [1420, 530], [1405, 580], [1350, 590], [1280, 565]],
+    front: [[0.5, 0.72]],
   },
   {
-    // Lower ribbon: sweeps beneath the left hindwing, curls through the gap
-    // between the lobes, then trails out to the right.
-    width: 16, twists: 3.1, phase: 1.8,
-    points: [[330, 560], [250, 640], [215, 740], [270, 850], [400, 900], [560, 880], [680, 800], [780, 760], [820, 840], [760, 930], [840, 975], [980, 920], [1130, 820], [1270, 790], [1370, 850], [1430, 905]],
-    front: [[0.28, 0.6], [0.78, 0.9]],
+    // Lower ribbon: emerges from behind the left forewing, loops out to the left,
+    // crosses in front of the left hindwing, dips through the gap between the
+    // lobes, runs beneath them and finishes with a tapered tail in open space.
+    width: 16, twists: 2.6, phase: 1.1,
+    points: [[330, 560], [250, 640], [205, 750], [250, 860], [370, 915], [520, 905], [650, 860], [760, 815], [812, 830], [812, 910], [770, 965], [820, 1000], [930, 985], [1040, 965], [1140, 915], [1220, 850], [1270, 790]],
+    front: [[0.383, 1]],
   },
   {
-    // Thin trailing loop under the moth — the faint hairline ellipse.
-    width: 4.5, twists: 2.2, phase: 0.6,
-    points: [[440, 930], [560, 1050], [760, 1085], [1010, 1060], [1240, 1000], [1330, 900], [1220, 820], [1040, 840], [900, 900], [780, 990]],
+    // Thin echo beneath the hindwings; both ends start hidden behind the lobes.
+    width: 5, twists: 1.2, phase: 0.4,
+    points: [[660, 905], [640, 970], [720, 1030], [880, 1045], [1010, 1010], [1020, 950], [975, 860]],
     front: [],
   },
 ]
@@ -83,8 +85,10 @@ function build({ points, width, twists, phase, front }) {
   for (let i = 1; i <= samples.length; i++) {
     const end = i === samples.length || isFront(samples[i].t) !== isFront(samples[start].t)
     if (!end) continue
-    const to = Math.min(i, samples.length - 1) // overlap one sample so layers meet without a seam
-    ;(isFront(samples[start].t) ? fore : back).push(outline(samples, start, to))
+    // Overlap neighbouring pieces by a few samples so each piece's cut edge sits on
+    // solid ribbon from the other layer, leaving no anti-aliased seam.
+    const from = Math.max(start - 3, 0), to = Math.min(i + 3, samples.length - 1)
+    ;(isFront(samples[start].t) ? fore : back).push(outline(samples, from, to))
     start = i
   }
   return { back, fore }

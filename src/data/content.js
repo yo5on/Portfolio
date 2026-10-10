@@ -32,7 +32,7 @@ export const projects = [
     intro: 'High-speed PID line follower robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
     detail: 'High-speed PID Line Follower Robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
     stack: ['ESP32', 'PID control', 'TB6612FNG', '8-array IR sensor'], plate: 'track', caption: 'On the line',
-    image: { src: '/images/work/line-follower.webp', alt: 'The line follower robot on a black track line, its IR sensor array at the front', w: 675, h: 1200, frame: 'square', position: '50% 51%' },
+    image: { src: '/images/work/line-follower.webp', alt: 'The line follower robot on a black track line, its IR sensor array at the front', w: 675, h: 1200, frame: 'square', position: '50% 51%', shiftX: '16%' },
     repo: 'https://github.com/yo5on/line-follower',
   },
   {

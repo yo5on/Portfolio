@@ -133,7 +133,7 @@ function Photo({ image }) {
   return (
     <picture className={cls}>
       {image.still && <source srcSet={image.still} media="(prefers-reduced-motion: reduce)" />}
-      <img src={image.src} alt={image.alt} width={image.w} height={image.h} loading="lazy" decoding="async" style={image.position ? { objectPosition: image.position } : undefined} />
+      <img src={image.src} alt={image.alt} width={image.w} height={image.h} loading="lazy" decoding="async" style={{ objectPosition: image.position, '--shift-x': image.shiftX }} />
     </picture>
   )
 }

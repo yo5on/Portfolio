@@ -1,11 +1,11 @@
 import { HandwritingText } from '@/components/ui/handwriting-text'
 
-// The traced word is drawn from the same face as the type around it, self-hosted (Latin WOFF from
-// Fontsource, SIL OFL) so the outlines match exactly: Anton for display statements, JetBrains Mono
-// Italic for technical annotations. Licences: /fonts/OFL-Anton.txt, /fonts/OFL-JetBrainsMono.txt
+// The traced word is drawn from the same face as the type around it, self-hosted so the outlines match
+// exactly: Instrument Serif Italic (Latin subset) for display statements, IBM Plex Mono Italic (Fontsource
+// Latin WOFF) for technical annotations. SIL OFL; licences: /fonts/OFL-InstrumentSerif.txt, /fonts/OFL-IBMPlexMono.txt
 export const INK_FONTS = {
-  display: '/fonts/Anton-Regular-latin.woff',
-  code: '/fonts/JetBrainsMono-Italic-latin.woff',
+  display: '/fonts/InstrumentSerif-Italic-latin.ttf',
+  code: '/fonts/IBMPlexMono-Italic-latin.woff',
 }
 
 /**

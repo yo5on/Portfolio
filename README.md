@@ -10,10 +10,10 @@ An editorial, art-magazine layout built entirely in 2D:
 
 - **Palette** — midnight navy `#1B1E4A`, warm stone `#AFAEA2`, crimson `#D21319`. Crimson display text uses a fractionally brighter `#DA1E24` so it meets the 3:1 contrast minimum for large text on navy; ribbons and rules keep `#D21319`.
 - **Type** — three faces, each with one job:
-  - **Anton** for hero statements and large project titles: the hero headline, the contact statement, project titles on the cards, in the index and in project views, and the mobile menu. One weight, never synthesised bold or italic.
-  - **Azeret Mono** for the interface: section headings, labels, tags, navigation, metadata, links and running text.
-  - **JetBrains Mono** only for technical detail: case-study stacks, figure and video notes, labels inside the drawn plates, and the handwritten margin annotations.
-- **Handwritten words** — the contact title's *something.* (in Anton) and the margin notes under three project figures (in JetBrains Mono Italic) trace themselves in the same face as the text around them, then ink in (`src/components/ui/handwriting-text.tsx`, used through `src/components/InkWord.jsx`). The words stay in the page as text for screen readers and search; with reduced motion they appear already drawn, and if the glyph library can’t load they show as ordinary text.
+  - **Instrument Serif** for display: the hero headline, the contact statement, project titles on the cards, in the index and in project views, and the mobile menu: crimson capitals, with its italic kept for the stone accent words.
+  - **Instrument Sans** for the interface and reading text: section headings, labels, tags, navigation, buttons, metadata, links and running text.
+  - **IBM Plex Mono** only for technical detail: case-study stacks, figure and video notes, labels inside the drawn plates, and the handwritten margin annotations.
+- **Handwritten words** — the contact title's *something.* (in Instrument Serif Italic) and the margin notes under three project figures (in IBM Plex Mono Italic) trace themselves in the same face as the text around them, then ink in (`src/components/ui/handwriting-text.tsx`, used through `src/components/InkWord.jsx`). The words stay in the page as text for screen readers and search; with reduced motion they appear already drawn, and if the glyph library can’t load they show as ordinary text.
 - **Icons** — arrows and the close mark are inline SVG (`src/components/Icons.jsx`) rather than Unicode characters, which some platforms render as colour emoji.
 - **Hero** — a pale engraved moth, presented like a natural-history specimen, wrapped in crimson silk ribbons drawn as SVG and layered both behind and in front of it.
 - **Motion** — restrained: text reveals, a slow float on the moth, a gentle drift on the ribbons and scroll-linked parallax. Transform/layout motion and CSS animations are reduced for visitors who prefer reduced motion; short opacity transitions may remain.
@@ -78,8 +78,9 @@ This makes the preview image URLs absolute and adds `og:url` and a canonical lin
 
 ```
 public/
-  favicon.svg
-  images/            moth artwork, social preview, project photos (work/)
+  fonts/             Instrument Serif Italic and IBM Plex Mono Italic (traced by the handwriting)
+  favicon.ico        fallback favicon, rendered from images/moth-flow-favicon.svg
+  images/            moth artwork and "The Flow" mark + favicon, social preview, project photos (work/)
 src/
   components/        Hero, Ribbons, Nav, Work, Plate, CaseView, Sections
   data/content.js    project and section copy
@@ -91,10 +92,11 @@ src/
 
 - **Moth artwork** — a custom illustration supplied by the site owner (`Symmetrical Grayscale Moth Cutout.png`). `public/images/moth.webp` (1536 px), `moth-900.webp` (900 px, for phones and standard-density screens) and the `moth.png` fallback (256-colour) are trimmed and compressed copies of it.
 - **Project photos and screenshots** (`public/images/work/`, `public/images/work/gallery/`) — taken from the README images of the owner's own repositories (Daymark, line-follower, Robotic-arm and oled-project (Mochi)), except the FakeGuard screenshots, which were captured from its live demo using synthetic input. Daymark screenshots are cropped to the app. The Maze Runner cover, poster and gameplay video (`public/media/`) come from the owner's Level 1 recording; the cover is one frame cropped to the game view.
-- **Line-drawn project plates**, **crimson ribbons** and **favicon** — SVG drawn in code for this site (`src/components/Plate.jsx`, `src/components/Ribbons.jsx`, `public/favicon.svg`).
+- **Line-drawn project plates** and **crimson ribbons** — SVG drawn in code for this site (`src/components/Plate.jsx`, `src/components/Ribbons.jsx`).
+- **Moth mark ("The Flow")** — traced and redrawn as vector from the owner's reference artwork, in three variants: the ivory-and-crimson mark beside the wordmark in the nav and footer (inline in `src/components/Icons.jsx`, and in the social preview), the black-and-white master `public/images/moth-flow.svg` (transparent background), and the black-and-white favicon `public/images/moth-flow-favicon.svg` (black on light browser themes, white on dark) with `public/favicon.ico` rendered from it for browsers without SVG favicons.
 - **Social preview image** (`public/images/og-preview.jpg`) — a render of this site's own hero.
-- **Handwriting component** — adapted from a 21st.dev component. Glyph outlines are parsed at runtime by [opentype.js](https://opentype.js.org/) 1.3.4 (MIT), loaded from jsDelivr. `public/fonts/Anton-Regular-latin.woff` and `public/fonts/JetBrainsMono-Italic-latin.woff` are the Latin builds from [Fontsource](https://fontsource.org/) 5.3.0, redistributed under the SIL Open Font License (`public/fonts/OFL-Anton.txt`, `public/fonts/OFL-JetBrainsMono.txt`).
-- **Fonts** — [Anton](https://fonts.google.com/specimen/Anton), [Azeret Mono](https://fonts.google.com/specimen/Azeret+Mono) and [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono), served by Google Fonts under the SIL Open Font License.
+- **Handwriting component** — adapted from a 21st.dev component. Glyph outlines are parsed at runtime by [opentype.js](https://opentype.js.org/) 1.3.4 (MIT), loaded from jsDelivr. `public/fonts/InstrumentSerif-Italic-latin.ttf` is a Latin subset of Instrument Serif Italic and `public/fonts/IBMPlexMono-Italic-latin.woff` the Latin build from [Fontsource](https://fontsource.org/) 5.2.7, both redistributed under the SIL Open Font License (`public/fonts/OFL-InstrumentSerif.txt`, `public/fonts/OFL-IBMPlexMono.txt`).
+- **Fonts** — [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif), [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans) and [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono), served by Google Fonts under the SIL Open Font License.
 
 ## Contact
 

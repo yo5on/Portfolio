@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, useReducedMotion } from 'motion/react'
 import { education, email, github, linkedin, practice, projects } from '../data/content.js'
-import { ArrowUp, ArrowUpRight, BrandStar, ExternalLink } from './Icons.jsx'
+import { ArrowUp, ArrowUpRight, BrandMoth, ExternalLink } from './Icons.jsx'
 import InkWord from './InkWord.jsx'
 import { ProjectLink } from './Work.jsx'
 
@@ -89,9 +89,9 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="footer">
-      <a className="brand" href="#top"><BrandStar />YO5ON</a>
+      <a className="brand" href="#top"><BrandMoth />YO5ON</a>
       <span>CSE · AI / ML · Robotics · Software</span>
-      <span className="colophon">Set in Anton, Azeret Mono &amp; JetBrains Mono · 2026</span>
+      <span className="colophon">Set in Instrument Serif, Instrument Sans &amp; IBM Plex Mono · 2026</span>
       <a className="back-top" href="#top">Back to top <ArrowUp /></a>
     </footer>
   )

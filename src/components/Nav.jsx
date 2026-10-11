@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from 'motion/react'
 import { github, linkedin } from '../data/content.js'
-import { BrandStar, ExternalLink } from './Icons.jsx'
+import { BrandMoth, ExternalLink } from './Icons.jsx'
 
 const links = [['Work', '#work'], ['About', '#about'], ['Contact', '#contact']]
 const ease = [0.22, 1, 0.36, 1]
@@ -56,7 +56,7 @@ export default function Nav() {
 
   return <>
     <motion.header className={scrolled ? 'nav is-scrolled' : 'nav'} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.1, ease }}>
-      <a className="brand" href="#top" aria-label="YO5ON — back to top"><BrandStar />YO5ON</a>
+      <a className="brand" href="#top" aria-label="YO5ON — back to top"><BrandMoth />YO5ON</a>
       <nav className="nav-links" aria-label="Primary">
         {links.map(([label, href]) => (
           <a key={href} href={href} aria-current={active === href ? 'location' : undefined}>

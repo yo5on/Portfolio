@@ -76,7 +76,7 @@ function Entry({ project, index, onOpen }) {
 export default function Work({ onOpen }) {
   const reduced = useReducedMotion()
   return (
-    <section className="work" id="work" aria-labelledby="work-title">
+    <section className="work" id="work" tabIndex={-1} aria-labelledby="work-title">
       <header className="section-head">
         <span className="kicker">02 — Selected work</span>
         <motion.h2 id="work-title" className="section-title" initial={reduced ? false : 'hidden'} whileInView="shown" viewport={{ once: true, amount: 0.5 }}>

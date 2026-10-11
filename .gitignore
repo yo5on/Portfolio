@@ -11,3 +11,6 @@ dist/
 .claude/
 .DS_Store
 Thumbs.db
+
+# local design references (not part of the site)
+reference/

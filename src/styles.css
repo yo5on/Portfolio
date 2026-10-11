@@ -1,18 +1,33 @@
 /* ------------------------------------------------------------------ */
 /* Tokens                                                             */
 /* ------------------------------------------------------------------ */
-/* A stand-in for Azeret Mono while the web font loads, so text wraps the same before and after the
-   swap. Consolas (the monospace Windows renders) is scaled to Azeret Mono's 0.65em advance
-   (0.65 / 0.5498 = 118.22%), and its line metrics are replaced with Azeret's typo metrics
-   (ascent 0.937, descent 0.23, no gap), divided by that scale. Where Consolas isn't installed the
-   face doesn't load and the stack falls through as before. */
+/* Reading measures are in em, not ch: ch follows each face's zero, so it would change width when the fallback swaps. */
+/* Stand-ins while the web fonts load, so text wraps the same before and after the swap: local faces
+   scaled to the web font's average advance, with line metrics replaced by its typo metrics (divided by
+   that scale). Where the local face isn't installed it doesn't load and the stack falls through.
+   Instrument Sans <- Arial: advance x1.027 (regular), x0.981 (600+ against Arial Bold); ascent 0.97, descent 0.25.
+   IBM Plex Mono <- Consolas: 0.6em advance / 0.5498 = x1.0913; ascent 1.025, descent 0.275.
+   Instrument Serif <- Times New Roman: Instrument is narrow, so Times is scaled down to its width, measured on the
+   uppercase titles for the roman (x0.722) and on the lowercase accent words for the italic (x0.879); ascent 0.99, descent 0.31. */
 @font-face {
-  font-family: 'Azeret Mono Fallback'; src: local('Consolas'); font-weight: 100 549;
-  size-adjust: 118.22%; ascent-override: 79.26%; descent-override: 19.45%; line-gap-override: 0%;
+  font-family: 'Instrument Sans Fallback'; src: local('Arial'), local('ArialMT'); font-weight: 100 549;
+  size-adjust: 102.7%; ascent-override: 94.45%; descent-override: 24.34%; line-gap-override: 0%;
 }
 @font-face {
-  font-family: 'Azeret Mono Fallback'; src: local('Consolas Bold'), local('Consolas-Bold'); font-weight: 550 900;
-  size-adjust: 118.22%; ascent-override: 79.26%; descent-override: 19.45%; line-gap-override: 0%;
+  font-family: 'Instrument Sans Fallback'; src: local('Arial Bold'), local('Arial-BoldMT'); font-weight: 550 900;
+  size-adjust: 98.12%; ascent-override: 98.86%; descent-override: 25.48%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Instrument Serif Fallback'; src: local('Times New Roman'), local('TimesNewRomanPSMT'); font-style: normal;
+  size-adjust: 72.2%; ascent-override: 137.12%; descent-override: 42.94%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Instrument Serif Fallback'; src: local('Times New Roman Italic'), local('TimesNewRomanPS-ItalicMT'); font-style: italic;
+  size-adjust: 87.9%; ascent-override: 112.63%; descent-override: 35.27%; line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'IBM Plex Mono Fallback'; src: local('Consolas');
+  size-adjust: 109.13%; ascent-override: 93.93%; descent-override: 25.2%; line-gap-override: 0%;
 }
 :root {
   --navy: #1b1e4a;
@@ -22,16 +37,18 @@
   --stone-faint: rgba(175, 174, 162, 0.48); /* decorative strokes only, never text */
   --hair: rgba(175, 174, 162, 0.2);
   --crimson: #d21319;
+  --moth-ivory: #f3ead7; /* the moth mark's wings */
   --crimson-text: #da1e24; /* crimson for display text only: 3.0–3.4:1 on navy (large-text AA); #d21319 stays for ribbons, rules and marks */
   /* Three faces, one job each:
-     Anton — hero statements and large project titles (one weight, never synthesised bold or italic);
-     Azeret Mono — interface: section headings, labels, tags, navigation, metadata and running text;
-     JetBrains Mono — technical detail only: stacks, figure notes, drawn-plate labels, annotations. */
-  --display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
-  --ui: 'Azeret Mono', 'Azeret Mono Fallback', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-  --code: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+     Instrument Serif — display: hero and contact statements, project titles, the index and the mobile menu
+       (one weight; its italic only for the stone accent words);
+     Instrument Sans — interface and reading text: section headings, labels, tags, navigation, buttons, metadata;
+     IBM Plex Mono — technical detail only: stacks, specifications, figure notes, drawn-plate labels, annotations. */
+  --display: 'Instrument Serif', 'Instrument Serif Fallback', 'Times New Roman', serif;
+  --ui: 'Instrument Sans', 'Instrument Sans Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --code: 'IBM Plex Mono', 'IBM Plex Mono Fallback', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   /* interface scale */
-  --fs-label: 11px;  --ls-label: 0.06em;
+  --fs-label: 11px;  --ls-label: 0.08em;
   --fs-small: 13px;  --fs-body: 15px;  --lh-body: 1.75;
   --gutter: clamp(20px, 4.5vw, 72px);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -44,7 +61,7 @@ body {
   margin: 0; min-width: 320px; overflow-x: hidden;
   background: var(--navy); color: var(--stone);
   font: 400 var(--fs-body)/var(--lh-body) var(--ui);
-  font-synthesis: none; /* Anton has one weight and no italic: never fake either */
+  font-synthesis: none; /* every weight and italic used is a real face: never fake either */
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
 a { color: inherit; text-decoration: none; }
@@ -53,6 +70,8 @@ h1, h2, h3, p, ol, dl, dd, figure { margin: 0; padding: 0; }
 ol { list-style: none; }
 ::selection { background: var(--crimson); color: #fff; }
 :focus-visible { outline: 1px solid var(--crimson-text); outline-offset: 5px; }
+/* the skip link's target: focus lands on the section so Tab continues from there; the section itself isn't a control */
+.work:focus { outline: none; }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
@@ -66,7 +85,7 @@ ol { list-style: none; }
 .mask, .line { display: block; overflow: hidden; padding-bottom: 0.04em; }
 .mask > span, .line > span { display: inline-block; will-change: transform; }
 
-/* label voice, Azeret Mono: calls to action at 500, labels and metadata at 400 */
+/* label voice, Instrument Sans: calls to action at 500, labels and metadata at 400 */
 .kicker, .hero-eyebrow, .hero-cta, .hero-meta, .nav-links a, .nav-aside a, .nav-menu,
 .entry-rule, .plate figcaption, .case-bar, .entry-stack, .entry-open, .text-link, .contact-links a, .contact-links button, .footer {
   font-family: var(--ui); font-size: var(--fs-label); font-weight: 500; letter-spacing: var(--ls-label); text-transform: uppercase;
@@ -90,7 +109,7 @@ ol { list-style: none; }
 .nav::after { content: ''; position: absolute; left: 1.2vw; right: 1.2vw; bottom: 0; height: 1px; background: var(--hair); }
 .nav.is-scrolled { background: rgba(27, 30, 74, 0.86); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .brand { justify-self: start; display: inline-flex; align-items: center; gap: 12px; font: 600 20px/1 var(--ui); letter-spacing: 0.11em; color: var(--crimson-text); }
-.brand-star { flex: none; width: 12px; height: 12px; }
+.brand-mark { flex: none; height: 34px; width: auto; overflow: visible; }
 .nav-links { display: flex; gap: clamp(32px, 5.4vw, 92px); }
 .nav-links a { position: relative; padding: 8px 0; color: var(--stone-soft); transition: color 0.3s; }
 .nav-links a:hover, .nav-links a[aria-current] { color: var(--stone); }
@@ -103,7 +122,7 @@ ol { list-style: none; }
 
 .menu-sheet { position: fixed; inset: 0; z-index: 25; background: var(--navy-deep); display: flex; flex-direction: column; justify-content: center; gap: 48px; padding: 96px var(--gutter) 40px; }
 .menu-sheet nav { display: flex; flex-direction: column; gap: 4px; }
-.menu-sheet nav a { font: 400 clamp(52px, 15vw, 84px)/1.05 var(--display); letter-spacing: 0.01em; text-transform: uppercase; color: var(--crimson-text); }
+.menu-sheet nav a { font: 400 clamp(52px, 15vw, 84px)/1 var(--display); letter-spacing: 0; text-transform: uppercase; color: var(--crimson-text); }
 .menu-foot { display: flex; gap: 28px; font: 500 var(--fs-label) var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone-soft); }
 
 /* ------------------------------------------------------------------ */
@@ -146,13 +165,13 @@ ol { list-style: none; }
 .hero-specimen { display: none; }
 .hero-title {
   margin-top: 3.4vh;
-  font: 400 clamp(48px, min(6.3vw, 10.8vh), 116px)/1 var(--display);
-  text-transform: uppercase; letter-spacing: 0.005em;
+  font: 400 clamp(48px, min(6.3vw, 10.8vh), 116px)/0.9 var(--display);
+  text-transform: uppercase; letter-spacing: 0;
   color: var(--crimson-text);
 }
 /* room for italic descenders and overhang inside the reveal mask, pitch unchanged */
 .hero-title .line { padding: 0 0.08em 0.16em 0; margin-bottom: -0.16em; white-space: nowrap; } /* each line is a deliberate break; also stops the wider fallback font re-wrapping it while fonts load */
-.hero-title .title-em { text-transform: none; letter-spacing: 0.01em; color: var(--stone); } /* the contrast is colour and case: Anton has no italic */
+.hero-title .title-em { font-style: italic; text-transform: none; letter-spacing: 0; color: var(--stone); }
 .hero-tagline { margin-top: 3.2vh; font: 400 clamp(13px, 1vw, 15px)/1.75 var(--ui); letter-spacing: 0; color: var(--stone); }
 .hero-cta { display: inline-flex; align-items: center; gap: 16px; margin-top: 3.6vh; color: var(--stone); padding: 6px 0; transition: color 0.3s, gap 0.4s var(--ease); }
 .hero-cta .icon { color: var(--crimson); width: 14px; height: 14px; }
@@ -190,7 +209,7 @@ ol { list-style: none; }
 .entry-text { grid-column: 9 / span 4; }
 .entry.is-flipped .entry-plate { grid-column: 6 / span 7; grid-row: 2; }
 .entry.is-flipped .entry-text { grid-column: 1 / span 4; grid-row: 2; }
-.entry-title { font: 400 clamp(40px, 4.4vw, 72px)/0.98 var(--display); letter-spacing: 0.01em; text-transform: uppercase; color: var(--crimson-text); }
+.entry-title { font: 400 clamp(40px, 4.4vw, 72px)/0.95 var(--display); letter-spacing: 0; text-transform: uppercase; color: var(--crimson-text); }
 /* titles and images open the project view, like "Open study" */
 .entry-title-link { display: inline-block; text-align: left; text-transform: inherit; letter-spacing: inherit; transition: color 0.4s var(--ease); }
 .entry-plate { cursor: pointer; }
@@ -252,8 +271,8 @@ ol { list-style: none; }
 .case-close { display: inline-flex; gap: 10px; align-items: center; color: var(--stone); font: inherit; letter-spacing: inherit; text-transform: inherit; padding: 8px 0; }
 .case-close .icon { color: var(--crimson); width: 13px; height: 13px; }
 .case-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 5vw; align-items: start; padding: 96px 0 120px; }
-.case-title { font: 400 clamp(52px, 6.4vw, 112px)/0.96 var(--display); letter-spacing: 0.01em; text-transform: uppercase; color: var(--crimson-text); }
-.case-detail { margin-top: 32px; max-width: 62ch; font: 400 var(--fs-body)/var(--lh-body) var(--ui); color: var(--stone); }
+.case-title { font: 400 clamp(52px, 6.4vw, 112px)/0.92 var(--display); letter-spacing: 0; text-transform: uppercase; color: var(--crimson-text); }
+.case-detail { margin-top: 32px; max-width: 34em; font: 400 var(--fs-body)/var(--lh-body) var(--ui); color: var(--stone); }
 .case-facts { margin-top: 44px; border-top: 1px solid var(--hair); }
 .case-facts div { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
 .case-facts dt { font: 400 var(--fs-label) var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone); padding-top: 3px; }
@@ -267,10 +286,8 @@ ol { list-style: none; }
 .study-title { margin-bottom: 72px; }
 .study-part { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: 3vw; padding: 34px 0; border-top: 1px solid var(--hair); }
 .study-label { font: 400 var(--fs-label)/1.6 var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone); padding-top: 5px; }
-.study-body { display: flex; flex-direction: column; gap: 1em; max-width: 64ch; font: 400 var(--fs-body)/var(--lh-body) var(--ui); color: var(--stone); }
+.study-body { display: flex; flex-direction: column; gap: 1em; max-width: 35em; font: 400 var(--fs-body)/var(--lh-body) var(--ui); color: var(--stone); }
 .study-lede { font: 400 clamp(17px, 1.4vw, 20px)/1.6 var(--ui); }
-/* Azeret Mono's advance is generous: case-study paragraphs read more evenly a little tighter */
-.study-body p, .case-detail { letter-spacing: -0.015em; }
 .study-part.is-wide { row-gap: 28px; }
 .study-part.is-wide .study-body { grid-column: 1 / -1; max-width: none; }
 .study-stack, .study-links, .study-gallery { list-style: none; margin: 0; padding: 0; }
@@ -288,17 +305,17 @@ ol { list-style: none; }
 .case-media { margin-top: -40px; margin-bottom: 72px; }
 .case-video { display: block; width: 100%; height: auto; max-height: 82vh; background: #000; border: 1px solid var(--hair); }
 .case-media figcaption { padding-top: 12px; font: 400 12px/1.6 var(--code); color: var(--stone-soft); }
-.study-note { margin-top: 12px; max-width: 34ch; font: 400 var(--fs-small)/1.55 var(--ui); color: var(--stone-soft); }
+.study-note { margin-top: 12px; max-width: 22em; font: 400 var(--fs-small)/1.55 var(--ui); color: var(--stone-soft); }
 
 .case-next { display: block; width: 100%; text-align: left; padding: 60px 0 40px; border-top: 1px solid var(--hair); }
-.case-next-title { display: block; margin-top: 18px; font: 400 clamp(38px, 4.8vw, 76px)/1 var(--display); letter-spacing: 0.01em; text-transform: uppercase; color: var(--crimson-text); }
+.case-next-title { display: block; margin-top: 18px; font: 400 clamp(38px, 4.8vw, 76px)/1 var(--display); letter-spacing: 0; text-transform: uppercase; color: var(--crimson-text); }
 .case-next-title .icon-next { width: 0.62em; height: 0.62em; color: var(--stone); vertical-align: 0.04em; }
 
 /* ------------------------------------------------------------------ */
 /* About · Practice · Contact                                        */
 /* ------------------------------------------------------------------ */
 .about-body { margin-left: calc(25% + 0.75vw); max-width: 620px; display: flex; flex-direction: column; gap: 22px; color: var(--stone); }
-.about-body p { max-width: 58ch; font: 400 16px/var(--lh-body) var(--ui); }
+.about-body p { max-width: 37em; font: 400 16px/var(--lh-body) var(--ui); }
 .about-body .muted { font: italic 400 clamp(15px, 1.25vw, 18px)/1.65 var(--ui); color: var(--stone-soft); }
 .about-body .about-education { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; padding-top: 16px; border-top: 1px solid var(--hair); font: 400 14px/1.6 var(--ui); color: var(--stone); }
 .text-link { align-self: flex-start; margin-top: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--crimson); color: var(--stone); }
@@ -323,15 +340,15 @@ ol { list-style: none; }
 .work-index ol { border-top: 1px solid var(--hair); }
 .work-index a { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto 24px; align-items: baseline; column-gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--hair); color: var(--stone); }
 .work-index-n { font: 400 var(--fs-label) var(--ui); letter-spacing: var(--ls-label); }
-.work-index-title { font: 400 clamp(22px, 2vw, 30px)/1.1 var(--display); letter-spacing: 0.01em; text-transform: uppercase; transition: color 0.3s; }
+.work-index-title { font: 400 clamp(22px, 2vw, 30px)/1.15 var(--display); letter-spacing: 0; text-transform: uppercase; transition: color 0.3s; }
 .work-index-field { font: 400 var(--fs-label)/1.6 var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone-soft); text-align: right; }
 .work-index-arrow { justify-self: end; width: 14px; height: 14px; color: var(--crimson); transition: transform 0.4s var(--ease); }
 .work-index a:hover .work-index-title, .work-index a:focus-visible .work-index-title { color: var(--crimson-text); }
 .work-index a:hover .work-index-arrow, .work-index a:focus-visible .work-index-arrow { transform: translateX(4px); }
 
 .contact { padding-bottom: 110px; }
-.contact-title { margin-top: 56px; font: 400 clamp(60px, 9vw, 150px)/0.95 var(--display); letter-spacing: 0.005em; text-transform: uppercase; color: var(--crimson-text); }
-.contact-title em { font-style: normal; text-transform: none; color: var(--stone); }
+.contact-title { margin-top: 56px; font: 400 clamp(60px, 9vw, 150px)/0.9 var(--display); letter-spacing: 0; text-transform: uppercase; color: var(--crimson-text); }
+.contact-title em { font-style: italic; text-transform: none; color: var(--stone); }
 .contact-mail { display: inline-block; margin-top: 52px; font: 400 clamp(17px, 1.9vw, 28px)/1.3 var(--ui); letter-spacing: -0.01em; color: var(--stone); padding-bottom: 8px; background: linear-gradient(var(--crimson), var(--crimson)) left bottom / 30% 1px no-repeat; transition: background-size 0.7s var(--ease); }
 .contact-mail:hover, .contact-mail:focus-visible { background-size: 100% 1px; }
 .contact-mail .icon-mail { width: 0.55em; height: 0.55em; margin-left: 0.3em; color: var(--crimson); vertical-align: 0.05em; }
@@ -341,6 +358,7 @@ ol { list-style: none; }
 
 .footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; padding: 28px var(--gutter); border-top: 1px solid var(--hair); color: var(--stone); font-size: 11px; }
 .footer .brand { font-size: 17px; }
+.footer .brand-mark { height: 28px; }
 .colophon { color: var(--stone-soft); }
 .back-top { display: inline-flex; align-items: center; gap: 0.6em; }
 .back-top .icon { color: var(--crimson); width: 1.1em; height: 1.1em; }
@@ -354,7 +372,7 @@ ol { list-style: none; }
   .art { left: calc(66% - var(--art-w) / 2); }
   .hero-title { font-size: clamp(48px, min(5.6vw, 10.8vh), 116px); }
   /* the mono intro is wide: let it wrap in a narrower column so it clears the moth */
-  .hero-tagline { max-width: 25ch; text-wrap: pretty; }
+  .hero-tagline { max-width: 16.6em; text-wrap: pretty; }
   .hero-tagline br { display: none; }
   .nav-aside a:last-child { display: none; }
   .entry-plate, .entry.is-flipped .entry-plate { grid-column: 1 / -1; grid-row: auto; }
@@ -376,11 +394,12 @@ ol { list-style: none; }
   .nav-links, .nav-aside { display: none; }
   .nav-menu { display: block; position: relative; z-index: 31; }
   .brand { font-size: 17px; }
+  .brand-mark { height: 30px; }
 
   .hero { height: auto; min-height: 0; max-height: none; display: flex; flex-direction: column; padding: 104px var(--gutter) 88px; --art-w: 122vw; }
   .hero-copy { display: contents; }
   .hero-eyebrow { order: 1; }
-  .hero-title { order: 2; margin-top: 22px; font-size: clamp(40px, 15vw, 84px); position: relative; z-index: 4; } /* Anton is a touch wider than the old capitals: "Small, sharp" must fit one line */
+  .hero-title { order: 2; margin-top: 22px; font-size: clamp(44px, 16.5vw, 84px); position: relative; z-index: 4; } /* "Small, sharp" must fit one line */
   .plate.is-square, .margin-note.is-square { width: 100%; }
   .art { order: 3; position: relative; left: auto; top: auto; margin: -2vw 0 0 calc(-1 * var(--gutter) - 11vw); flex: none; }
   .hero-specimen { display: block; order: 3; position: relative; z-index: 4; margin-top: 4px; font: 400 var(--fs-label)/1.6 var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone-soft); }

@@ -89,7 +89,7 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="footer">
-      <a className="brand" href="#top"><BrandMoth />YO5ON</a>
+      <a className="brand" href="#top"><BrandMoth /><span className="brand-word">YOSON</span></a>
       <span>CSE · AI / ML · Robotics · Software</span>
       <span className="colophon">Set in Instrument Serif, Instrument Sans &amp; IBM Plex Mono · 2026</span>
       <a className="back-top" href="#top">Back to top <ArrowUp /></a>

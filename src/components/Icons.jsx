@@ -27,8 +27,8 @@ export function Close({ className = 'icon' }) {
 
 /**
  * The wordmark's mark, "The Flow": a moth in side view, warm-ivory wings, with a crimson ribbon looping through it.
- * The site's colour variant of the drawing in public/images/moth-flow.svg (that file is the black-and-white master;
- * the favicon is public/images/moth-flow-favicon.svg). Simplified for ~30px: one wing silhouette (no layer lines),
+ * The site's colour variant of the drawing in public/images/moth-flow.svg (that file is the black-and-white master);
+ * the favicon, public/images/moth-flow-favicon.svg, is this mark at tab size in the same colours. Simplified for ~30px: one wing silhouette (no layer lines),
  * ribbon and antennae given a minimum weight, and a navy edge behind the ribbon so it reads as passing in front.
  */
 export function BrandMoth({ className = 'brand-mark' }) {

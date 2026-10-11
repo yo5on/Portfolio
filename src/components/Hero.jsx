@@ -67,14 +67,14 @@ export default function Hero() {
         </h1>
         {/* Phones only: the specimen label beneath the moth (the desktop label sits in the margin). */}
         <motion.p className="hero-specimen" {...enter(0.9, 8)}>Fig. 01 — Digital specimen</motion.p>
-        <motion.p className="hero-tagline" {...enter(1.0)}>Yo5on — a CSE student building <br />intelligent systems, embedded <br />robotics and interactive worlds.</motion.p>
+        <motion.p className="hero-tagline" {...enter(1.0)}>Yoson — a CSE student building <br />intelligent systems, embedded <br />robotics and interactive worlds.</motion.p>
         <motion.a className="hero-cta" href="#work" {...enter(1.15)}>Explore the work <ArrowRight /></motion.a>
       </motion.div>
 
       <motion.div className="hero-meta" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: reduced ? 0 : 1.4 }}>
         <p className="meta-fig">Fig. 01<br />Digital<br />specimen<br />— 2026</p>
         <p className="meta-side">Selected work 01 — 06</p>
-        <p className="meta-note">Portfolio of<br />Yo5on, CSE<br />AI / ML<span className="meta-rule" /></p>
+        <p className="meta-note">Portfolio of<br />Yoson, CSE<br />AI / ML<span className="meta-rule" /></p>
         {/* Visual cue only: "Explore the work" is the keyboard/screen-reader route to the same place. */}
         <a className="meta-scroll" href="#work" tabIndex={-1} aria-hidden="true"><span className="scroll-mark" />Scroll to explore</a>
       </motion.div>

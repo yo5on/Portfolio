@@ -1,8 +1,8 @@
-# YO5ON — Portfolio
+# YOSON — Portfolio
 
 **Small, sharp tools over big, vague ideas.**
 
-The personal portfolio of Yo5on, a CSE student specializing in AI / ML, with work across AI systems, ESP32 robotics, embedded builds and game development.
+The personal portfolio of Yoson, a CSE student specializing in AI / ML, with work across AI systems, ESP32 robotics, embedded builds and game development.
 
 ## Design
 
@@ -93,7 +93,7 @@ src/
 - **Moth artwork** — a custom illustration supplied by the site owner (`Symmetrical Grayscale Moth Cutout.png`). `public/images/moth.webp` (1536 px), `moth-900.webp` (900 px, for phones and standard-density screens) and the `moth.png` fallback (256-colour) are trimmed and compressed copies of it.
 - **Project photos and screenshots** (`public/images/work/`, `public/images/work/gallery/`) — taken from the README images of the owner's own repositories (Daymark, line-follower, Robotic-arm and oled-project (Mochi)), except the FakeGuard screenshots, which were captured from its live demo using synthetic input. Daymark screenshots are cropped to the app. The Maze Runner cover, poster and gameplay video (`public/media/`) come from the owner's Level 1 recording; the cover is one frame cropped to the game view.
 - **Line-drawn project plates** and **crimson ribbons** — SVG drawn in code for this site (`src/components/Plate.jsx`, `src/components/Ribbons.jsx`).
-- **Moth mark ("The Flow")** — traced and redrawn as vector from the owner's reference artwork, in three variants: the ivory-and-crimson mark beside the wordmark in the nav and footer (inline in `src/components/Icons.jsx`, and in the social preview), the black-and-white master `public/images/moth-flow.svg` (transparent background), and the black-and-white favicon `public/images/moth-flow-favicon.svg` (black on light browser themes, white on dark) with `public/favicon.ico` rendered from it for browsers without SVG favicons.
+- **Moth mark ("The Flow")** — traced and redrawn as vector from the owner's reference artwork: the ivory-and-crimson mark beside the wordmark in the nav and footer (inline in `src/components/Icons.jsx`, and in the social preview), the same mark at tab size as the favicon `public/images/moth-flow-favicon.svg` (warm-ivory wings with a navy edge, crimson ribbon, transparent background) with `public/favicon.ico` rendered from it, and a black-and-white master `public/images/moth-flow.svg`.
 - **Social preview image** (`public/images/og-preview.jpg`) — a render of this site's own hero.
 - **Handwriting component** — adapted from a 21st.dev component. Glyph outlines are parsed at runtime by [opentype.js](https://opentype.js.org/) 1.3.4 (MIT), loaded from jsDelivr. `public/fonts/InstrumentSerif-Italic-latin.ttf` is a Latin subset of Instrument Serif Italic and `public/fonts/IBMPlexMono-Italic-latin.woff` the Latin build from [Fontsource](https://fontsource.org/) 5.2.7, both redistributed under the SIL Open Font License (`public/fonts/OFL-InstrumentSerif.txt`, `public/fonts/OFL-IBMPlexMono.txt`).
 - **Fonts** — [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif), [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans) and [IBM Plex Mono](https://fonts.google.com/specimen/IBM+Plex+Mono), served by Google Fonts under the SIL Open Font License.

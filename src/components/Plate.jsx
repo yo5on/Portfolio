@@ -104,7 +104,7 @@ export default function Plate({ project }) {
           <Drawing />
         </svg>
       )}
-      <figcaption><span>{project.fig}</span><span>{project.caption}</span></figcaption>
+      <figcaption>{project.caption}</figcaption>
     </figure>
   )
 }

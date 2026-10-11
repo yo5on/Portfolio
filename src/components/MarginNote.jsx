@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useInView, useReducedMotion } from 'motion/react'
-import InkWord from './InkWord.jsx'
+import InkWord, { INK_FONTS } from './InkWord.jsx'
 
 /**
  * A short handwritten note in the margin beneath a project figure. Its line is reserved
@@ -14,7 +14,7 @@ export default function MarginNote({ text, square = false }) {
   const inView = useInView(ref, { once: true, amount: 1 })
   return (
     <p ref={ref} className={square ? 'margin-note is-square' : 'margin-note'}>
-      <InkWord text={text} pending={!inView && !reduced} delay={0.35} duration={1.3} />
+      <InkWord text={text} font={INK_FONTS.code} pending={!inView && !reduced} delay={0.35} duration={1.3} />
     </p>
   )
 }

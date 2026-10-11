@@ -6,8 +6,8 @@ export const linkedin = 'https://www.linkedin.com/in/yo5on'
 // images are the ones published in those READMEs. Nothing here is embellished.
 export const projects = [
   {
-    id: 'line', n: '01', fig: 'FIG. 02', title: 'ESP32 Line Follower', type: 'Robotics / ESP32',
-    intro: 'High-speed PID line follower robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
+    id: 'line', n: '01', title: 'Line Follower', type: 'Robotics & Control Systems',
+    intro: 'An ESP32 robot that follows a line using eight infrared sensors and PID steering, built for fast, smooth tracking through curves and sharp turns.',
     detail: 'High-speed PID Line Follower Robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
     stack: ['ESP32', 'PID control', 'TB6612FNG', '8-array IR sensor'], plate: 'track', caption: 'On the line',
     note: 'eight IR sensors',
@@ -15,24 +15,24 @@ export const projects = [
     repo: 'https://github.com/yo5on/line-follower',
   },
   {
-    id: 'fakeguard', n: '02', fig: 'FIG. 03', title: 'FakeGuard', type: 'Full-stack / Hackathon',
+    id: 'fakeguard', n: '02', title: 'FakeGuard', type: 'Full-stack Development',
     intro: 'A social-media account risk analyzer: explainable 0\u2060–\u2060100 risk scores that help human reviewers prioritise their work.',
     detail: 'A full-stack prototype that analyzes synthetic social-media account data, scores risk from 0 to 100 across four categories, and explains each score feature by feature with reason codes. It is a decision-support tool built on synthetic data — it does not access real platforms or replace human review.',
     stack: ['Python', 'FastAPI', 'React', 'TypeScript'], caption: 'Analyzer — a HIGH result',
     note: 'a synthetic account',
-    image: { src: '/images/work/fakeguard.webp', alt: 'FakeGuard analyzer scoring a synthetic account at 71 out of 100, HIGH risk, with manual review recommended and the start of its per-feature breakdown', w: 1400, h: 980, position: '50% 0%' },
+    image: { src: '/images/work/fakeguard.webp', alt: 'FakeGuard analyzer scoring a synthetic account at 71 out of 100, HIGH risk, with manual review recommended and the start of its per-feature breakdown', w: 950, h: 664 },
     repo: 'https://github.com/yo5on/fakeguard',
   },
   {
-    id: 'daymark', n: '03', fig: 'FIG. 04', title: 'Daymark', type: 'Product / Learning',
+    id: 'daymark', n: '03', title: 'Daymark', type: 'Product Design & Development',
     intro: 'A personalised study planner that adapts each day around time, priorities, exam proximity and how sessions actually went.',
     detail: 'Daymark is designed to feel less like a static timetable and more like a study companion that responds to what actually happens during the day: quick changes reshape a plan, completed sessions feed confidence and outcomes back into planning, and Insights surfaces patterns from real study records.',
     stack: ['React', 'TypeScript', 'Vite', 'Product design'], plate: 'dial', caption: 'Dashboard — Make today count',
-    image: { src: '/images/work/daymark.webp', alt: 'Daymark dashboard showing the next study session, today’s agenda and weekly rhythm', w: 1400, h: 685 },
+    image: { src: '/images/work/daymark.webp', alt: 'Daymark home screen: the “Make today count.” header above the next study session, Eigenvalues & eigenvectors', w: 900, h: 629 },
     repo: 'https://github.com/yo5on/Personalised-study-planner',
   },
   {
-    id: 'arm', n: '04', fig: 'FIG. 05', title: 'Robotic Arm', type: 'Robotics / ESP32',
+    id: 'arm', n: '04', title: 'Robotic Arm', type: 'Embedded Robotics',
     intro: 'An ESP32-based 4-DOF robotic arm controlled wirelessly with an RC transmitter and servo motors.',
     detail: 'An ESP32-based 4-DOF robotic arm controlled wirelessly using an RC transmitter and receiver. The project demonstrates embedded control, servo motor manipulation, wireless communication, and coordinated robotic movement for pick-and-place applications.',
     stack: ['ESP32', 'Servo control', 'RC transmitter', '4-DOF'], plate: 'arm', caption: 'Pick and place',
@@ -40,7 +40,7 @@ export const projects = [
     repo: 'https://github.com/yo5on/Robotic-arm',
   },
   {
-    id: 'maze', n: '05', fig: 'FIG. 06', title: 'Maze Runner', type: 'Unity / Game',
+    id: 'maze', n: '05', title: 'Maze Runner', type: 'Game Development',
     intro: 'A 2D side-scrolling platformer built with Unity — three levels, combat, enemies, checkpoints and level goals.',
     detail: 'Maze Runner is a 2D side-scrolling platform game built with Unity: three gameplay levels, menu and customization scenes, player movement and combat systems, enemies, checkpoints, level goals, and supporting UI and audio. It is an active college project prototype.',
     stack: ['Unity', 'C#', '2D platformer', 'Game development'], caption: 'Level 1, mid-jump',
@@ -53,7 +53,7 @@ export const projects = [
     repo: 'https://github.com/yo5on/maze-runner',
   },
   {
-    id: 'mochi', n: '06', fig: 'FIG. 07', title: 'Mochi · OLED Companion', type: 'Embedded / ESP32',
+    id: 'mochi', n: '06', title: 'Mochi', type: 'Embedded Interaction',
     intro: 'A tiny animated companion on a 128×64 OLED, with moods, button reactions and smooth morphs between expressions.',
     detail: 'Mochi lives on a 128×64 OLED. It has moods, reacts to two buttons, drifts between expressions with smooth morphs, falls asleep when left alone, and wakes up on its own.',
     stack: ['ESP32', 'SSD1306', 'Arduino', 'Embedded animation'], caption: 'Mochi, smiling',
@@ -133,27 +133,22 @@ export const studies = {
   },
 }
 
-export const focus = ['Artificial intelligence', 'Machine learning', 'Computer science', 'Robotics', 'ESP32 projects', 'Unity 2D games']
-
-// Practice & education. The degree and university match the owner's GitHub profile
-// ("CSE student specializing in AI/ML at Christ University, Bangalore").
+// Practice: three areas, each with its focus (the former Skills list) and the projects that show it.
+// Intelligent Systems links FakeGuard and Daymark as data-driven tools: neither uses a trained model.
 export const practice = {
   lead: 'I build systems that connect software',
   leadEm: 'with the world around them.',
   areas: [
-    { n: '01', title: 'Intelligent Systems', body: 'AI/ML applications, data-driven tools, and software that turns complex problems into practical solutions.' },
-    { n: '02', title: 'Embedded Robotics', body: 'Microcontrollers, sensors, motor control, and robotics, bringing hardware and software together.' },
-    { n: '03', title: 'Interactive Software', body: 'Game development, user interfaces, and interactive experiences designed around clear functionality and thoughtful details.' },
+    { n: '01', title: 'Intelligent Systems', body: 'AI/ML applications, data-driven tools, and software that turns complex problems into practical solutions.',
+      focus: ['Artificial intelligence', 'Machine learning'], workLabel: 'Data-driven tools', work: ['fakeguard', 'daymark'] },
+    { n: '02', title: 'Embedded Robotics', body: 'Microcontrollers, sensors, motor control, and robotics, bringing hardware and software together.',
+      focus: ['Robotics', 'ESP32 projects'], workLabel: 'In the work', work: ['line', 'arm', 'mochi'] },
+    { n: '03', title: 'Interactive Software', body: 'Game development, user interfaces, and interactive experiences designed around clear functionality and thoughtful details.',
+      focus: ['Unity 2D games'], workLabel: 'In the work', work: ['maze', 'daymark'] },
   ],
-  education: { degree: 'B.Tech — Computer Science and Engineering (AI & ML)', school: 'Christ University', place: 'Bengaluru' },
 }
 
-// The compact index after the project spreads: a short name and a discipline for each project, in project order.
-export const workIndex = {
-  line: ['Line Follower', 'Robotics & Control Systems'],
-  fakeguard: ['FakeGuard', 'Full-stack Development'],
-  daymark: ['Daymark', 'Product Design & Development'],
-  arm: ['Robotic Arm', 'Embedded Robotics'],
-  maze: ['Maze Runner', 'Game Development'],
-  mochi: ['Mochi', 'Embedded Interaction'],
-}
+// Shown in About. The degree and university match the owner's GitHub profile
+// ("CSE student specializing in AI/ML at Christ University, Bangalore").
+export const education = 'B.Tech, Computer Science and Engineering (AI & ML) — Christ University, Bengaluru'
+

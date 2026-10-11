@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, useReducedMotion } from 'motion/react'
-import { email, focus, github, linkedin, practice } from '../data/content.js'
+import { education, email, github, linkedin, practice, projects } from '../data/content.js'
 import { ArrowUp, ArrowUpRight, BrandStar, ExternalLink } from './Icons.jsx'
 import InkWord from './InkWord.jsx'
+import { ProjectLink } from './Work.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -22,39 +23,26 @@ export function About() {
     <section className="about" id="about" aria-labelledby="about-title">
       <header className="section-head">
         <span className="kicker">03 — About</span>
-        <motion.h2 id="about-title" className="section-title" {...r()}>AI / ML student.<br /><em>Hands-on builder.</em></motion.h2>
+        <motion.h2 id="about-title" className="section-title" {...r()}>CSE student.<br /><em>Hands-on builder.</em></motion.h2>
       </header>
       <motion.div className="about-body" {...r(0.1)}>
         <p>I’m a CSE student specializing in AI / ML. My projects span fake-account risk scoring, personalized study planning, ESP32 robotics, and a Unity 2D platformer.</p>
-        <p className="muted">This portfolio follows that work from software and models into embedded systems and the physical world.</p>
+        <p className="muted">This portfolio follows that work from software into embedded systems and the physical world.</p>
+        <p className="about-education"><span className="kicker">Education</span>{education}</p>
         <ExternalLink className="text-link" href={github}>GitHub</ExternalLink>
       </motion.div>
     </section>
   )
 }
 
-export function Skills() {
+export function Practice({ onOpen }) {
   const r = useReveal()
+  const byId = id => projects.find(p => p.id === id)
   return (
-    <section className="skills" id="skills" aria-labelledby="skills-title">
+    <section className="practice-section" id="practice" aria-labelledby="practice-title">
       <header className="section-head">
-        <span className="kicker">04 — Skills</span>
-        <motion.h2 id="skills-title" className="section-title" {...r()}>From model <em>to machine.</em></motion.h2>
-      </header>
-      <motion.ol className="skill-index" {...r(0.1)}>
-        {focus.map((f, i) => <li key={f}><span>{String(i + 1).padStart(2, '0')}</span>{f}</li>)}
-      </motion.ol>
-    </section>
-  )
-}
-
-export function Education() {
-  const r = useReveal()
-  return (
-    <section className="education" id="education" aria-labelledby="education-title">
-      <header className="section-head">
-        <span className="kicker">05 — Practice &amp; education</span>
-        <motion.h2 id="education-title" className="section-title is-statement" {...r()}>{practice.lead} <em>{practice.leadEm}</em></motion.h2>
+        <span className="kicker">04 — Practice</span>
+        <motion.h2 id="practice-title" className="section-title is-statement" {...r()}>{practice.lead} <em>{practice.leadEm}</em></motion.h2>
       </header>
       <div className="practice">
         {practice.areas.map((p, i) => (
@@ -62,14 +50,13 @@ export function Education() {
             <span className="kicker">{p.n}</span>
             <h3>{p.title}</h3>
             <p>{p.body}</p>
+            <dl className="practice-meta">
+              <div><dt>Focus</dt><dd>{p.focus.map(f => <span key={f} className="tag">{f}</span>)}</dd></div>
+              <div><dt>{p.workLabel}</dt><dd>{p.work.map(id => <ProjectLink key={id} project={byId(id)} onOpen={onOpen} className="tag">{byId(id).title}</ProjectLink>)}</dd></div>
+            </dl>
           </motion.article>
         ))}
       </div>
-      <motion.div className="education-entry" {...r(0.1)}>
-        <h3 className="kicker">Education</h3>
-        <p className="education-degree">{practice.education.degree}</p>
-        <p className="education-school">{practice.education.school} · {practice.education.place}</p>
-      </motion.div>
     </section>
   )
 }
@@ -87,7 +74,7 @@ export function Contact() {
   }
   return (
     <section className="contact" id="contact" aria-labelledby="contact-title">
-      <span className="kicker">06 — Contact</span>
+      <span className="kicker">05 — Contact</span>
       <motion.h2 ref={title} id="contact-title" className="contact-title" {...r()}>Let’s make <em><InkWord text="something." pending={!inView && !reduced} delay={0.45} duration={1.1} /></em></motion.h2>
       <motion.a className="contact-mail" href={`mailto:${email}`} {...r(0.15)}>{email}<ArrowUpRight className="icon icon-mail" /></motion.a>
       <motion.div className="contact-links" {...r(0.25)}>
@@ -104,7 +91,7 @@ export function Footer() {
     <footer className="footer">
       <a className="brand" href="#top"><BrandStar />YO5ON</a>
       <span>CSE · AI / ML · Robotics · Software</span>
-      <span className="colophon">Set in Instrument Serif, Instrument Sans &amp; JetBrains Mono · 2026</span>
+      <span className="colophon">Set in Anton, Azeret Mono &amp; JetBrains Mono · 2026</span>
       <a className="back-top" href="#top">Back to top <ArrowUp /></a>
     </footer>
   )

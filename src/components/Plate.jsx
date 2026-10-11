@@ -82,19 +82,7 @@ function Arm() {
   </>
 }
 
-function Platform() {
-  const d = useDraw(), f = useFade()
-  return <>
-    {Array.from({ length: 9 }, (_, i) => <motion.line key={i} x1={40 + i * 50} y1="40" x2={40 + i * 50} y2="320" strokeOpacity=".22" {...f(i * 0.2)} />)}
-    {[[40, 300, 130], [214, 250, 96], [348, 188, 96], [196, 140, 74]].map(([x, y, w], i) => <motion.rect key={i} x={x} y={y} width={w} height="12" {...d(i)} />)}
-    <motion.path d="M150 292 Q 196 160 246 244" strokeDasharray="2 5" {...f(1)} />
-    <motion.path d="M296 244 Q 330 120 382 182" strokeDasharray="2 5" {...f(2)} />
-    <motion.rect x="240" y="228" width="13" height="16" {...d(6, true)} />
-    {[[260, 110], [280, 110], [300, 110]].map(([x, y], i) => <motion.circle key={i} cx={x} cy={y} r="4" {...d(7 + i)} />)}
-  </>
-}
-
-const PLATES = { dial: Dial, track: Track, arm: Arm, platform: Platform }
+const PLATES = { dial: Dial, track: Track, arm: Arm }
 
 function Photo({ image }) {
   const cls = ['plate-photo', image.fit === 'contain' && 'is-contain', image.pixel && 'is-pixel', image.oled && 'is-oled', image.crop && `crop-${image.crop}`].filter(Boolean).join(' ')

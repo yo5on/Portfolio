@@ -285,6 +285,23 @@ ol { list-style: none; }
 .practice article { border-top: 1px solid var(--hair); padding-top: 20px; }
 .practice h3 { font: 400 30px/1.05 var(--serif); text-transform: uppercase; color: var(--crimson-text); margin: 26px 0 14px; max-width: 300px; }
 .practice p { font: italic 400 18px/1.45 var(--serif); color: var(--stone-soft); max-width: 300px; }
+/* a statement rather than a two-word title: same voice, a step smaller */
+.section-title.is-statement { font-size: clamp(40px, 4.6vw, 76px); line-height: 1; }
+.education-entry { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: 3vw; margin-top: 110px; padding-top: 22px; border-top: 1px solid var(--hair); }
+.education-entry .kicker { grid-row: span 2; padding-top: 8px; font-weight: 400; }
+.education-degree { font: 400 clamp(24px, 2.3vw, 34px)/1.15 var(--serif); color: var(--stone); }
+.education-school { margin-top: 12px; font: 400 11px/1.6 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone-soft); }
+
+/* index of works, after the spreads */
+.work-index { margin: 160px 0 0 calc(25% + 0.75vw); }
+.work-index ol { margin-top: 22px; border-top: 1px solid var(--hair); }
+.work-index a { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto 24px; align-items: baseline; column-gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--hair); color: var(--stone); }
+.work-index-n { font: 400 11px var(--mono); letter-spacing: 0.06em; }
+.work-index-title { font: 400 clamp(22px, 2vw, 30px)/1.15 var(--serif); transition: color 0.3s; }
+.work-index-field { font: 400 10.5px/1.6 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone-soft); text-align: right; }
+.work-index-arrow { justify-self: end; width: 14px; height: 14px; color: var(--crimson); transition: transform 0.4s var(--ease); }
+.work-index a:hover .work-index-title, .work-index a:focus-visible .work-index-title { color: var(--crimson-text); }
+.work-index a:hover .work-index-arrow, .work-index a:focus-visible .work-index-arrow { transform: translateX(4px); }
 
 .contact { padding-bottom: 110px; }
 .contact-title { margin-top: 56px; font: 400 clamp(60px, 9vw, 150px)/0.9 var(--serif); text-transform: uppercase; color: var(--crimson-text); }
@@ -316,7 +333,7 @@ ol { list-style: none; }
   .nav-aside a:last-child { display: none; }
   .entry-plate, .entry.is-flipped .entry-plate { grid-column: 1 / -1; grid-row: auto; }
   .entry-text, .entry.is-flipped .entry-text { grid-column: 1 / span 9; grid-row: auto; }
-  .about-body, .skill-index { margin-left: 0; }
+  .about-body, .skill-index, .work-index { margin-left: 0; }
   .study-gallery.is-portrait { --cols: 2 !important; }
   /* stacked spreads: notes sit under the figure on one side */
   .entry.is-flipped .margin-note { text-align: right; }
@@ -356,6 +373,12 @@ ol { list-style: none; }
   .plate { padding: 16px; }
   .skill-index { grid-template-columns: 1fr; }
   .practice { grid-template-columns: 1fr; row-gap: 48px; }
+  .education-entry { grid-template-columns: 1fr; margin-top: 72px; }
+  .education-entry .kicker { grid-row: auto; padding: 0 0 18px; }
+  .work-index { margin-top: 110px; }
+  .work-index a { grid-template-columns: 36px minmax(0, 1fr) 16px; row-gap: 6px; }
+  .work-index-field { grid-column: 2; grid-row: 2; text-align: left; }
+  .work-index-arrow { grid-column: 3; grid-row: 1; }
   .case-grid { grid-template-columns: 1fr; padding: 56px 0 80px; gap: 56px; }
   .case-plate { position: static; order: -1; }
   .case-detail { font-size: 16px; line-height: 1.6; }

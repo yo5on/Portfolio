@@ -21,8 +21,8 @@ An editorial, art-magazine layout built entirely in 2D:
 ## Sections
 
 - **Hero** — headline, short introduction and specimen-style labels.
-- **Selected work** — six projects laid out as magazine spreads, each with a photo or a line-drawn plate, opening into a full-screen case view. Each case view has its own link (`#work/<id>`, e.g. `#work/daymark`), and the browser's Back button closes it.
-- **About**, **Skills**, **Education & practice**, **Contact**.
+- **Selected work** — six projects laid out as magazine spreads, each with a photo or a line-drawn plate, opening into a full-screen case view, followed by a compact index of works linking to the same views. Each case view has its own link (`#work/<id>`, e.g. `#work/daymark`), and the browser's Back button closes it.
+- **About**, **Skills**, **Practice & education** (three areas of practice and the degree), **Contact**.
 
 ### Projects featured
 
@@ -90,7 +90,7 @@ src/
 ## Credits
 
 - **Moth artwork** — a custom illustration supplied by the site owner (`Symmetrical Grayscale Moth Cutout.png`). `public/images/moth.webp` (1536 px), `moth-900.webp` (900 px, for phones and standard-density screens) and the `moth.png` fallback (256-colour) are trimmed and compressed copies of it.
-- **Project photos and screenshots** (`public/images/work/`, `public/images/work/gallery/`) — taken from the README images of the owner's own repositories (Daymark, line-follower, Robotic-arm and oled-project (Mochi)), except the FakeGuard screenshots, which were captured from its live demo using synthetic input. Daymark screenshots are cropped to the app.
+- **Project photos and screenshots** (`public/images/work/`, `public/images/work/gallery/`) — taken from the README images of the owner's own repositories (Daymark, line-follower, Robotic-arm and oled-project (Mochi)), except the FakeGuard screenshots, which were captured from its live demo using synthetic input. Daymark screenshots are cropped to the app. The Maze Runner cover, poster and gameplay video (`public/media/`) come from the owner's Level 1 recording; the cover is one frame cropped to the game view.
 - **Line-drawn project plates**, **crimson ribbons** and **favicon** — SVG drawn in code for this site (`src/components/Plate.jsx`, `src/components/Ribbons.jsx`, `public/favicon.svg`).
 - **Social preview image** (`public/images/og-preview.jpg`) — a render of this site's own hero.
 - **Handwriting component** — adapted from a 21st.dev component. Glyph outlines are parsed at runtime by [opentype.js](https://opentype.js.org/) 1.3.4 (MIT), loaded from jsDelivr. `public/fonts/InstrumentSerif-Italic-latin.ttf` is a Latin subset of Instrument Serif Italic, redistributed under the SIL Open Font License (`public/fonts/OFL-InstrumentSerif.txt`).

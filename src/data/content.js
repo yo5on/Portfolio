@@ -43,7 +43,9 @@ export const projects = [
     id: 'maze', n: '05', fig: 'FIG. 06', title: 'Maze Runner', type: 'Unity / Game',
     intro: 'A 2D side-scrolling platformer built with Unity — three levels, combat, enemies, checkpoints and level goals.',
     detail: 'Maze Runner is a 2D side-scrolling platform game built with Unity: three gameplay levels, menu and customization scenes, player movement and combat systems, enemies, checkpoints, level goals, and supporting UI and audio. It is an active college project prototype.',
-    stack: ['Unity', 'C#', '2D platformer', 'Game development'], plate: 'platform', caption: 'Jump arc',
+    stack: ['Unity', 'C#', '2D platformer', 'Game development'], caption: 'Level 1, mid-jump',
+    // A frame of the Level 1 recording (86 s), cropped to the game view; pixels unchanged.
+    image: { src: '/images/work/maze-runner.webp', alt: 'Maze Runner Level 1: the hooded player character mid-jump above a large green goblin standing on a platform', w: 1015, h: 710 },
     // Web version of the unedited gameplay recording (97 MB, kept in the maze-runner repository as
     // media/gameplay-level-1.mp4): same 1920x1016 frames and timing, H.264 (x264 CRF 23, preset slow)
     // with the original AAC audio copied, faststart. The poster is a frame of it (12 s), decoded unchanged.
@@ -133,8 +135,25 @@ export const studies = {
 
 export const focus = ['Artificial intelligence', 'Machine learning', 'Computer science', 'Robotics', 'ESP32 projects', 'Unity 2D games']
 
-export const practice = [
-  { k: '01 / Studies', title: 'Computer Science & Engineering.', body: 'AI / ML specialization.' },
-  { k: '02 / Software & Product Engineering', title: 'Detection & planning.', body: 'FakeGuard and Daymark.' },
-  { k: '03 / Physical computing', title: 'Sensors, boards & movement.', body: 'ESP32 projects across line following, a gesture-controlled RC car and robotic arms.' },
-]
+// Practice & education. The degree and university match the owner's GitHub profile
+// ("CSE student specializing in AI/ML at Christ University, Bangalore").
+export const practice = {
+  lead: 'I build systems that connect software',
+  leadEm: 'with the world around them.',
+  areas: [
+    { n: '01', title: 'Intelligent Systems', body: 'AI/ML applications, data-driven tools, and software that turns complex problems into practical solutions.' },
+    { n: '02', title: 'Embedded Robotics', body: 'Microcontrollers, sensors, motor control, and robotics, bringing hardware and software together.' },
+    { n: '03', title: 'Interactive Software', body: 'Game development, user interfaces, and interactive experiences designed around clear functionality and thoughtful details.' },
+  ],
+  education: { degree: 'B.Tech — Computer Science and Engineering (AI & ML)', school: 'Christ University', place: 'Bengaluru' },
+}
+
+// The compact index after the project spreads: a short name and a discipline for each project, in project order.
+export const workIndex = {
+  line: ['Line Follower', 'Robotics & Control Systems'],
+  fakeguard: ['FakeGuard', 'Full-stack Development'],
+  daymark: ['Daymark', 'Product Design & Development'],
+  arm: ['Robotic Arm', 'Embedded Robotics'],
+  maze: ['Maze Runner', 'Game Development'],
+  mochi: ['Mochi', 'Embedded Interaction'],
+}

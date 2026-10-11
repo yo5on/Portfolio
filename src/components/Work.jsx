@@ -1,7 +1,8 @@
 import { motion, useReducedMotion } from 'motion/react'
-import { projects } from '../data/content.js'
+import { projects, workIndex } from '../data/content.js'
 import Plate from './Plate.jsx'
 import MarginNote from './MarginNote.jsx'
+import { ArrowRight } from './Icons.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 // Masked line reveal: text rises from below its clipping mask.
@@ -74,6 +75,26 @@ export default function Work({ onOpen }) {
       <ol className="entries">
         {projects.map((p, i) => <Entry key={p.id} project={p} index={i} onOpen={onOpen} />)}
       </ol>
+      {/* A compact index of the same projects. Each row is a real link to the project's view, so it also
+          works as a shareable address; a plain click opens the view in place, like the cards. */}
+      <motion.nav className="work-index" aria-labelledby="work-index-title" initial={reduced ? false : { opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: reduced ? 0 : 1.1, ease }}>
+        <h3 id="work-index-title" className="kicker">Index of works</h3>
+        <ol>
+          {projects.map(p => (
+            <li key={p.id}>
+              <a href={`#work/${p.id}`} onClick={e => {
+                if (e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return // new tab or window: let the browser follow the link
+                e.preventDefault(); onOpen(p, plateRect(p.id))
+              }}>
+                <span className="work-index-n">{p.n}</span>
+                <span className="work-index-title">{workIndex[p.id][0]}</span>
+                <span className="work-index-field">{workIndex[p.id][1]}</span>
+                <ArrowRight className="icon work-index-arrow" />
+              </a>
+            </li>
+          ))}
+        </ol>
+      </motion.nav>
     </section>
   )
 }

@@ -53,18 +53,23 @@ export function Education() {
   return (
     <section className="education" id="education" aria-labelledby="education-title">
       <header className="section-head">
-        <span className="kicker">05 — Education &amp; practice</span>
-        <motion.h2 id="education-title" className="section-title" {...r()}>Learning <em>by building.</em></motion.h2>
+        <span className="kicker">05 — Practice &amp; education</span>
+        <motion.h2 id="education-title" className="section-title is-statement" {...r()}>{practice.lead} <em>{practice.leadEm}</em></motion.h2>
       </header>
       <div className="practice">
-        {practice.map((p, i) => (
-          <motion.article key={p.k} {...r(0.1 + i * 0.08)}>
-            <span className="kicker">{p.k}</span>
+        {practice.areas.map((p, i) => (
+          <motion.article key={p.n} {...r(0.1 + i * 0.08)}>
+            <span className="kicker">{p.n}</span>
             <h3>{p.title}</h3>
             <p>{p.body}</p>
           </motion.article>
         ))}
       </div>
+      <motion.div className="education-entry" {...r(0.1)}>
+        <h3 className="kicker">Education</h3>
+        <p className="education-degree">{practice.education.degree}</p>
+        <p className="education-school">{practice.education.school} · {practice.education.place}</p>
+      </motion.div>
     </section>
   )
 }

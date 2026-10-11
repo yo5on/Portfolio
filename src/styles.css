@@ -171,6 +171,10 @@ ol { list-style: none; }
 .entry.is-flipped .entry-plate { grid-column: 6 / span 7; grid-row: 2; }
 .entry.is-flipped .entry-text { grid-column: 1 / span 4; grid-row: 2; }
 .entry-title { font: 400 clamp(40px, 4.4vw, 72px)/0.95 var(--serif); text-transform: uppercase; color: var(--crimson-text); }
+/* titles and images open the project view, like "Open study" */
+.entry-title-link { display: inline-block; text-align: left; text-transform: inherit; letter-spacing: inherit; transition: color 0.4s var(--ease); }
+.entry-title-link:hover { color: var(--stone); }
+.entry-plate { cursor: pointer; }
 .entry-intro { margin-top: 22px; font: italic 400 19px/1.45 var(--serif); color: var(--stone); max-width: 380px; }
 .entry-stack { margin-top: 22px; line-height: 1.9; color: var(--stone); font-size: 10px; }
 .entry-stack .tag { white-space: nowrap; } /* wrap between tags, never inside one */
@@ -225,6 +229,29 @@ ol { list-style: none; }
 .case-links { display: flex; gap: 32px; margin-top: 40px; }
 .case-links a { font: 500 10.5px var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); padding-bottom: 6px; border-bottom: 1px solid var(--crimson); }
 .case-plate { position: sticky; top: 110px; }
+/* Full case study: labelled rows (Brief → What I built → How it works → Stack → Status → Gallery → Links) */
+.study { padding: 96px 0 40px; }
+.study-title { margin-bottom: 72px; }
+.study-part { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: 3vw; padding: 34px 0; border-top: 1px solid var(--hair); }
+.study-label { font: 400 10.5px/1.6 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone); padding-top: 5px; }
+.study-body { display: flex; flex-direction: column; gap: 1em; max-width: 36em; font: 400 17px/1.65 var(--sans); color: var(--stone); }
+.study-lede { font: italic 400 clamp(22px, 1.9vw, 28px)/1.4 var(--serif); }
+.study-part.is-wide { row-gap: 28px; }
+.study-part.is-wide .study-body { grid-column: 1 / -1; max-width: none; }
+.study-stack, .study-links, .study-gallery { list-style: none; margin: 0; padding: 0; }
+.study-stack { display: flex; flex-wrap: wrap; row-gap: 4px; font: 400 12px/1.9 var(--mono); }
+.study-stack li { white-space: nowrap; }
+.study-stack li:not(:last-child)::after { content: '·'; margin: 0 0.9em; color: var(--crimson); }
+.study-gallery { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 40px 2vw; align-items: start; }
+.study-gallery.is-landscape li:first-child { grid-column: 1 / -1; }
+.study-shot { display: block; border: 1px solid var(--hair); background: var(--navy); }
+.study-shot img { display: block; width: 100%; height: auto; }
+.study-gallery figcaption { display: flex; gap: 14px; padding-top: 12px; font: 400 11px/1.6 var(--mono); color: var(--stone-soft); }
+.study-gallery figcaption span:first-child { flex: none; color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; }
+.study-links { display: flex; flex-wrap: wrap; gap: 24px 48px; }
+.study-links a { display: inline-block; font: 500 10.5px var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); padding-bottom: 6px; border-bottom: 1px solid var(--crimson); }
+.study-note { margin-top: 12px; max-width: 24em; font: italic 400 16px/1.4 var(--serif); color: var(--stone-soft); }
+
 .case-next { display: block; width: 100%; text-align: left; padding: 60px 0 40px; border-top: 1px solid var(--hair); }
 .case-next-title { display: block; margin-top: 18px; font: 400 clamp(38px, 4.8vw, 76px)/1 var(--serif); text-transform: uppercase; color: var(--crimson-text); }
 .case-next-title .icon-next { width: 0.62em; height: 0.62em; color: var(--stone); vertical-align: 0.04em; }
@@ -276,6 +303,7 @@ ol { list-style: none; }
   .entry-plate, .entry.is-flipped .entry-plate { grid-column: 1 / -1; grid-row: auto; }
   .entry-text, .entry.is-flipped .entry-text { grid-column: 1 / span 9; grid-row: auto; }
   .about-body, .skill-index { margin-left: 0; }
+  .study-gallery.is-portrait { --cols: 2 !important; }
 }
 
 /* ------------------------------------------------------------------ */
@@ -313,6 +341,11 @@ ol { list-style: none; }
   .case-grid { grid-template-columns: 1fr; padding: 56px 0 80px; gap: 56px; }
   .case-plate { position: static; order: -1; }
   .case-detail { font-size: 16px; line-height: 1.6; }
+  .study { padding: 56px 0 24px; }
+  .study-title { margin-bottom: 48px; }
+  .study-part { grid-template-columns: 1fr; row-gap: 14px; padding: 28px 0; }
+  .study-body { font-size: 16px; line-height: 1.6; }
+  .study-gallery.is-portrait, .study-gallery.is-landscape { --cols: 1 !important; row-gap: 32px; }
   .about-body p { font-size: 17px; line-height: 1.6; }
   .contact-mail { font-size: 24px; word-break: break-all; }
   .contact-links { gap: 26px; flex-wrap: wrap; }

@@ -10,29 +10,34 @@ function Entry({ project, index, onOpen }) {
   const reduced = useReducedMotion()
   const flip = index % 2 === 1
   const t = (delay = 0) => ({ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : delay, ease })
+  const open = () => onOpen(project)
   return (
     <motion.li className={flip ? 'entry is-flipped' : 'entry'} initial="rest" whileHover="hover" animate="rest">
       <div className="entry-rule">
         <span>N° {project.n}</span>
         <span>{project.type}</span>
       </div>
-      <motion.div className="entry-plate" variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: flip ? 0.6 : -0.6, scale: 1.015 } }} transition={{ duration: 0.9, ease }}>
+      {/* The image is a pointer shortcut; keyboard users reach the same view from the title or "Open study",
+          so it is not a third tab stop for the same action. */}
+      <motion.div className="entry-plate" onClick={open} variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: flip ? 0.6 : -0.6, scale: 1.015 } }} transition={{ duration: 0.9, ease }}>
         <Plate project={project} />
       </motion.div>
       <div className="entry-text">
         {/* The in-view trigger sits on the visible heading: the text itself starts
             clipped outside its mask, where it can never register as in view. */}
         <motion.h3 className="entry-title" initial={reduced ? false : 'hidden'} whileInView="shown" viewport={{ once: true, amount: 0.6 }}>
-          <span className="mask">
-            <motion.span variants={reveal} transition={t(0.05)}>{project.title}</motion.span>
-          </span>
+          <button type="button" className="entry-title-link" onClick={open}>
+            <span className="mask">
+              <motion.span variants={reveal} transition={t(0.05)}>{project.title}</motion.span>
+            </span>
+          </button>
         </motion.h3>
         <motion.p className="entry-intro" initial={reduced ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.6 }} transition={t(0.2)}>{project.intro}</motion.p>
         <motion.p className="entry-stack" initial={reduced ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={t(0.35)}>
           {project.stack.map((tag, i) => <span key={tag}>{i > 0 && '  ·  '}<span className="tag">{tag}</span></span>)}
         </motion.p>
         {/* One arrow: a crimson shaft with its head attached, which lengthens on hover/focus. */}
-        <button className="entry-open" onClick={() => onOpen(project)} aria-label={`Open study: ${project.title}`}>
+        <button className="entry-open" onClick={open} aria-label={`Open study: ${project.title}`}>
           <span>Open study</span>
           <span className="open-arrow" aria-hidden="true" />
         </button>

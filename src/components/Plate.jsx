@@ -27,21 +27,6 @@ function useFade() {
   })
 }
 
-function Graph() {
-  const d = useDraw(), f = useFade()
-  const nodes = [[70, 92], [138, 58], [152, 156], [226, 112], [96, 214], [204, 228], [282, 184], [300, 82], [250, 292], [146, 292], [340, 252]]
-  const edges = [[0, 1], [0, 2], [1, 3], [2, 3], [2, 4], [2, 5], [3, 6], [3, 7], [4, 9], [5, 6], [5, 8], [6, 10], [8, 9], [6, 8], [7, 6], [1, 7]]
-  return <>
-    {edges.map(([a, b], i) => <motion.line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} {...d(i)} />)}
-    {nodes.map(([x, y], i) => <motion.circle key={i} cx={x} cy={y} r={i % 3 ? 3 : 4.5} {...d(i + 4)} />)}
-    <motion.line x1="300" y1="82" x2="392" y2="128" strokeDasharray="3 5" {...f(1)} />
-    <motion.line x1="340" y1="252" x2="392" y2="128" strokeDasharray="3 5" {...f(2)} />
-    <motion.circle cx="392" cy="128" r="4.5" {...d(20, true)} />
-    <motion.circle cx="392" cy="128" r="16" {...d(22, true)} />
-    <motion.text x="414" y="132" {...f(3)}>0.97</motion.text>
-  </>
-}
-
 function Dial() {
   const d = useDraw(), f = useFade()
   const cx = 240, cy = 250
@@ -126,7 +111,7 @@ function Platform() {
   </>
 }
 
-const PLATES = { graph: Graph, dial: Dial, leaf: Leaf, track: Track, arm: Arm, platform: Platform }
+const PLATES = { dial: Dial, leaf: Leaf, track: Track, arm: Arm, platform: Platform }
 
 function Photo({ image }) {
   const cls = ['plate-photo', image.fit === 'contain' && 'is-contain', image.pixel && 'is-pixel', image.crop && `crop-${image.crop}`].filter(Boolean).join(' ')

@@ -4,6 +4,8 @@ import { github, linkedin } from '../data/content.js'
 import { BrandMoth, ExternalLink } from './Icons.jsx'
 
 const links = [['Work', '#work'], ['About', '#about'], ['Contact', '#contact']]
+// Page sections in order, and the nav link each one makes current.
+const SECTIONS = [['top', null], ['work', '#work'], ['about', '#about'], ['practice', '#about'], ['contact', '#contact']]
 const ease = [0.22, 1, 0.36, 1]
 // Everything outside the header and the menu sheet is taken out of reach while the sheet is open.
 const BACKGROUND = '.skip, main, footer, .nav .brand, .nav-links, .nav-aside'
@@ -16,16 +18,26 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
   const menuButton = useRef(null)
   const sheet = useRef(null)
-  useMotionValueEvent(scrollY, 'change', v => setScrolled(v > 60))
+  // The current section is the last one whose top has risen above a line 30% down the viewport, so a
+  // section becomes current once it fills most of the screen, not when its top edge first appears.
+  // Practice has no nav link and counts as About; the hero clears the underline; the very bottom of the
+  // page is Contact, which is too short to reach the line on tall screens.
+  const updateActive = () => {
+    const line = window.innerHeight * 0.3
+    let current = null
+    for (const [id, href] of SECTIONS) {
+      const el = document.getElementById(id)
+      if (el && el.getBoundingClientRect().top <= line) current = href
+    }
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) current = '#contact'
+    setActive(current)
+  }
+  useMotionValueEvent(scrollY, 'change', v => { setScrolled(v > 60); updateActive() })
 
   useEffect(() => {
-    // The hero is observed too, so returning to the top clears the current item.
-    const ids = ['top', ...links.map(([, h]) => h.slice(1))]
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id === 'top' ? null : `#${e.target.id}`) })
-    }, { rootMargin: '-45% 0px -50% 0px' })
-    ids.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el) })
-    return () => io.disconnect()
+    updateActive()
+    window.addEventListener('resize', updateActive)
+    return () => window.removeEventListener('resize', updateActive)
   }, [])
 
   useEffect(() => {
@@ -73,9 +85,11 @@ export default function Nav() {
       <button ref={menuButton} className="nav-menu" aria-expanded={open} aria-controls="menu-sheet" onClick={() => setOpen(v => !v)}>{open ? 'Close' : 'Menu'}</button>
     </motion.header>
 
+    {/* The Menu button's aria-controls target: always in the DOM (empty while closed), the sheet mounts inside it. */}
+    <div id="menu-sheet">
     <AnimatePresence>
       {open && (
-        <motion.div ref={sheet} id="menu-sheet" className="menu-sheet" role="dialog" aria-modal="true" aria-label="Site menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : 0.5, ease }}>
+        <motion.div ref={sheet} className="menu-sheet" role="dialog" aria-modal="true" aria-label="Site menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduced ? 0 : 0.5, ease }}>
           <nav aria-label="Mobile">
             {links.map(([label, href], i) => (
               <motion.a key={href} href={href} onClick={() => setOpen(false)} initial={reduced ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.1 + i * 0.07, ease }}>{label}</motion.a>
@@ -85,5 +99,6 @@ export default function Nav() {
         </motion.div>
       )}
     </AnimatePresence>
+    </div>
   </>
 }

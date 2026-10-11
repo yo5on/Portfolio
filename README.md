@@ -33,7 +33,7 @@ An editorial, art-magazine layout built entirely in 2D:
 | Daymark — personalised study planner | [yo5on/Personalised-study-planner](https://github.com/yo5on/Personalised-study-planner) |
 | Robotic Arm | [yo5on/Robotic-arm](https://github.com/yo5on/Robotic-arm) |
 | Maze Runner — Unity 2D platformer | [yo5on/maze-runner](https://github.com/yo5on/maze-runner) |
-| Mochi | [yo5on/oled-project](https://github.com/yo5on/oled-project) |
+| Sparky | [yo5on/oled-project](https://github.com/yo5on/oled-project) |
 
 ## Tech stack
 
@@ -91,7 +91,7 @@ src/
 ## Credits
 
 - **Moth artwork** — a custom illustration supplied by the site owner (`Symmetrical Grayscale Moth Cutout.png`). `public/images/moth.webp` (1536 px), `moth-900.webp` (900 px, for phones and standard-density screens) and the `moth.png` fallback (256-colour) are trimmed and compressed copies of it.
-- **Project photos and screenshots** (`public/images/work/`, `public/images/work/gallery/`) — taken from the README images of the owner's own repositories (Daymark, line-follower, Robotic-arm and oled-project (Mochi)), except the FakeGuard screenshots, which were captured from its live demo using synthetic input. Daymark screenshots are cropped to the app. The Maze Runner cover, poster and gameplay video (`public/media/`) come from the owner's Level 1 recording; the cover is one frame cropped to the game view.
+- **Project photos and screenshots** (`public/images/work/`, `public/images/work/gallery/`) — taken from the README images of the owner's own repositories (Daymark, line-follower, Robotic-arm and oled-project (Sparky)), except the FakeGuard screenshots, which were captured from its live demo using synthetic input. Daymark screenshots are cropped to the app. The Maze Runner cover, poster and gameplay video (`public/media/`) come from the owner's Level 1 recording; the cover is one frame cropped to the game view.
 - **Line-drawn project plates** and **crimson ribbons** — SVG drawn in code for this site (`src/components/Plate.jsx`, `src/components/Ribbons.jsx`).
 - **Moth mark ("The Flow")** — traced and redrawn as vector from the owner's reference artwork: the ivory-and-crimson mark beside the wordmark in the nav and footer (inline in `src/components/Icons.jsx`, and in the social preview), the same mark at tab size as the favicon `public/images/moth-flow-favicon.svg` (warm-ivory wings with a navy edge, crimson ribbon, transparent background) with `public/favicon.ico` rendered from it, and a black-and-white master `public/images/moth-flow.svg`.
 - **Social preview image** (`public/images/og-preview.jpg`) — a render of this site's own hero.

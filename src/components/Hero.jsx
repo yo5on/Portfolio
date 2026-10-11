@@ -27,17 +27,19 @@ export default function Hero() {
   const artY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -70])
   const copyY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -30])
 
-  const enter = (delay, y = 18) => ({
+  // One entrance for the copy: a short rise and fade, staggered eyebrow → headline → tagline → link,
+  // so everything is readable within about 1.3 s.
+  const enter = (delay, y = 14) => ({
     initial: reduced ? false : { opacity: 0, y },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: reduced ? 0 : 1.3, delay: reduced ? 0 : delay, ease },
+    transition: { duration: reduced ? 0 : 0.9, delay: reduced ? 0 : delay, ease },
   })
 
   return (
     <section className="hero" id="top" ref={ref} aria-labelledby="hero-title">
       <div className="hero-grain" aria-hidden="true" />
 
-      <motion.div className="art" style={{ y: artY }} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 1.8, delay: reduced ? 0 : 0.2, ease }}>
+      <motion.div className="art" style={{ y: artY }} initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: reduced ? 0 : 0.1, ease }}>
         {/* The moth's soft shadow sits beneath the back ribbons, so ribbons that pass
             behind the moth are never darkened and every crossing stays clean. */}
         <picture className="moth moth-shadow" aria-hidden="true">
@@ -53,11 +55,11 @@ export default function Hero() {
       </motion.div>
 
       <motion.div className="hero-copy" style={{ y: copyY }}>
-        <motion.p className="hero-eyebrow" {...enter(0.3, 8)}>AI / ML ·<br />Robotics ·<br />Software</motion.p>
+        <motion.p className="hero-eyebrow" {...enter(0.1, 8)}>AI / ML ·<br />Robotics ·<br />Software</motion.p>
         <h1 className="hero-title" id="hero-title">
           {HEADLINE.map((line, i) => (
             <span className="line" key={i}>
-              <motion.span initial={reduced ? false : { y: '102%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.3, delay: reduced ? 0 : 0.45 + i * 0.1, ease }}>
+              <motion.span initial={reduced ? false : { y: '102%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1, delay: reduced ? 0 : 0.18 + i * 0.07, ease }}>
                 {line.map(([text, voice], j) => voice === 'em'
                   ? <span key={j} className="title-em">{j ? ' ' : ''}{text}</span>
                   : <span key={j}>{j ? ' ' : ''}{text}</span>)}
@@ -66,12 +68,12 @@ export default function Hero() {
           ))}
         </h1>
         {/* Phones only: the specimen label beneath the moth (the desktop label sits in the margin). */}
-        <motion.p className="hero-specimen" {...enter(0.9, 8)}>Fig. 01 — Digital specimen</motion.p>
-        <motion.p className="hero-tagline" {...enter(1.0)}>Yoson — a CSE student specializing <br />in AI&nbsp;/&nbsp;ML, building embedded&nbsp;robotics, <br />software&nbsp;tools and interactive&nbsp;worlds.</motion.p>
-        <motion.a className="hero-cta" href="#work" {...enter(1.15)}>Explore the work <ArrowRight /></motion.a>
+        <motion.p className="hero-specimen" {...enter(0.5, 8)}>Fig. 01 — Digital specimen</motion.p>
+        <motion.p className="hero-tagline" {...enter(0.42)}>Yoson — a CSE student specializing <br />in AI&nbsp;/&nbsp;ML, building embedded&nbsp;robotics, <br />software&nbsp;tools and interactive&nbsp;worlds.</motion.p>
+        <motion.a className="hero-cta" href="#work" {...enter(0.52)}>Explore the work <ArrowRight /></motion.a>
       </motion.div>
 
-      <motion.div className="hero-meta" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: reduced ? 0 : 1.4 }}>
+      <motion.div className="hero-meta" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 1, delay: reduced ? 0 : 0.7 }}>
         <p className="meta-fig">Fig. 01<br />Digital<br />specimen<br />— 2026</p>
         <p className="meta-side">Selected work 01 — 06</p>
         <p className="meta-note">Portfolio of<br />Yoson, CSE<br />AI / ML<span className="meta-rule" /></p>

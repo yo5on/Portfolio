@@ -121,10 +121,20 @@ ol { list-style: none; }
 .nav-links { display: flex; gap: clamp(32px, 5.4vw, 92px); }
 .nav-links a { position: relative; padding: 8px 0; color: var(--stone-soft); transition: color 0.3s; }
 .nav-links a:hover, .nav-links a[aria-current] { color: var(--stone); }
+/* hover/focus previews the current-section underline: drawn left to right, in stone so it never reads as current */
+.nav-links a:not([aria-current])::after { content: ''; position: absolute; left: 0; right: 0.2em; bottom: 0; height: 1px; background: var(--stone-faint);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease); }
+.nav-links a:focus-visible::after { transform: scaleX(1); }
+@media (hover: hover) { .nav-links a:hover::after { transform: scaleX(1); } }
 .nav-underline { position: absolute; left: 0; right: 0.2em; bottom: 0; height: 1px; background: var(--crimson); }
 .nav-aside { justify-self: end; display: flex; align-items: center; gap: 22px; }
-.nav-aside a { color: var(--stone-soft); transition: color 0.3s; }
-.nav-aside a:hover { color: var(--stone); text-decoration: underline 1px var(--crimson); text-underline-offset: 5px; }
+/* GitHub / LinkedIn answer like the section links beside them: the same stone underline, drawn left to right */
+.nav-aside a { position: relative; padding: 8px 0; color: var(--stone-soft); transition: color 0.3s; }
+.nav-aside a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--stone-faint);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease); }
+.nav-aside a:focus-visible { color: var(--stone); }
+.nav-aside a:focus-visible::after { transform: scaleX(1); }
+@media (hover: hover) { .nav-aside a:hover { color: var(--stone); } .nav-aside a:hover::after { transform: scaleX(1); } }
 .nav-divider { width: 1px; height: 30px; background: var(--hair); margin-right: 4px; }
 .nav-menu { display: none; justify-self: end; color: var(--stone); padding: 10px 0; }
 
@@ -181,9 +191,11 @@ ol { list-style: none; }
 .hero-title .line { padding: 0 0.08em 0.16em 0; margin-bottom: -0.16em; white-space: nowrap; } /* each line is a deliberate break; also stops the wider fallback font re-wrapping it while fonts load */
 .hero-title .title-em { font-style: italic; text-transform: none; letter-spacing: 0; color: var(--stone); }
 .hero-tagline { margin-top: 3.2vh; font: 400 clamp(13px, 1vw, 15px)/1.75 var(--ui); letter-spacing: 0; color: var(--stone); }
-.hero-cta { display: inline-flex; align-items: center; gap: 16px; margin-top: 3.6vh; color: var(--stone); padding: 6px 0; transition: color 0.3s, gap 0.4s var(--ease); }
-.hero-cta .icon { color: var(--crimson); width: 14px; height: 14px; }
-.hero-cta:hover, .hero-cta:focus-visible { color: var(--stone); gap: 22px; text-decoration: underline 1px var(--crimson); text-underline-offset: 6px; }
+.hero-cta { display: inline-flex; align-items: center; gap: 16px; margin-top: 3.6vh; color: var(--stone); padding: 6px 0; transition: color 0.3s; }
+.hero-cta .icon { color: var(--crimson); width: 14px; height: 14px; transition: transform 0.4s var(--ease); }
+.hero-cta:focus-visible { text-decoration: underline 1px var(--crimson); text-underline-offset: 6px; }
+.hero-cta:focus-visible .icon { transform: translateX(4px); }
+@media (hover: hover) { .hero-cta:hover { text-decoration: underline 1px var(--crimson); text-underline-offset: 6px; } .hero-cta:hover .icon { transform: translateX(4px); } }
 
 .hero-meta p, .hero-meta a { position: absolute; z-index: 4; color: var(--stone); font-size: 11px; line-height: 1.85; }
 .meta-fig { right: var(--gutter); top: 17%; text-align: left; }
@@ -229,9 +241,12 @@ ol { list-style: none; }
    inline-block keeps a link's underline to its own text */
 .entry-stack .tag:not(:last-child)::after, .practice-meta .tag:not(:last-child)::after { content: '·'; content: '·' / ''; display: inline-block; margin: 0 0.75em; color: var(--stone-soft); text-decoration: none; }
 .entry-open { margin-top: 30px; display: inline-flex; align-items: center; gap: 14px; color: var(--stone); padding: 6px 0; }
-.open-arrow { position: relative; display: block; width: 22px; height: 1px; background: var(--crimson); transition: width 0.5s var(--ease); }
+.open-arrow { position: relative; display: block; width: 22px; height: 1px; background: var(--crimson); transition: transform 0.4s var(--ease); }
 .open-arrow::after { content: ''; position: absolute; right: 0; top: 50%; width: 6px; height: 6px; border: solid var(--crimson); border-width: 1px 1px 0 0; transform: translate(-0.5px, -50%) rotate(45deg); }
-.entry:hover .open-arrow, .entry-open:focus-visible .open-arrow { width: 36px; }
+/* every arrow on the page answers the same way: a 4px nudge on hover or keyboard focus, a 1px settle when pressed */
+.entry-open:focus-visible .open-arrow { transform: translateX(4px); }
+@media (hover: hover) { .entry:hover .open-arrow { transform: translateX(4px); } }
+.entry-open:active .open-arrow, .hero-cta:active .icon, .work-index a:active .work-index-arrow { transform: translateX(1px); transition-duration: 0.1s; }
 
 .plate { position: relative; padding: 26px; aspect-ratio: 4 / 3; display: flex; flex-direction: column; background: rgba(20, 22, 58, 0.6); }
 .plate svg { flex: 1; width: 100%; min-height: 0; overflow: visible; fill: none; stroke: var(--stone); stroke-width: 1; stroke-opacity: 0.7; stroke-linecap: round; }
@@ -250,7 +265,7 @@ ol { list-style: none; }
 .plate-photo.is-contain img { object-fit: contain; padding: 8% 10%; }
 .plate-photo.is-pixel img { image-rendering: pixelated; }
 @media (hover: none) { .plate-photo img { filter: grayscale(0.55) sepia(0.06) contrast(1.02) brightness(0.92); } }
-/* Mochi: the OLED's own 128x64 pixels at exactly 2x, inside a thin display outline; never resampled by hover */
+/* Sparky: the OLED's own 128x64 pixels at exactly 2x, inside a thin display outline; never resampled by hover */
 .plate-photo.is-oled { display: flex; align-items: center; justify-content: center; }
 .plate-photo.is-oled img { position: static; box-sizing: content-box; width: min(256px, 100% - 22px); height: auto; padding: 10px; border: 1px solid var(--stone-faint); border-radius: 3px; background: #08090d; image-rendering: pixelated; }
 .entry:hover .plate-photo.is-oled img { transform: none; }
@@ -264,8 +279,10 @@ ol { list-style: none; }
 /* in a spread, sit flush with the column's outer edge like the other plates */
 .entry-plate .plate.is-square { margin-inline: 0 auto; }
 .entry.is-flipped .entry-plate .plate.is-square { margin-inline: auto 0; }
-.entry:hover .plate-photo img, .case .plate-photo img { filter: grayscale(0.15) contrast(1.02) brightness(0.96); }
-.entry:hover .plate-photo img { transform: scale(1.02); }
+.case .plate-photo img { filter: grayscale(0.15) contrast(1.02) brightness(0.96); }
+@media (hover: hover) {
+  .entry:hover .plate-photo img { filter: grayscale(0.15) contrast(1.02) brightness(0.96); transform: scale(1.02); }
+}
 .plate figcaption { padding-top: 14px; color: var(--stone-soft); font-size: 11px; }
 .plate-corner { position: absolute; width: 12px; height: 12px; border: 0 solid var(--stone-faint); }
 .plate-corner.tl { left: 0; top: 0; border-left-width: 1px; border-top-width: 1px; }
@@ -291,7 +308,9 @@ ol { list-style: none; }
 .case-plate { position: sticky; top: 110px; }
 /* Full case study: labelled rows (Brief → What I built → How it works → Stack → Status → Gallery → Links) */
 .study { padding: 96px 0 40px; }
-.study-title { margin-bottom: 72px; }
+/* a case study's header reuses the project-view grid; .study already supplies the top padding */
+.study-head { padding: 0 0 72px; }
+.study-head .case-plate { position: static; }
 .study-part { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: 3vw; padding: 34px 0; border-top: 1px solid var(--hair); }
 .study-label { font: 400 var(--fs-label)/1.6 var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone); padding-top: 5px; }
 .study-body { display: flex; flex-direction: column; gap: 1em; max-width: 35em; font: 400 var(--fs-body)/var(--lh-body) var(--ui); color: var(--stone); }
@@ -351,8 +370,9 @@ ol { list-style: none; }
 .work-index-title { font: 400 clamp(22px, 2vw, 30px)/1.15 var(--display); letter-spacing: 0; text-transform: uppercase; transition: color 0.3s; }
 .work-index-field { font: 400 var(--fs-label)/1.6 var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone-soft); text-align: right; }
 .work-index-arrow { justify-self: end; width: 14px; height: 14px; color: var(--crimson); transition: transform 0.4s var(--ease); }
-.work-index a:hover .work-index-title, .work-index a:focus-visible .work-index-title { color: var(--crimson-text); }
-.work-index a:hover .work-index-arrow, .work-index a:focus-visible .work-index-arrow { transform: translateX(4px); }
+.work-index a:focus-visible .work-index-title { color: var(--crimson-text); }
+.work-index a:focus-visible .work-index-arrow { transform: translateX(4px); }
+@media (hover: hover) { .work-index a:hover .work-index-title { color: var(--crimson-text); } .work-index a:hover .work-index-arrow { transform: translateX(4px); } }
 
 .contact { padding-bottom: 110px; }
 .contact-title { margin-top: 56px; font: 400 clamp(60px, 9vw, 150px)/0.9 var(--display); letter-spacing: 0; text-transform: uppercase; color: var(--crimson-text); }
@@ -441,7 +461,7 @@ ol { list-style: none; }
   .case-plate { position: static; order: -1; }
   .case-detail { font-size: 14.5px; line-height: 1.7; }
   .study { padding: 56px 0 24px; }
-  .study-title { margin-bottom: 48px; }
+  .study-head { padding: 0 0 48px; }
   .study-part { grid-template-columns: 1fr; row-gap: 14px; padding: 28px 0; }
   .study-body { font-size: 14.5px; line-height: 1.7; }
   .study-lede { font-size: 16px; }

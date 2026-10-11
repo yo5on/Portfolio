@@ -59,11 +59,17 @@ function Study({ project, study, rise, reduced }) {
   const id = part => `study-${project.id}-${part}`
   return (
     <div className="study">
-      <h2 id="case-title" className="case-title study-title">
-        <span className="mask"><motion.span initial={reduced ? false : { y: '105%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : 0.45, ease: soft }}>{project.title}</motion.span></span>
-      </h2>
+      {/* Opens like the shorter project views: title and brief beside the project's own image plate. */}
+      <div className="case-grid study-head">
+        <div className="case-text">
+          <h2 id="case-title" className="case-title">
+            <span className="mask"><motion.span initial={reduced ? false : { y: '105%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : 0.45, ease: soft }}>{project.title}</motion.span></span>
+          </h2>
+          <motion.p className="case-detail study-lede" {...rise(0.6)}>{study.brief}</motion.p>
+        </div>
+        <motion.div className="case-plate" {...rise(0.5)}><Plate project={project} /></motion.div>
+      </div>
       <motion.div {...rise(0.6)}>
-        <Part id={id('brief')} label="Brief"><p className="study-lede">{study.brief}</p></Part>
         <Part id={id('built')} label="What I built"><p>{study.built}</p></Part>
         <Part id={id('how')} label="How it works">{study.how.map(p => <p key={p}>{p}</p>)}</Part>
         <Part id={id('stack')} label="Stack">

@@ -78,7 +78,7 @@ function Arm() {
     <motion.rect x="352" y="238" width="72" height="44" rx="4" {...d(10)} />
     <motion.rect x="370" y="252" width="10" height="14" rx="5" {...d(11)} />
     <motion.rect x="396" y="252" width="10" height="14" rx="5" {...d(11)} />
-    <motion.text x="352" y="300" {...f(2)}>OLED / MOCHI</motion.text>
+    <motion.text x="352" y="300" {...f(2)}>OLED / SPARKY</motion.text>
   </>
 }
 

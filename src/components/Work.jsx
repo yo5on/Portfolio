@@ -1,16 +1,28 @@
 import { motion, useReducedMotion } from 'motion/react'
 import { projects } from '../data/content.js'
 import Plate from './Plate.jsx'
+import MarginNote from './MarginNote.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 // Masked line reveal: text rises from below its clipping mask.
 const reveal = { hidden: { y: '105%' }, shown: { y: '0%' } }
 
+/** The on-screen box of a project's card figure, or null unless at least half of it is in view. */
+export function plateRect(id) {
+  const el = document.querySelector(`[data-plate="${id}"] .plate`)
+  if (!el) return null
+  const r = el.getBoundingClientRect()
+  const seen = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0)
+  if (!r.width || seen < r.height / 2) return null
+  return { top: r.top, left: r.left, right: window.innerWidth - r.right, bottom: window.innerHeight - r.bottom }
+}
+
 function Entry({ project, index, onOpen }) {
   const reduced = useReducedMotion()
   const flip = index % 2 === 1
   const t = (delay = 0) => ({ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : delay, ease })
-  const open = () => onOpen(project)
+  // The view opens out of this project's figure, whichever control was used.
+  const open = () => onOpen(project, plateRect(project.id))
   return (
     <motion.li className={flip ? 'entry is-flipped' : 'entry'} initial="rest" whileHover="hover" animate="rest">
       <div className="entry-rule">
@@ -19,8 +31,9 @@ function Entry({ project, index, onOpen }) {
       </div>
       {/* The image is a pointer shortcut; keyboard users reach the same view from the title or "Open study",
           so it is not a third tab stop for the same action. */}
-      <motion.div className="entry-plate" onClick={open} variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: flip ? 0.6 : -0.6, scale: 1.015 } }} transition={{ duration: 0.9, ease }}>
+      <motion.div className="entry-plate" data-plate={project.id} onClick={open} variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: flip ? 0.6 : -0.6, scale: 1.015 } }} transition={{ duration: 0.9, ease }}>
         <Plate project={project} />
+        {project.note && <MarginNote text={project.note} square={project.image?.frame === 'square'} />}
       </motion.div>
       <div className="entry-text">
         {/* The in-view trigger sits on the visible heading: the text itself starts

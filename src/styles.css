@@ -200,6 +200,15 @@ ol { list-style: none; }
 @media (min-width: 1081px) { .plate-photo.crop-shift-right img { --photo-zoom: 1.2; } }
 .plate-photo.is-contain img { object-fit: contain; padding: 8% 10%; }
 .plate-photo.is-pixel img { image-rendering: pixelated; }
+/* Mochi: the OLED's own 128x64 pixels at exactly 2x, inside a thin display outline; never resampled by hover */
+.plate-photo.is-oled { display: flex; align-items: center; justify-content: center; }
+.plate-photo.is-oled img { position: static; box-sizing: content-box; width: min(256px, 100% - 22px); height: auto; padding: 10px; border: 1px solid var(--stone-faint); border-radius: 3px; background: #08090d; image-rendering: pixelated; }
+.entry:hover .plate-photo.is-oled img { transform: none; }
+/* handwritten margin note beneath a figure, on the side facing the text */
+.margin-note { margin-top: 14px; font: italic 400 21px/1.2 var(--serif); color: var(--stone-soft); text-align: right; }
+.margin-note.is-square { width: 80%; }
+.entry.is-flipped .margin-note { text-align: left; }
+.entry.is-flipped .margin-note.is-square { margin-left: auto; }
 /* portrait photos: a near-square plate so the whole subject fits without tiny letterboxing */
 .plate.is-square { aspect-ratio: 1 / 1; width: 80%; margin-inline: auto; }
 /* in a spread, sit flush with the column's outer edge like the other plates */
@@ -251,6 +260,9 @@ ol { list-style: none; }
 .study-gallery figcaption span:first-child { flex: none; color: var(--stone); text-transform: uppercase; letter-spacing: 0.08em; }
 .study-links { display: flex; flex-wrap: wrap; gap: 24px 48px; }
 .study-links a { display: inline-block; font: 500 10.5px var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--stone); padding-bottom: 6px; border-bottom: 1px solid var(--crimson); }
+.case-media { margin-top: -40px; margin-bottom: 72px; }
+.case-video { display: block; width: 100%; height: auto; max-height: 82vh; background: #000; border: 1px solid var(--hair); }
+.case-media figcaption { padding-top: 12px; font: 400 11px/1.6 var(--mono); color: var(--stone-soft); }
 .study-note { margin-top: 12px; max-width: 24em; font: italic 400 16px/1.4 var(--serif); color: var(--stone-soft); }
 
 .case-next { display: block; width: 100%; text-align: left; padding: 60px 0 40px; border-top: 1px solid var(--hair); }
@@ -306,6 +318,9 @@ ol { list-style: none; }
   .entry-text, .entry.is-flipped .entry-text { grid-column: 1 / span 9; grid-row: auto; }
   .about-body, .skill-index { margin-left: 0; }
   .study-gallery.is-portrait { --cols: 2 !important; }
+  /* stacked spreads: notes sit under the figure on one side */
+  .entry.is-flipped .margin-note { text-align: right; }
+  .entry.is-flipped .margin-note.is-square { margin-left: 0; }
 }
 
 /* ------------------------------------------------------------------ */
@@ -323,7 +338,7 @@ ol { list-style: none; }
   .hero-copy { display: contents; }
   .hero-eyebrow { order: 1; }
   .hero-title { order: 2; margin-top: 22px; font-size: clamp(44px, 16.5vw, 84px); position: relative; z-index: 4; }
-  .plate.is-square { width: 100%; }
+  .plate.is-square, .margin-note.is-square { width: 100%; }
   .art { order: 3; position: relative; left: auto; top: auto; margin: -2vw 0 0 calc(-1 * var(--gutter) - 11vw); flex: none; }
   .hero-specimen { display: block; order: 3; position: relative; z-index: 4; margin-top: 4px; font: 400 10px/1.6 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--stone-soft); }
   .hero-tagline { order: 4; margin-top: 22px; font-size: 13.5px; line-height: 1.75; position: relative; z-index: 4; max-width: none; }

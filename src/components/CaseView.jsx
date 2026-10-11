@@ -37,6 +37,24 @@ function Gallery({ items }) {
   )
 }
 
+// A native player: controls, no autoplay, a poster frame from the recording, and nothing of the
+// video itself downloaded until the visitor presses play.
+function Gameplay({ id, video }) {
+  const label = `case-${id}-gameplay`
+  return (
+    <section className="study-part is-wide case-media" aria-labelledby={label}>
+      <h3 id={label} className="study-label">Gameplay</h3>
+      <figure className="study-body">
+        <video className="case-video" controls preload="none" poster={video.poster} playsInline width={video.w} height={video.h} aria-label={video.label}>
+          <source src={video.src} type="video/mp4" />
+          <p>Your browser can’t play this video. <a href={video.src}>Download the recording (MP4, {video.size})</a>.</p>
+        </video>
+        <figcaption>{video.caption}</figcaption>
+      </figure>
+    </section>
+  )
+}
+
 function Study({ project, study, rise, reduced }) {
   const id = part => `study-${project.id}-${part}`
   return (
@@ -68,7 +86,12 @@ function Study({ project, study, rise, reduced }) {
   )
 }
 
-export default function CaseView({ project, onClose, onNavigate }) {
+// The reveal is a clip-path inset in pixels: from a card figure's box out to the full screen,
+// and back into the card on close when it is in view; otherwise it wipes up from the bottom
+// and away to the top, as before. Reduced motion keeps a plain fade.
+const inset = r => `inset(${r.top}px ${r.right}px ${r.bottom}px ${r.left}px)`
+
+export default function CaseView({ project, origin, onClose, onNavigate }) {
   const reduced = useReducedMotion()
   const panel = useRef(null)
   const closeBtn = useRef(null)
@@ -77,16 +100,19 @@ export default function CaseView({ project, onClose, onNavigate }) {
   const study = studies[project.id]
 
   useEffect(() => {
-    const previous = document.activeElement
+    // Return focus to whatever opened the view; a click on a card image leaves nothing focused,
+    // so fall back to that project's title button.
+    const opener = document.activeElement !== document.body ? document.activeElement : null
+    const openedId = project.id
     closeBtn.current?.focus()
     document.body.style.overflow = 'hidden'
     // Take the page behind the dialog out of the tab order and the accessibility tree.
     const background = [...document.querySelectorAll('.skip, header.nav, main, footer')]
     background.forEach(el => { el.inert = true })
     const onKey = e => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape' && !document.fullscreenElement) onClose()
       if (e.key !== 'Tab' || !panel.current) return
-      const items = [...panel.current.querySelectorAll('button, a[href]')]
+      const items = [...panel.current.querySelectorAll('button, a[href], video[controls]')]
       const first = items[0], last = items[items.length - 1]
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
@@ -96,8 +122,10 @@ export default function CaseView({ project, onClose, onNavigate }) {
       window.removeEventListener('keydown', onKey)
       background.forEach(el => { el.inert = false })
       document.body.style.overflow = ''
-      previous?.focus?.({ preventScroll: true })
+      const back = opener ?? document.querySelector(`[data-plate="${openedId}"]`)?.closest('.entry')?.querySelector('.entry-title-link')
+      back?.focus?.({ preventScroll: true })
     }
+    // Runs once per opening (Next study keeps the original opener), so `project` is read only here.
   }, [onClose])
 
   useEffect(() => { panel.current?.scrollTo(0, 0) }, [project])
@@ -111,9 +139,14 @@ export default function CaseView({ project, onClose, onNavigate }) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="case-title"
-      initial={reduced ? { opacity: 0 } : { clipPath: 'inset(100% 0 0 0)' }}
-      animate={reduced ? { opacity: 1 } : { clipPath: 'inset(0% 0 0 0)' }}
-      exit={reduced ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
+      variants={{
+        enter: reduced ? { opacity: 0 } : { clipPath: origin ? inset(origin) : `inset(${window.innerHeight}px 0px 0px 0px)` },
+        shown: reduced ? { opacity: 1 } : { clipPath: 'inset(0px 0px 0px 0px)' },
+        leave: to => reduced ? { opacity: 0 } : { clipPath: to ? inset(to) : `inset(0px 0px ${window.innerHeight}px 0px)` },
+      }}
+      initial="enter"
+      animate="shown"
+      exit="leave"
       transition={{ duration: reduced ? 0 : 0.95, ease }}
     >
       <div className="case-bar">
@@ -137,6 +170,7 @@ export default function CaseView({ project, onClose, onNavigate }) {
         </div>
         <motion.div className="case-plate" {...rise(0.5)}><Plate project={project} /></motion.div>
       </div>}
+      {!study && project.video && <Gameplay key={`${project.id}-video`} id={project.id} video={project.video} />}
       <button className="case-next" onClick={() => onNavigate(next)}>
         <span className="kicker">Next study — N° {next.n}</span>
         <span className="case-next-title">{next.title} <ArrowRight className="icon icon-next" /></span>

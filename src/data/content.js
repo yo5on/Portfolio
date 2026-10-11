@@ -10,6 +10,7 @@ export const projects = [
     intro: 'High-speed PID line follower robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
     detail: 'High-speed PID Line Follower Robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
     stack: ['ESP32', 'PID control', 'TB6612FNG', '8-array IR sensor'], plate: 'track', caption: 'On the line',
+    note: 'eight IR sensors',
     image: { src: '/images/work/line-follower.webp', alt: 'The line follower robot on a black track line, its IR sensor array at the front', w: 675, h: 1200, frame: 'square', position: '50% 51%', crop: 'shift-right' },
     repo: 'https://github.com/yo5on/line-follower',
   },
@@ -18,6 +19,7 @@ export const projects = [
     intro: 'A social-media account risk analyzer: explainable 0\u2060–\u2060100 risk scores that help human reviewers prioritise their work.',
     detail: 'A full-stack prototype that analyzes synthetic social-media account data, scores risk from 0 to 100 across four categories, and explains each score feature by feature with reason codes. It is a decision-support tool built on synthetic data — it does not access real platforms or replace human review.',
     stack: ['Python', 'FastAPI', 'React', 'TypeScript'], caption: 'Analyzer — a HIGH result',
+    note: 'a synthetic account',
     image: { src: '/images/work/fakeguard.webp', alt: 'FakeGuard analyzer scoring a synthetic account at 71 out of 100, HIGH risk, with manual review recommended and the start of its per-feature breakdown', w: 1400, h: 980, position: '50% 0%' },
     repo: 'https://github.com/yo5on/fakeguard',
   },
@@ -42,6 +44,10 @@ export const projects = [
     intro: 'A 2D side-scrolling platformer built with Unity — three levels, combat, enemies, checkpoints and level goals.',
     detail: 'Maze Runner is a 2D side-scrolling platform game built with Unity: three gameplay levels, menu and customization scenes, player movement and combat systems, enemies, checkpoints, level goals, and supporting UI and audio. It is an active college project prototype.',
     stack: ['Unity', 'C#', '2D platformer', 'Game development'], plate: 'platform', caption: 'Jump arc',
+    // Web version of the unedited gameplay recording (97 MB, kept in the maze-runner repository as
+    // media/gameplay-level-1.mp4): same 1920x1016 frames and timing, H.264 (x264 CRF 23, preset slow)
+    // with the original AAC audio copied, faststart. The poster is a frame of it (12 s), decoded unchanged.
+    video: { src: '/media/maze-runner-level-1-web.mp4', poster: '/media/maze-runner-level-1-poster.webp', w: 1920, h: 1016, size: '7.1 MB', label: 'Maze Runner Level 1 gameplay recording', caption: 'Level 1, played in the Unity Editor’s Game view (Unity 6.5).' },
     repo: 'https://github.com/yo5on/maze-runner',
   },
   {
@@ -49,7 +55,8 @@ export const projects = [
     intro: 'A tiny animated companion on a 128×64 OLED, with moods, button reactions and smooth morphs between expressions.',
     detail: 'Mochi lives on a 128×64 OLED. It has moods, reacts to two buttons, drifts between expressions with smooth morphs, falls asleep when left alone, and wakes up on its own.',
     stack: ['ESP32', 'SSD1306', 'Arduino', 'Embedded animation'], caption: 'Mochi, smiling',
-    image: { src: '/images/work/mochi.webp', still: '/images/work/mochi-still.webp', alt: 'Mochi’s pixel face on the OLED, smiling and changing expression', w: 396, h: 204, fit: 'contain', pixel: true },
+    image: { src: '/images/work/mochi.webp', still: '/images/work/mochi-still.webp', alt: 'Mochi’s pixel face on the OLED, smiling and changing expression', w: 256, h: 128, oled: true },
+    note: 'pixels from the firmware',
     repo: 'https://github.com/yo5on/oled-project',
   },
 ]

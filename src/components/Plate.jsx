@@ -97,7 +97,7 @@ function Platform() {
 const PLATES = { dial: Dial, track: Track, arm: Arm, platform: Platform }
 
 function Photo({ image }) {
-  const cls = ['plate-photo', image.fit === 'contain' && 'is-contain', image.pixel && 'is-pixel', image.crop && `crop-${image.crop}`].filter(Boolean).join(' ')
+  const cls = ['plate-photo', image.fit === 'contain' && 'is-contain', image.pixel && 'is-pixel', image.oled && 'is-oled', image.crop && `crop-${image.crop}`].filter(Boolean).join(' ')
   return (
     <picture className={cls}>
       {image.still && <source srcSet={image.still} media="(prefers-reduced-motion: reduce)" />}

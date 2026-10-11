@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { AnimatePresence, MotionConfig } from 'motion/react'
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
-import Work from './components/Work.jsx'
+import Work, { plateRect } from './components/Work.jsx'
 import CaseView from './components/CaseView.jsx'
 import { About, Contact, Education, Footer, Skills } from './components/Sections.jsx'
 import { projects } from './data/content.js'
@@ -18,6 +18,12 @@ const projectFromHash = () => {
 
 function App() {
   const [active, setActive] = useState(projectFromHash)
+  // Where the project view opens from and closes back to: a card figure's box, or null for
+  // the default full-width reveal (shared links, Next study, a card that is off-screen).
+  const [origin, setOrigin] = useState(null)
+  const [exitTo, setExitTo] = useState(null)
+  const activeRef = useRef(active)
+  activeRef.current = active
   // true when the open project view added its own history entry, so closing can step back over it
   const pushed = useRef(false)
 
@@ -27,6 +33,8 @@ function App() {
       // An unknown project id (on load or in-page) falls back to the Work section instead of an empty dialog.
       if (!p && /^#work\//.test(window.location.hash)) history.replaceState(null, '', '#work')
       if (!p) pushed.current = false
+      if (!p && activeRef.current) setExitTo(plateRect(activeRef.current.id))
+      if (p && p.id !== activeRef.current?.id) setOrigin(null)
       setActive(p)
     }
     sync()
@@ -35,19 +43,22 @@ function App() {
     return () => { window.removeEventListener('popstate', sync); window.removeEventListener('hashchange', sync) }
   }, [])
 
-  const open = useCallback(p => {
+  const open = useCallback((p, rect = null) => {
     history.pushState(null, '', `#work/${p.id}`)
     pushed.current = true
+    setOrigin(rect)
+    activeRef.current = p
     setActive(p)
   }, [])
   // "Next study" replaces the entry, so Back still returns to the page rather than through every study.
   const navigate = useCallback(p => {
     history.replaceState(null, '', `#work/${p.id}`)
+    activeRef.current = p
     setActive(p)
   }, [])
   const close = useCallback(() => {
     if (pushed.current) { pushed.current = false; history.back() } // popstate clears `active`
-    else { history.replaceState(null, '', '#work'); setActive(null) } // opened from a shared link
+    else { history.replaceState(null, '', '#work'); setExitTo(plateRect(activeRef.current?.id)); setActive(null) } // opened from a shared link
   }, [])
 
   return (
@@ -63,7 +74,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
-      <AnimatePresence>{active && <CaseView key="case" project={active} onClose={close} onNavigate={navigate} />}</AnimatePresence>
+      <AnimatePresence custom={exitTo}>{active && <CaseView key="case" project={active} origin={origin} onClose={close} onNavigate={navigate} />}</AnimatePresence>
     </MotionConfig>
   )
 }

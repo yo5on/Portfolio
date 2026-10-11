@@ -44,23 +44,6 @@ function Dial() {
   </>
 }
 
-function Leaf() {
-  const d = useDraw(), f = useFade()
-  return <>
-    <motion.path d="M70 300 C 96 170 214 70 352 56 C 334 186 224 286 70 300 Z" {...d(0)} />
-    <motion.path d="M70 300 C 160 220 262 132 352 56" {...d(1)} />
-    {[[120, 254, 116, 200], [160, 220, 170, 152], [204, 182, 222, 112], [246, 146, 276, 86], [130, 244, 182, 262], [176, 206, 240, 222], [222, 166, 290, 172]].map(([x1, y1, x2, y2], i) => <motion.path key={i} d={`M${x1} ${y1} Q ${(x1 + x2) / 2 + 6} ${(y1 + y2) / 2 - 6} ${x2} ${y2}`} {...d(2 + i)} />)}
-    <motion.circle cx="216" cy="160" r="3.5" {...d(12, true)} />
-    <motion.circle cx="216" cy="160" r="15" strokeDasharray="2 4" {...f(1)} />
-    <motion.circle cx="388" cy="252" r="46" {...d(9)} />
-    {[[388, 206], [348, 275], [428, 275]].map(([x, y], i) => <motion.circle key={i} cx={x} cy={y} r="4" {...d(10 + i)} />)}
-    <motion.text x="368" y="194" {...f(2)}>SENSE</motion.text>
-    <motion.text x="300" y="298" {...f(3)}>REASON</motion.text>
-    <motion.text x="420" y="298" {...f(4)}>ACT</motion.text>
-    <motion.line x1="230" y1="166" x2="344" y2="234" strokeDasharray="3 5" {...f(5)} />
-  </>
-}
-
 function Track() {
   const d = useDraw(), f = useFade()
   return <>
@@ -111,7 +94,7 @@ function Platform() {
   </>
 }
 
-const PLATES = { dial: Dial, leaf: Leaf, track: Track, arm: Arm, platform: Platform }
+const PLATES = { dial: Dial, track: Track, arm: Arm, platform: Platform }
 
 function Photo({ image }) {
   const cls = ['plate-photo', image.fit === 'contain' && 'is-contain', image.pixel && 'is-pixel', image.crop && `crop-${image.crop}`].filter(Boolean).join(' ')

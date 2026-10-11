@@ -25,6 +25,15 @@ export function Close({ className = 'icon' }) {
   return <svg {...base} className={className}><path d="m4 4 8 8M12 4l-8 8" /></svg>
 }
 
+/** The wordmark's four-pointed star: the favicon's star, cropped to its own bounds. */
+export function BrandStar({ className = 'brand-star' }) {
+  return (
+    <svg viewBox="3 3 26 26" className={className} aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M16 3C17.3 11.6 20.4 14.7 29 16 20.4 17.3 17.3 20.4 16 29 14.7 20.4 11.6 17.3 3 16 11.6 14.7 14.7 11.6 16 3Z" />
+    </svg>
+  )
+}
+
 /** A link that opens in a new tab: label, external-link icon, and a screen-reader notice. */
 export function ExternalLink({ href, children, className }) {
   return (

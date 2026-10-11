@@ -2,7 +2,6 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
 import { RibbonLayer } from './Ribbons.jsx'
 import { ArrowRight } from './Icons.jsx'
-import InkWord from './InkWord.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -14,9 +13,6 @@ const MOTH_SIZES = '(max-width: 760px) 92vw, (max-width: 1080px) 65vw, 59vw'
 
 // "Small, sharp tools over big, vague ideas." — set as four lines: the claim in
 // crimson capitals, the contrast in stone italic. Text content stays verbatim.
-// The italic words write themselves in sequence: [delay, duration] in seconds after the
-// font is ready, timed to follow the line reveals.
-const INK = { 'over': [0.55, 0.7], 'big, vague': [1.05, 1.0], 'ideas.': [1.85, 0.8] }
 const HEADLINE = [
   [['Small, sharp']],
   [['tools'], ['over', 'em']],
@@ -63,19 +59,21 @@ export default function Hero() {
             <span className="line" key={i}>
               <motion.span initial={reduced ? false : { y: '102%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.3, delay: reduced ? 0 : 0.45 + i * 0.1, ease }}>
                 {line.map(([text, voice], j) => voice === 'em'
-                  ? <span key={j} className="title-em">{j ? ' ' : ''}<InkWord text={text} delay={INK[text][0]} duration={INK[text][1]} /></span>
+                  ? <span key={j} className="title-em">{j ? ' ' : ''}{text}</span>
                   : <span key={j}>{j ? ' ' : ''}{text}</span>)}
               </motion.span>{' '}
             </span>
           ))}
         </h1>
+        {/* Phones only: the specimen label beneath the moth (the desktop label sits in the margin). */}
+        <motion.p className="hero-specimen" {...enter(0.9, 8)}>Fig. 01 — Digital specimen</motion.p>
         <motion.p className="hero-tagline" {...enter(1.0)}>Yo5on — a CSE student building <br />intelligent systems, embedded <br />robotics and interactive worlds.</motion.p>
         <motion.a className="hero-cta" href="#work" {...enter(1.15)}>Explore the work <ArrowRight /></motion.a>
       </motion.div>
 
       <motion.div className="hero-meta" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: reduced ? 0 : 1.4 }}>
         <p className="meta-fig">Fig. 01<br />Digital<br />specimen<br />— 2026</p>
-        <p className="meta-side">Selected work 01 — 07</p>
+        <p className="meta-side">Selected work 01 — 06</p>
         <p className="meta-note">Portfolio of<br />Yo5on, CSE<br />AI / ML<span className="meta-rule" /></p>
         {/* Visual cue only: "Explore the work" is the keyboard/screen-reader route to the same place. */}
         <a className="meta-scroll" href="#work" tabIndex={-1} aria-hidden="true"><span className="scroll-mark" />Scroll to explore</a>

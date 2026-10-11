@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, useReducedMotion } from 'motion/react'
 import { email, focus, github, linkedin, practice } from '../data/content.js'
-import { ArrowUp, ArrowUpRight, ExternalLink } from './Icons.jsx'
+import { ArrowUp, ArrowUpRight, BrandStar, ExternalLink } from './Icons.jsx'
 import InkWord from './InkWord.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
@@ -25,7 +25,7 @@ export function About() {
         <motion.h2 id="about-title" className="section-title" {...r()}>AI / ML student.<br /><em>Hands-on builder.</em></motion.h2>
       </header>
       <motion.div className="about-body" {...r(0.1)}>
-        <p>I’m a CSE student specializing in AI / ML. My projects span AI-powered fake account detection, personalized study planning, agentic pest monitoring, ESP32 robotics, and a Unity 2D platformer.</p>
+        <p>I’m a CSE student specializing in AI / ML. My projects span fake-account risk scoring, personalized study planning, ESP32 robotics, and a Unity 2D platformer.</p>
         <p className="muted">This portfolio follows that work from software and models into embedded systems and the physical world.</p>
         <ExternalLink className="text-link" href={github}>GitHub</ExternalLink>
       </motion.div>
@@ -97,8 +97,9 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="footer">
-      <a className="brand" href="#top"><span className="brand-star" aria-hidden="true">✦</span>YO5ON</a>
+      <a className="brand" href="#top"><BrandStar />YO5ON</a>
       <span>CSE · AI / ML · Robotics · Software</span>
+      <span className="colophon">Set in Instrument Serif, Instrument Sans &amp; JetBrains Mono · 2026</span>
       <a className="back-top" href="#top">Back to top <ArrowUp /></a>
     </footer>
   )

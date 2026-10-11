@@ -13,7 +13,7 @@ An editorial, art-magazine layout built entirely in 2D:
   - **Instrument Serif** for editorial headlines (crimson capitals with stone italics), the logo, and short italic lines such as project introductions and section notes.
   - **Instrument Sans** for longer body copy (the About paragraph, project-view descriptions) and action links such as *Open study* and *Explore the work*.
   - **JetBrains Mono** for technical labels and metadata: navigation, section and project numbers, categories, technology tags, figure captions, dates, the footer, and the hero introduction.
-- **Handwritten words** — the hero's italic words and the contact title's *something.* trace themselves in the site's own italic, then ink in (`src/components/ui/handwriting-text.tsx`, used through `src/components/InkWord.jsx`). The words stay in the page as text for screen readers and search; with reduced motion they appear already drawn, and if the glyph library can't load they show as ordinary text.
+- **Handwritten word** — the contact title's *something.* traces itself in the site's own italic, then inks in (`src/components/ui/handwriting-text.tsx`, used through `src/components/InkWord.jsx`). The word stays in the page as text for screen readers and search; with reduced motion it appears already drawn, and if the glyph library can’t load it shows as ordinary text.
 - **Icons** — arrows and the close mark are inline SVG (`src/components/Icons.jsx`) rather than Unicode characters, which some platforms render as colour emoji.
 - **Hero** — a pale engraved moth, presented like a natural-history specimen, wrapped in crimson silk ribbons drawn as SVG and layered both behind and in front of it.
 - **Motion** — restrained: text reveals, a slow float on the moth, a gentle drift on the ribbons and scroll-linked parallax. Transform/layout motion and CSS animations are reduced for visitors who prefer reduced motion; short opacity transitions may remain.
@@ -21,20 +21,19 @@ An editorial, art-magazine layout built entirely in 2D:
 ## Sections
 
 - **Hero** — headline, short introduction and specimen-style labels.
-- **Selected work** — seven projects laid out as magazine spreads, each with a photo or a line-drawn plate, opening into a full-screen case view. Each case view has its own link (`#work/<id>`, e.g. `#work/daymark`), and the browser's Back button closes it.
+- **Selected work** — six projects laid out as magazine spreads, each with a photo or a line-drawn plate, opening into a full-screen case view. Each case view has its own link (`#work/<id>`, e.g. `#work/daymark`), and the browser's Back button closes it.
 - **About**, **Skills**, **Education & practice**, **Contact**.
 
 ### Projects featured
 
 | Project | Repository |
 | --- | --- |
+| ESP32 Line Follower | [yo5on/line-follower](https://github.com/yo5on/line-follower) |
 | FakeGuard — social-media account risk analyzer | [yo5on/fakeguard](https://github.com/yo5on/fakeguard) |
 | Daymark — personalised study planner | [yo5on/Personalised-study-planner](https://github.com/yo5on/Personalised-study-planner) |
-| Agentic AI Pest Monitoring | [yo5on/Agentic-AI-Pest-Monitoring](https://github.com/yo5on/Agentic-AI-Pest-Monitoring) |
-| ESP32 Line Follower | [yo5on/line-follower](https://github.com/yo5on/line-follower) |
 | Robotic Arm | [yo5on/Robotic-arm](https://github.com/yo5on/Robotic-arm) |
-| Mochi · OLED Companion | [yo5on/oled-project](https://github.com/yo5on/oled-project) |
 | Maze Runner — Unity 2D platformer | [yo5on/maze-runner](https://github.com/yo5on/maze-runner) |
+| Mochi · OLED Companion | [yo5on/oled-project](https://github.com/yo5on/oled-project) |
 
 ## Tech stack
 

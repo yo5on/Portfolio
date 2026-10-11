@@ -56,7 +56,7 @@ export default function Work({ onOpen }) {
           <span className="mask"><motion.span variants={reveal} transition={{ duration: 1.2, ease }}>Selected <em>work</em></motion.span></span>
           <span className="mask"><motion.span variants={reveal} transition={{ duration: 1.2, delay: 0.08, ease }}>&amp; <em>studies.</em></motion.span></span>
         </motion.h2>
-        <p className="section-note">AI, sustainable agriculture, embedded robotics, and interactive projects.</p>
+        <p className="section-note">Embedded robotics, full-stack software, and interactive projects.</p>
       </header>
       <ol className="entries">
         {projects.map((p, i) => <Entry key={p.id} project={p} index={i} onOpen={onOpen} />)}

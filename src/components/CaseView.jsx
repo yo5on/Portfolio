@@ -63,13 +63,13 @@ function Study({ project, study, rise, reduced }) {
       <div className="case-grid study-head">
         <div className="case-text">
           <h2 id="case-title" className="case-title">
-            <span className="mask"><motion.span initial={reduced ? false : { y: '105%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : 0.45, ease: soft }}>{project.title}</motion.span></span>
+            <span className="mask"><motion.span initial={reduced ? false : { y: '105%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : 0.2, ease: soft }}>{project.title}</motion.span></span>
           </h2>
-          <motion.p className="case-detail study-lede" {...rise(0.6)}>{study.brief}</motion.p>
+          <motion.p className="case-detail study-lede" {...rise(0.3)}>{study.brief}</motion.p>
         </div>
-        <motion.div className="case-plate" {...rise(0.5)}><Plate project={project} /></motion.div>
+        <motion.div className="case-plate" {...rise(0.25)}><Plate project={project} /></motion.div>
       </div>
-      <motion.div {...rise(0.6)}>
+      <motion.div {...rise(0.3)}>
         <Part id={id('built')} label="What I built"><p>{study.built}</p></Part>
         <Part id={id('how')} label="How it works">{study.how.map(p => <p key={p}>{p}</p>)}</Part>
         <Part id={id('stack')} label="Stack">
@@ -108,7 +108,10 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
   useEffect(() => {
     // Return focus to whatever opened the view; a click on a card image leaves nothing focused,
     // so fall back to that project's title button.
-    const opener = document.activeElement !== document.body ? document.activeElement : null
+    // Only a real control counts as the opener: tapping an image (or anywhere in the focusable Work
+    // section) leaves focus on something that is not one, and the title-button fallback is used instead.
+    const active = document.activeElement
+    const opener = active && active !== document.body && active.matches('a[href], button') ? active : null
     const openedId = project.id
     closeBtn.current?.focus()
     document.body.style.overflow = 'hidden'
@@ -134,7 +137,12 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
     // Runs once per opening (Next study keeps the original opener), so `project` is read only here.
   }, [onClose])
 
-  useEffect(() => { panel.current?.scrollTo(0, 0) }, [project])
+  // A newly opened view already starts at the top; only Next study (same panel, new project) needs the reset.
+  const firstProject = useRef(true)
+  useEffect(() => {
+    if (firstProject.current) { firstProject.current = false; return }
+    panel.current?.scrollTo(0, 0)
+  }, [project])
 
   const rise = d => ({ initial: reduced ? false : { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: reduced ? 0 : 1, delay: reduced ? 0 : d, ease: soft } })
 
@@ -162,19 +170,19 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
       {study ? <Study key={project.id} project={project} study={study} rise={rise} reduced={reduced} /> : <div className="case-grid" key={project.id}>
         <div className="case-text">
           <h2 id="case-title" className="case-title">
-            <span className="mask"><motion.span initial={reduced ? false : { y: '105%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : 0.45, ease: soft }}>{project.title}</motion.span></span>
+            <span className="mask"><motion.span initial={reduced ? false : { y: '105%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : 0.2, ease: soft }}>{project.title}</motion.span></span>
           </h2>
-          <motion.p className="case-detail" {...rise(0.6)}>{project.detail}</motion.p>
-          <motion.dl className="case-facts" {...rise(0.7)}>
+          <motion.p className="case-detail" {...rise(0.3)}>{project.detail}</motion.p>
+          <motion.dl className="case-facts" {...rise(0.4)}>
             <div><dt>Discipline</dt><dd>{project.type}</dd></div>
             <div><dt>Built with</dt><dd>{project.stack.join(', ')}</dd></div>
           </motion.dl>
-          <motion.div className="case-links" {...rise(0.8)}>
+          <motion.div className="case-links" {...rise(0.5)}>
             {project.repo && <ExternalLink href={project.repo}>Repository</ExternalLink>}
             <ExternalLink href={github}>GitHub profile</ExternalLink>
           </motion.div>
         </div>
-        <motion.div className="case-plate" {...rise(0.5)}><Plate project={project} /></motion.div>
+        <motion.div className="case-plate" {...rise(0.25)}><Plate project={project} /></motion.div>
       </div>}
       {!study && project.video && <Gameplay key={`${project.id}-video`} id={project.id} video={project.video} />}
       <button className="case-next" onClick={() => onNavigate(next)}>

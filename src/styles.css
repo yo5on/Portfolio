@@ -72,6 +72,8 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+/* touch feedback in the palette: a faint stone flash instead of the browser's default cyan; focus outlines are unaffected */
+a, button, .entry-plate { -webkit-tap-highlight-color: rgba(175, 174, 162, 0.18); }
 h1, h2, h3, p, ol, dl, dd, figure { margin: 0; padding: 0; }
 ol { list-style: none; }
 ::selection { background: var(--crimson); color: #fff; }
@@ -175,6 +177,8 @@ ol { list-style: none; }
 .moth img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .moth-shadow { z-index: 0; }
 .moth-shadow img { filter: drop-shadow(0 30px 40px rgba(8, 9, 28, 0.45)); }
+/* the hero's ambient loops stop while it is out of view */
+.hero.is-offscreen .moth, .hero.is-offscreen .ribbons { animation-play-state: paused; }
 @keyframes float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); } 50% { transform: translate3d(0, -0.9%, 0) rotate(-0.4deg); } }
 @keyframes drift-a { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-0.6%, 0.5%, 0); } }
 
@@ -452,6 +456,9 @@ ol { list-style: none; }
   .practice article { padding-top: 16px; }
   .practice h3 { margin: 12px 0 12px; }
   .practice-meta { margin-top: 18px; }
+  /* taller touch areas (about 39px) for the project links; wrapped rows get matching space so areas never overlap */
+  .practice-meta dd { row-gap: 16px; }
+  .practice-meta a { padding-block: 8px; margin-block: -8px; }
   .work-index { grid-template-columns: 1fr; margin-top: 110px; }
   .work-index > .kicker { padding: 0 0 22px; }
   .work-index a { grid-template-columns: 36px minmax(0, 1fr) 16px; row-gap: 6px; }
@@ -470,6 +477,7 @@ ol { list-style: none; }
   .contact-mail { font-size: 16px; word-break: break-all; }
   .contact-links { gap: 26px; flex-wrap: wrap; }
   .footer { flex-direction: column; align-items: flex-start; }
+  .back-top { padding-block: 12px; margin-block: -12px; } /* a 43px touch area; the footer's 20px gaps keep it clear of its neighbours */
 }
 
 /* Portrait tablets: a full-height hero left a large empty band below the moth (768x1024). */

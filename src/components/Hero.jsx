@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { RibbonLayer } from './Ribbons.jsx'
 import { ArrowRight } from './Icons.jsx'
 
@@ -26,6 +26,15 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const artY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -70])
   const copyY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -30])
+
+  // The moth's float and the ribbons' drift loop forever; pause them while the hero is out of view.
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => el.classList.toggle('is-offscreen', !e.isIntersecting))
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   // One entrance for the copy: a short rise and fade, staggered eyebrow → headline → tagline → link,
   // so everything is readable within about 1.3 s.

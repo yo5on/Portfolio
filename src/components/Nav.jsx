@@ -56,13 +56,25 @@ export default function Nav() {
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
     }
+    // Back/Forward (including Android's Back gesture) closes the menu instead of leaving it open over
+    // another scroll position or a project view; a menu link's own hash change closes it the same way.
+    const onHistory = () => setOpen(false)
     window.addEventListener('keydown', onKey)
+    window.addEventListener('popstate', onHistory)
+    window.addEventListener('hashchange', onHistory)
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('keydown', onKey)
-      background.forEach(el => { el.inert = false })
-      document.body.style.overflow = ''
-      menuButton.current?.focus({ preventScroll: true })
+      window.removeEventListener('popstate', onHistory)
+      window.removeEventListener('hashchange', onHistory)
+      // If Forward/Back has just opened a project view, it now owns the page lock (it may have applied it
+      // before this cleanup runs): release only the nav items, which it does not manage, and leave focus to it.
+      const projectView = document.querySelector('.case[role="dialog"]')
+      background.forEach(el => { if (!projectView || el.closest('header.nav')) el.inert = false })
+      if (!projectView) {
+        document.body.style.overflow = ''
+        menuButton.current?.focus({ preventScroll: true })
+      }
     }
   }, [open])
 

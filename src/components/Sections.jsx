@@ -26,7 +26,7 @@ export function About() {
         <motion.h2 id="about-title" className="section-title" {...r()}>CSE student.<br /><em>Hands-on builder.</em></motion.h2>
       </header>
       <motion.div className="about-body" {...r(0.1)}>
-        <p>I’m a CSE student specializing in AI / ML. My projects span fake-account risk scoring, personalized study planning, ESP32 robotics, and a Unity 2D platformer.</p>
+        <p>I’m a CSE student specializing in AI / ML. My hands-on work so far spans ESP32 robotics, embedded builds, full-stack software tools (an explainable fake-account risk scorer and a personalized study planner) and a Unity 2D platformer.</p>
         <p className="muted">This portfolio follows that work from software into embedded systems and the physical world.</p>
         <p className="about-education"><span className="kicker">Education</span>{education}</p>
         <ExternalLink className="text-link" href={github}>GitHub</ExternalLink>

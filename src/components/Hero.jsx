@@ -67,7 +67,7 @@ export default function Hero() {
         </h1>
         {/* Phones only: the specimen label beneath the moth (the desktop label sits in the margin). */}
         <motion.p className="hero-specimen" {...enter(0.9, 8)}>Fig. 01 — Digital specimen</motion.p>
-        <motion.p className="hero-tagline" {...enter(1.0)}>Yoson — a CSE student building <br />intelligent systems, embedded <br />robotics and interactive worlds.</motion.p>
+        <motion.p className="hero-tagline" {...enter(1.0)}>Yoson — a CSE student specializing <br />in AI&nbsp;/&nbsp;ML, building embedded&nbsp;robotics, <br />software&nbsp;tools and interactive&nbsp;worlds.</motion.p>
         <motion.a className="hero-cta" href="#work" {...enter(1.15)}>Explore the work <ArrowRight /></motion.a>
       </motion.div>
 

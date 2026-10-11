@@ -134,13 +134,13 @@ export const studies = {
 }
 
 // Practice: three areas, each with its focus (the former Skills list) and the projects that show it.
-// Intelligent Systems links FakeGuard and Daymark as data-driven tools: neither uses a trained model.
+// Data-Driven Software links FakeGuard and Daymark as data-driven tools: neither uses a trained model.
 export const practice = {
   lead: 'I build systems that connect software',
   leadEm: 'with the world around them.',
   areas: [
-    { n: '01', title: 'Intelligent Systems', body: 'AI/ML applications, data-driven tools, and software that turns complex problems into practical solutions.',
-      focus: ['Artificial intelligence', 'Machine learning'], workLabel: 'Data-driven tools', work: ['fakeguard', 'daymark'] },
+    { n: '01', title: 'Data-Driven Software', body: 'Explainable, data-driven tools that turn complex inputs into clear, practical decisions, built alongside my AI / ML studies.',
+      focus: ['Explainable scoring', 'Planning logic'], workLabel: 'Data-driven tools', work: ['fakeguard', 'daymark'] },
     { n: '02', title: 'Embedded Robotics', body: 'Microcontrollers, sensors, motor control, and robotics, bringing hardware and software together.',
       focus: ['Robotics', 'ESP32 projects'], workLabel: 'In the work', work: ['line', 'arm', 'mochi'] },
     { n: '03', title: 'Interactive Software', body: 'Game development, user interfaces, and interactive experiences designed around clear functionality and thoughtful details.',

@@ -2,7 +2,7 @@
 
 **Small, sharp tools over big, vague ideas.**
 
-The personal portfolio of Yoson, a CSE student specializing in AI / ML, with work across AI systems, ESP32 robotics, embedded builds and game development.
+The personal portfolio of Yoson, a CSE student specializing in AI / ML, with hands-on work across ESP32 robotics, embedded builds, full-stack software and game development.
 
 ## Design
 

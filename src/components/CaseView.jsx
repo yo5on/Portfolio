@@ -55,7 +55,7 @@ function Gameplay({ id, video }) {
   )
 }
 
-function Study({ project, study, rise, reduced }) {
+function Study({ project, study, rise, plateIn, reduced }) {
   const id = part => `study-${project.id}-${part}`
   return (
     <div className="study">
@@ -67,7 +67,7 @@ function Study({ project, study, rise, reduced }) {
           </h2>
           <motion.p className="case-detail study-lede" {...rise(0.3)}>{study.brief}</motion.p>
         </div>
-        <motion.div className="case-plate" {...rise(0.25)}><Plate project={project} /></motion.div>
+        <motion.div className="case-plate" {...plateIn}><Plate project={project} /></motion.div>
       </div>
       <motion.div {...rise(0.3)}>
         <Part id={id('built')} label="What I built"><p>{study.built}</p></Part>
@@ -104,6 +104,12 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
   const i = projects.findIndex(p => p.id === project.id)
   const next = projects[(i + 1) % projects.length]
   const study = studies[project.id]
+  // The image is shown from the first frame (no fade) when a delayed fade would leave empty navy on screen:
+  // opened out of a card, the view is first clipped to that card's box; and on Next study the open panel swaps
+  // projects while the new title and text are still masked. A first open from elsewhere keeps the fade.
+  const firstProjectId = useRef(project.id)
+  const switched = project.id !== firstProjectId.current
+  const plateIn = origin || switched ? {} : null
 
   useEffect(() => {
     // Return focus to whatever opened the view; a click on a card image leaves nothing focused,
@@ -131,7 +137,8 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
       window.removeEventListener('keydown', onKey)
       background.forEach(el => { el.inert = false })
       document.body.style.overflow = ''
-      const back = opener ?? document.querySelector(`[data-plate="${openedId}"]`)?.closest('.entry')?.querySelector('.entry-title-link')
+      // The opener may be gone (a menu link, when Forward opened this view over the menu): use the title fallback then.
+      const back = (opener?.isConnected ? opener : null) ?? document.querySelector(`[data-plate="${openedId}"]`)?.closest('.entry')?.querySelector('.entry-title-link')
       back?.focus?.({ preventScroll: true })
     }
     // Runs once per opening (Next study keeps the original opener), so `project` is read only here.
@@ -167,7 +174,7 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
         <span>N° {project.n} &nbsp;·&nbsp; {project.type}</span>
         <button ref={closeBtn} className="case-close" onClick={onClose}>Close <Close /></button>
       </div>
-      {study ? <Study key={project.id} project={project} study={study} rise={rise} reduced={reduced} /> : <div className="case-grid" key={project.id}>
+      {study ? <Study key={project.id} project={project} study={study} rise={rise} plateIn={plateIn ?? rise(0.25)} reduced={reduced} /> : <div className="case-grid" key={project.id}>
         <div className="case-text">
           <h2 id="case-title" className="case-title">
             <span className="mask"><motion.span initial={reduced ? false : { y: '105%' }} animate={{ y: '0%' }} transition={{ duration: reduced ? 0 : 1.1, delay: reduced ? 0 : 0.2, ease: soft }}>{project.title}</motion.span></span>
@@ -182,7 +189,7 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
             <ExternalLink href={github}>GitHub profile</ExternalLink>
           </motion.div>
         </div>
-        <motion.div className="case-plate" {...rise(0.25)}><Plate project={project} /></motion.div>
+        <motion.div className="case-plate" {...(plateIn ?? rise(0.25))}><Plate project={project} /></motion.div>
       </div>}
       {!study && project.video && <Gameplay key={`${project.id}-video`} id={project.id} video={project.video} />}
       <button className="case-next" onClick={() => onNavigate(next)}>

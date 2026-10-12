@@ -59,14 +59,20 @@ export default function Nav() {
     // Back/Forward (including Android's Back gesture) closes the menu instead of leaving it open over
     // another scroll position or a project view; a menu link's own hash change closes it the same way.
     const onHistory = () => setOpen(false)
+    // Widening past the phone breakpoint (window resize, or a phone turned to landscape) hides the Menu/Close
+    // button; close the sheet then too, so it cannot stay over the desktop layout with the page still locked.
+    const desktop = window.matchMedia('(min-width: 761px)')
+    const onLayout = e => { if (e.matches) setOpen(false) }
     window.addEventListener('keydown', onKey)
     window.addEventListener('popstate', onHistory)
     window.addEventListener('hashchange', onHistory)
+    desktop.addEventListener('change', onLayout)
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('popstate', onHistory)
       window.removeEventListener('hashchange', onHistory)
+      desktop.removeEventListener('change', onLayout)
       // If Forward/Back has just opened a project view, it now owns the page lock (it may have applied it
       // before this cleanup runs): release only the nav items, which it does not manage, and leave focus to it.
       const projectView = document.querySelector('.case[role="dialog"]')

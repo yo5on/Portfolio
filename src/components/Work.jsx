@@ -47,7 +47,7 @@ function Entry({ project, index, onOpen }) {
           so it is not a third tab stop for the same action. */}
       <motion.div className="entry-plate" data-plate={project.id} onClick={open} variants={{ rest: { rotate: 0, scale: 1 }, hover: { rotate: flip ? 0.6 : -0.6, scale: 1.015 } }} transition={{ duration: 0.9, ease }}>
         <Plate project={project} />
-        {project.note && <MarginNote text={project.note} square={project.image?.frame === 'square'} />}
+        {project.note && <MarginNote text={project.note} />}
       </motion.div>
       <div className="entry-text">
         {/* The in-view trigger sits on the visible heading: the text itself starts

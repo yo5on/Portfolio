@@ -11,7 +11,7 @@ export const projects = [
     detail: 'High-speed PID Line Follower Robot using ESP32, TB6612FNG, and an 8-array IR sensor.',
     stack: ['ESP32', 'PID control', 'TB6612FNG', '8-array IR sensor'], plate: 'track', caption: 'On the line',
     note: 'eight IR sensors',
-    image: { src: '/images/work/line-follower.webp', alt: 'The line follower robot on a black track line, its IR sensor array at the front', w: 675, h: 1200, frame: 'square', position: '50% 51%', crop: 'shift-right' },
+    image: { src: '/images/work/line-follower.webp', alt: 'The line follower robot on a black track line, its IR sensor array at the front', w: 1200, h: 839 },
     repo: 'https://github.com/yo5on/line-follower',
   },
   {
@@ -149,8 +149,10 @@ export const practice = {
 }
 
 // Certificates, as printed on each certificate (title, issuer, date). Files are copies of the owner's
-// Certificates repository (github.com/yo5on/Certificates) with document metadata removed; Udemy links to its
-// own verification page (printed on the certificate) because the PDF also shows a student number.
+// Certificates repository (github.com/yo5on/Certificates) with document metadata removed; the IIT Madras copy keeps
+// only the certificate image from the original browser printout (not its print header and footer). Udemy links to its
+// own verification page (printed on the certificate) because the PDF also shows a student number; its preview is
+// the real certificate with only that number covered. Previews: public/certificates/previews.
 const cert = '/certificates'
 export const certificates = [
   { group: 'Courses & certifications', items: [
@@ -164,7 +166,7 @@ export const certificates = [
     { title: 'Programming Fundamentals using Python — Part 1', issuer: 'Infosys', date: '2026-05-17', when: 'May 2026', file: `${cert}/infosys-programming-fundamentals-python-part-1.pdf` },
     { title: 'Programming Fundamentals using Python — Part 2', issuer: 'Infosys', date: '2026-05-17', when: 'May 2026', file: `${cert}/infosys-programming-fundamentals-python-part-2.pdf` },
     { title: 'Introduction to Data Science and AI', issuer: 'IIT Madras · Centre for Outreach and Digital Education', date: '2025-04', when: 'Apr 2025 batch', file: `${cert}/iit-madras-introduction-to-data-science-and-ai.pdf` },
-    { title: 'Extended Realities: AR and VR', issuer: 'Udemy', verify: 'https://ude.my/UC-514fa73f-ac13-4b5b-abcc-5d78c5656bb0', verifyHost: 'udemy.com' },
+    { title: 'Extended Realities: AR and VR', issuer: 'Udemy', verify: 'https://ude.my/UC-514fa73f-ac13-4b5b-abcc-5d78c5656bb0', verifyHost: 'udemy.com', preview: 'udemy-extended-realities-ar-and-vr' },
   ] },
   { group: 'Hackathons', items: [
     { title: 'InHack Hackathon, Media Meet 2026', issuer: 'Department of Media Studies, CHRIST University', note: 'Participation', date: '2026-08-18', when: 'Aug 2026', file: `${cert}/inhack-hackathon-media-meet-2026.pdf` },

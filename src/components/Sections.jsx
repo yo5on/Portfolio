@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, useReducedMotion } from 'motion/react'
-import { certificates, education, email, github, linkedin, practice, projects } from '../data/content.js'
+import { education, email, github, linkedin, practice, projects } from '../data/content.js'
 import { ArrowUp, ArrowUpRight, BrandMoth, ExternalLink } from './Icons.jsx'
 import InkWord from './InkWord.jsx'
 import { ProjectLink } from './Work.jsx'
@@ -61,38 +61,8 @@ export function Practice({ onOpen }) {
   )
 }
 
-// Certificates: one row per credential (title, issuer, date as printed) with a link to the certificate itself.
-// PDFs open in a new tab so the portfolio stays where it was.
-export function Certificates() {
-  const r = useReveal()
-  return (
-    <section className="certificates" id="certificates" aria-labelledby="certificates-title">
-      <header className="section-head">
-        <span className="kicker">05 — Learning / Credentials</span>
-        <motion.h2 id="certificates-title" className="section-title" {...r()}>Certificates<em>.</em></motion.h2>
-        <p className="section-note">Courses, certifications and hackathons, each linked to the original certificate.</p>
-      </header>
-      {certificates.map((g, gi) => (
-        <motion.div key={g.group} className="cert-group" {...r(0.1 + gi * 0.08)}>
-          <h3 className="kicker" id={`cert-group-${gi}`}>{g.group}</h3>
-          <ol className="cert-list" aria-labelledby={`cert-group-${gi}`}>
-            {g.items.map(c => (
-              <li key={c.title} className="cert">
-                <span className="cert-title">{c.title}</span>
-                <span className="cert-issuer">{c.issuer}{c.note && <> · {c.note}</>}</span>
-                <span className="cert-date">{c.when && <time dateTime={c.date}>{c.when}</time>}</span>
-                <a className="cert-link" href={c.file ?? c.verify} target="_blank" rel="noreferrer">
-                  {c.file ? 'View certificate' : 'Verify on Udemy'}<ArrowUpRight className="icon icon-ext" />
-                  <span className="sr-only">: {c.title} ({c.file ? 'PDF' : c.verifyHost}, opens in new tab)</span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </motion.div>
-      ))}
-    </section>
-  )
-}
+// Certificates live in their own module (an animated exhibition); re-exported here with the other sections.
+export { Certificates } from './Certificates.jsx'
 
 export function Contact() {
   const r = useReveal()

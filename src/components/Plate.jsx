@@ -85,11 +85,13 @@ function Arm() {
 const PLATES = { dial: Dial, track: Track, arm: Arm }
 
 function Photo({ image }) {
-  const cls = ['plate-photo', image.fit === 'contain' && 'is-contain', image.pixel && 'is-pixel', image.oled && 'is-oled', image.crop && `crop-${image.crop}`].filter(Boolean).join(' ')
+  // every photo fills the same frame (object-fit: cover); object-position only where the subject needs it
+  const cls = ['plate-photo', image.fit === 'contain' && 'is-contain', image.pixel && 'is-pixel', image.oled && 'is-oled'].filter(Boolean).join(' ')
   return (
     <picture className={cls}>
       {image.still && <source srcSet={image.still} media="(prefers-reduced-motion: reduce)" />}
-      <img src={image.src} alt={image.alt} width={image.w} height={image.h} loading="lazy" decoding="async" style={image.position ? { objectPosition: image.position } : undefined} />
+      <img src={image.src} alt={image.alt} width={image.w} height={image.h} loading="lazy" decoding="async"
+        style={image.position ? { objectPosition: image.position } : undefined} />
     </picture>
   )
 }
@@ -97,7 +99,7 @@ function Photo({ image }) {
 export default function Plate({ project }) {
   const Drawing = PLATES[project.plate]
   return (
-    <figure className={['plate', project.image?.frame === 'square' && 'is-square'].filter(Boolean).join(' ')}>
+    <figure className="plate">
       <span className="plate-corner tl" /><span className="plate-corner tr" /><span className="plate-corner bl" /><span className="plate-corner br" />
       {project.image ? <Photo image={project.image} /> : (
         <svg viewBox="0 0 480 360" role="img" aria-label={`${project.title} — ${project.caption}`}>

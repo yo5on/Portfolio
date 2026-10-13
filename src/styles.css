@@ -214,8 +214,8 @@ ol { list-style: none; }
 /* ------------------------------------------------------------------ */
 /* Section scaffolding                                                */
 /* ------------------------------------------------------------------ */
-.work, .about, .practice-section, .contact { position: relative; padding: 150px var(--gutter) 130px; }
-.about, .practice-section, .contact { border-top: 1px solid var(--hair); }
+.work, .about, .practice-section, .certificates, .contact { position: relative; padding: 150px var(--gutter) 130px; }
+.about, .practice-section, .certificates, .contact { border-top: 1px solid var(--hair); }
 .section-head { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: 3vw; align-items: end; margin-bottom: 96px; }
 .section-head .kicker { align-self: start; padding-top: 16px; }
 .section-title { font: 500 clamp(30px, 3.7vw, 58px)/1.08 var(--ui); letter-spacing: -0.02em; text-transform: uppercase; color: var(--crimson-text); }
@@ -378,6 +378,19 @@ ol { list-style: none; }
 .work-index a:focus-visible .work-index-arrow { transform: translateX(4px); }
 @media (hover: hover) { .work-index a:hover .work-index-title { color: var(--crimson-text); } .work-index a:hover .work-index-arrow { transform: translateX(4px); } }
 
+/* Certificates: grouped rows on thin rules, the group label in the same left column as other section labels */
+.cert-group { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); column-gap: 3vw; align-items: start; }
+.cert-group + .cert-group { margin-top: 72px; }
+.cert-group > .kicker { padding-top: 18px; }
+.cert-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hair); }
+.cert { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) 7.5em auto; column-gap: 24px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--hair); }
+.cert-title { font: 500 15px/1.45 var(--ui); color: var(--stone); }
+.cert-issuer { font: 400 var(--fs-small)/1.5 var(--ui); color: var(--stone-soft); }
+.cert-date { font: 400 12px/1.5 var(--code); color: var(--stone-soft); white-space: nowrap; }
+.cert-link { justify-self: end; display: inline-flex; align-items: center; padding: 6px 0; font: 500 var(--fs-label)/1 var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone); white-space: nowrap; text-underline-offset: 5px; transition: color 0.3s; }
+.cert-link:focus-visible { color: var(--crimson-text); text-decoration: underline 1px var(--crimson); }
+@media (hover: hover) { .cert-link:hover { color: var(--crimson-text); text-decoration: underline 1px var(--crimson); } }
+
 .contact { padding-bottom: 110px; }
 .contact-title { margin-top: 56px; font: 400 clamp(60px, 9vw, 150px)/0.9 var(--display); letter-spacing: 0; text-transform: uppercase; color: var(--crimson-text); }
 .contact-title em { font-style: italic; text-transform: none; color: var(--stone); }
@@ -409,6 +422,11 @@ ol { list-style: none; }
   .hero-tagline br { display: none; }
   .nav-aside a:last-child { display: none; }
   .entry-plate, .entry.is-flipped .entry-plate { grid-column: 1 / -1; grid-row: auto; }
+  .cert { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; }
+  .cert-title { grid-column: 1; }
+  .cert-link { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .cert-issuer { grid-column: 1; grid-row: 2; }
+  .cert-date { grid-column: 1; grid-row: 3; }
   .entry-text, .entry.is-flipped .entry-text { grid-column: 1 / span 9; grid-row: auto; }
   .about-body { margin-left: 0; }
   .study-gallery.is-portrait { --cols: 2 !important; }
@@ -443,7 +461,7 @@ ol { list-style: none; }
   .meta-fig, .meta-side, .meta-note { display: none; } /* Fig. 01 crowded the headline on narrow screens */
   .meta-scroll { display: none !important; }
 
-  .work, .about, .practice-section, .contact { padding: 104px var(--gutter) 96px; }
+  .work, .about, .practice-section, .certificates, .contact { padding: 104px var(--gutter) 96px; }
   .section-head { grid-template-columns: 1fr; margin-bottom: 64px; }
   .section-head .kicker { padding: 0 0 24px; }
   .section-note { grid-column: 1; }
@@ -464,6 +482,11 @@ ol { list-style: none; }
   .work-index a { grid-template-columns: 36px minmax(0, 1fr) 16px; row-gap: 6px; }
   .work-index-field { grid-column: 2; grid-row: 2; text-align: left; }
   .work-index-arrow { grid-column: 3; grid-row: 1; }
+  .cert-group { grid-template-columns: 1fr; }
+  .cert-group > .kicker { padding: 0 0 18px; }
+  .cert-group + .cert-group { margin-top: 56px; }
+  .cert { column-gap: 16px; }
+  .cert-link { padding-block: 12px; margin-block: -6px; } /* a taller touch area */
   .case-grid { grid-template-columns: 1fr; padding: 56px 0 80px; gap: 56px; }
   .case-plate { position: static; order: -1; }
   .case-detail { font-size: 14.5px; line-height: 1.7; }

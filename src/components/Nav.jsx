@@ -3,9 +3,9 @@ import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScro
 import { github, linkedin } from '../data/content.js'
 import { BrandMoth, ExternalLink } from './Icons.jsx'
 
-const links = [['Work', '#work'], ['About', '#about'], ['Contact', '#contact']]
+const links = [['Work', '#work'], ['About', '#about'], ['Certificates', '#certificates'], ['Contact', '#contact']]
 // Page sections in order, and the nav link each one makes current.
-const SECTIONS = [['top', null], ['work', '#work'], ['about', '#about'], ['practice', '#about'], ['contact', '#contact']]
+const SECTIONS = [['top', null], ['work', '#work'], ['about', '#about'], ['practice', '#about'], ['certificates', '#certificates'], ['contact', '#contact']]
 const ease = [0.22, 1, 0.36, 1]
 // Everything outside the header and the menu sheet is taken out of reach while the sheet is open.
 const BACKGROUND = '.skip, main, footer, .nav .brand, .nav-links, .nav-aside'

@@ -5,7 +5,7 @@ import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
 import Work, { plateRect } from './components/Work.jsx'
 import CaseView from './components/CaseView.jsx'
-import { About, Contact, Footer, Practice } from './components/Sections.jsx'
+import { About, Certificates, Contact, Footer, Practice } from './components/Sections.jsx'
 import { projects } from './data/content.js'
 import './styles.css'
 
@@ -70,6 +70,7 @@ function App() {
         <Work onOpen={open} />
         <About />
         <Practice onOpen={open} />
+        <Certificates />
         <Contact />
       </main>
       <Footer />

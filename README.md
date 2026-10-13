@@ -126,6 +126,7 @@ SITE_URL=https://your-domain.example npm run build
 
 ```text
 public/
+  certificates/      certificate PDFs shown in the Certificates section (copies from yo5on/Certificates, metadata removed)
   fonts/             Instrument Serif Italic and IBM Plex Mono Italic (traced by the handwriting)
   favicon.ico        fallback favicon, rendered from images/moth-flow-favicon.svg
   images/            moth artwork and "The Flow" mark + favicon, social preview, project photos (work/)

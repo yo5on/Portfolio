@@ -148,6 +148,30 @@ export const practice = {
   ],
 }
 
+// Certificates, as printed on each certificate (title, issuer, date). Files are copies of the owner's
+// Certificates repository (github.com/yo5on/Certificates) with document metadata removed; Udemy links to its
+// own verification page (printed on the certificate) because the PDF also shows a student number.
+const cert = '/certificates'
+export const certificates = [
+  { group: 'Courses & certifications', items: [
+    { title: 'Azure AI Fundamentals', issuer: 'Microsoft · via Certiport', date: '2026-09-29', when: 'Sep 2026', file: `${cert}/microsoft-azure-ai-fundamentals.pdf` },
+    { title: 'Computer Fundamentals 101', issuer: 'Infosys', date: '2026-09-09', when: 'Sep 2026', file: `${cert}/infosys-computer-fundamentals-101.pdf` },
+    { title: 'Introduction to Modern AI', issuer: 'Cisco Networking Academy · CHRIST University', date: '2026-09-08', when: 'Sep 2026', file: `${cert}/cisco-introduction-to-modern-ai.pdf` },
+    { title: 'Introduction to Artificial Intelligence', issuer: 'Infosys', date: '2026-07-05', when: 'Jul 2026', file: `${cert}/infosys-introduction-to-artificial-intelligence.pdf` },
+    { title: 'Design Thinking', issuer: 'Infosys', date: '2026-06-24', when: 'Jun 2026', file: `${cert}/infosys-design-thinking.pdf` },
+    { title: 'Fundamentals of Responsible AI', issuer: 'Infosys', date: '2026-06-24', when: 'Jun 2026', file: `${cert}/infosys-fundamentals-of-responsible-ai.pdf` },
+    { title: 'Software Engineering and Agile Software Development', issuer: 'Infosys', date: '2026-06-24', when: 'Jun 2026', file: `${cert}/infosys-software-engineering-and-agile.pdf` },
+    { title: 'Programming Fundamentals using Python — Part 1', issuer: 'Infosys', date: '2026-05-17', when: 'May 2026', file: `${cert}/infosys-programming-fundamentals-python-part-1.pdf` },
+    { title: 'Programming Fundamentals using Python — Part 2', issuer: 'Infosys', date: '2026-05-17', when: 'May 2026', file: `${cert}/infosys-programming-fundamentals-python-part-2.pdf` },
+    { title: 'Introduction to Data Science and AI', issuer: 'IIT Madras · Centre for Outreach and Digital Education', date: '2025-04', when: 'Apr 2025 batch', file: `${cert}/iit-madras-introduction-to-data-science-and-ai.pdf` },
+    { title: 'Extended Realities: AR and VR', issuer: 'Udemy', verify: 'https://ude.my/UC-514fa73f-ac13-4b5b-abcc-5d78c5656bb0', verifyHost: 'udemy.com' },
+  ] },
+  { group: 'Hackathons', items: [
+    { title: 'InHack Hackathon, Media Meet 2026', issuer: 'Department of Media Studies, CHRIST University', note: 'Participation', date: '2026-08-18', when: 'Aug 2026', file: `${cert}/inhack-hackathon-media-meet-2026.pdf` },
+    { title: 'Adobe University Hackathon', issuer: 'Adobe · via Unstop', note: 'Participation', date: '2026-08-09', when: 'Aug 2026', file: `${cert}/adobe-university-hackathon.pdf` },
+  ] },
+]
+
 // Shown in About. The degree and university match the owner's GitHub profile
 // ("CSE student specializing in AI/ML at Christ University, Bangalore").
 export const education = 'B.Tech, Computer Science and Engineering (AI & ML) — Christ University, Bengaluru'

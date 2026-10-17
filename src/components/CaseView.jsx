@@ -37,24 +37,6 @@ function Gallery({ items }) {
   )
 }
 
-// A native player: controls, no autoplay, a poster frame from the recording, and nothing of the
-// video itself downloaded until the visitor presses play.
-function Gameplay({ id, video }) {
-  const label = `case-${id}-gameplay`
-  return (
-    <section className="study-part is-wide case-media" aria-labelledby={label}>
-      <h3 id={label} className="study-label">Gameplay</h3>
-      <figure className="study-body">
-        <video className="case-video" controls preload="none" poster={video.poster} playsInline width={video.w} height={video.h} aria-label={video.label}>
-          <source src={video.src} type="video/mp4" />
-          <p>Your browser can’t play this video. <a href={video.src}>Download the recording (MP4, {video.size})</a>.</p>
-        </video>
-        <figcaption>{video.caption}</figcaption>
-      </figure>
-    </section>
-  )
-}
-
 function Study({ project, study, rise, plateIn, reduced }) {
   const id = part => `study-${project.id}-${part}`
   return (
@@ -127,7 +109,7 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
     const onKey = e => {
       if (e.key === 'Escape' && !document.fullscreenElement) onClose()
       if (e.key !== 'Tab' || !panel.current) return
-      const items = [...panel.current.querySelectorAll('button, a[href], video[controls]')]
+      const items = [...panel.current.querySelectorAll('button, a[href]')]
       const first = items[0], last = items[items.length - 1]
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
@@ -192,7 +174,6 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
         </div>
         <motion.div className="case-plate" {...(plateIn ?? rise(0.25))}><Plate project={project} /></motion.div>
       </div>}
-      {!study && project.video && <Gameplay key={`${project.id}-video`} id={project.id} video={project.video} />}
       <button className="case-next" onClick={() => onNavigate(next)}>
         <span className="kicker">Next study — N° {next.n}</span>
         <span className="case-next-title">{next.title} <ArrowRight className="icon icon-next" /></span>

@@ -2,7 +2,7 @@ import { motion, useReducedMotion } from 'motion/react'
 import { projects } from '../data/content.js'
 import Plate from './Plate.jsx'
 import MarginNote from './MarginNote.jsx'
-import { ArrowRight } from './Icons.jsx'
+import { ArrowRight, ExternalLink } from './Icons.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 // Masked line reveal: text rises from below its clipping mask.
@@ -64,10 +64,13 @@ function Entry({ project, index, onOpen }) {
           {project.stack.map(tag => <span key={tag} className="tag">{tag}</span>)}
         </motion.p>
         {/* One arrow: a crimson shaft with its head attached, which lengthens on hover/focus. */}
-        <button className="entry-open" onClick={open} aria-label={`Open study: ${project.title}`}>
-          <span>Open study</span>
-          <span className="open-arrow" aria-hidden="true" />
-        </button>
+        <div className="entry-actions">
+          <button className="entry-open" onClick={open} aria-label={`Open study: ${project.title}`}>
+            <span>Open study</span>
+            <span className="open-arrow" aria-hidden="true" />
+          </button>
+          {project.play && <ExternalLink className="entry-play" href={project.play}>Play in browser</ExternalLink>}
+        </div>
       </div>
     </motion.li>
   )

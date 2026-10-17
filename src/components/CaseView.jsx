@@ -185,6 +185,7 @@ export default function CaseView({ project, origin, onClose, onNavigate }) {
             <div><dt>Built with</dt><dd>{project.stack.join(', ')}</dd></div>
           </motion.dl>
           <motion.div className="case-links" {...rise(0.5)}>
+            {project.play && <ExternalLink href={project.play}>Play in browser</ExternalLink>}
             {project.repo && <ExternalLink href={project.repo}>Repository</ExternalLink>}
             <ExternalLink href={github}>GitHub profile</ExternalLink>
           </motion.div>

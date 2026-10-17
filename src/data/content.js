@@ -46,10 +46,6 @@ export const projects = [
     stack: ['Unity', 'C#', '2D platformer', 'Game development'], caption: 'Level 1, mid-jump',
     // A frame of the Level 1 recording (86 s), cropped to the game view; pixels unchanged.
     image: { src: '/images/work/maze-runner.webp', alt: 'Maze Runner Level 1: the hooded player character mid-jump above a large green goblin standing on a platform', w: 1015, h: 710 },
-    // Web version of the unedited gameplay recording (97 MB, kept in the maze-runner repository as
-    // media/gameplay-level-1.mp4): same 1920x1016 frames and timing, H.264 (x264 CRF 23, preset slow)
-    // with the original AAC audio copied, faststart. The poster is a frame of it (12 s), decoded unchanged.
-    video: { src: '/media/maze-runner-level-1-web.mp4', poster: '/media/maze-runner-level-1-poster.webp', w: 1920, h: 1016, size: '7.1 MB', label: 'Maze Runner Level 1 gameplay recording', caption: 'Level 1, played in the Unity Editor’s Game view (Unity 6.5).' },
     repo: 'https://github.com/yo5on/maze-runner',
     // Preview page with Play Now; the game itself runs at https://yo5on.github.io/maze-runner/.
     play: 'https://yo5on.github.io/maze-runner/preview/',

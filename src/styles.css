@@ -321,9 +321,6 @@ ol { list-style: none; }
 .study-gallery figcaption span:first-child { flex: none; font: 400 var(--fs-label)/1.75 var(--ui); color: var(--stone); text-transform: uppercase; letter-spacing: var(--ls-label); }
 .study-links { display: flex; flex-wrap: wrap; gap: 24px 48px; }
 .study-links a { display: inline-block; font: 500 var(--fs-label) var(--ui); letter-spacing: var(--ls-label); text-transform: uppercase; color: var(--stone); padding-bottom: 6px; border-bottom: 1px solid var(--crimson); }
-.case-media { margin-top: -40px; margin-bottom: 72px; }
-.case-video { display: block; width: 100%; height: auto; max-height: 82vh; background: #000; border: 1px solid var(--hair); }
-.case-media figcaption { padding-top: 12px; font: 400 12px/1.6 var(--code); color: var(--stone-soft); }
 .study-note { margin-top: 12px; max-width: 22em; font: 400 var(--fs-small)/1.55 var(--ui); color: var(--stone-soft); }
 
 .case-next { display: block; width: 100%; text-align: left; padding: 60px 0 40px; border-top: 1px solid var(--hair); }

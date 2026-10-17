@@ -51,6 +51,8 @@ export const projects = [
     // with the original AAC audio copied, faststart. The poster is a frame of it (12 s), decoded unchanged.
     video: { src: '/media/maze-runner-level-1-web.mp4', poster: '/media/maze-runner-level-1-poster.webp', w: 1920, h: 1016, size: '7.1 MB', label: 'Maze Runner Level 1 gameplay recording', caption: 'Level 1, played in the Unity Editor’s Game view (Unity 6.5).' },
     repo: 'https://github.com/yo5on/maze-runner',
+    // Preview page with Play Now; the game itself runs at https://yo5on.github.io/maze-runner/.
+    play: 'https://yo5on.github.io/maze-runner/preview/',
   },
   {
     id: 'sparky', n: '06', title: 'Sparky', type: 'Embedded Interaction',

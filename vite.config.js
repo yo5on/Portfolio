@@ -34,6 +34,8 @@ const socialUrls = {
 }
 
 export default defineConfig({
+  // GitHub Pages project-site builds set this to /Portfolio/; Vercel and custom-domain builds stay at the root.
+  base: process.env.GITHUB_PAGES_BASE || '/',
   plugins: [react(), socialUrls],
   // `@/` points at src/, the shadcn convention (e.g. `@/components/ui/handwriting-text`).
   resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },

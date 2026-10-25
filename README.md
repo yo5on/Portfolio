@@ -134,15 +134,19 @@ SITE_URL=https://your-domain.example npm run build
 
 ```text
 public/
-  certificates/      certificate PDFs shown in the Certificates section (copies from yo5on/Certificates, metadata removed)
-  fonts/             Instrument Serif Italic and IBM Plex Mono Italic (traced by the handwriting)
-  favicon.ico        fallback favicon, rendered from images/moth-flow-favicon.svg
-  images/            moth artwork and "The Flow" mark + favicon, social preview, project photos (work/)
+  certificates/      certificate PDFs shown in the Certificates section
+  fonts/             local font subsets and their licence files
+  images/            moth artwork, favicon marks, social preview and project images
+    work/            project covers and case-study figures
+    work/gallery/    extra project photos and media previews
+  media/             Maze Runner poster and gameplay recording
 src/
-  components/        Hero, Ribbons, Nav, Work, Plate, CaseView, Sections
+  components/        Hero, Nav, Work, Plate, CaseView, Sections, Ribbons, Icons,
+                     InkWord and MarginNote
+  components/ui/     handwriting-text.tsx
   data/content.js    project and section copy
   styles.css         design tokens and layout
-  main.jsx
+  main.jsx           application entry point
 ```
 
 ---

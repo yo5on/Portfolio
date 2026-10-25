@@ -1,4 +1,4 @@
-const publicAsset = path => `${import.meta.env.BASE_URL}${path.replace(/^\\/+/, '')}`
+const publicAsset = path => `${import.meta.env.BASE_URL}${path.startsWith('/') ? path.slice(1) : path}`
 
 export const github = 'https://github.com/yo5on'
 export const email = 'yo5on2025@gmail.com'

@@ -58,7 +58,7 @@ export default function Hero() {
         <RibbonLayer layer="back" className="ribbons ribbons-back" />
         <picture className="moth">
           <source srcSet={MOTH_SRCSET} sizes={MOTH_SIZES} type="image/webp" />
-          <img src="/images/moth.png" alt="A pale grey moth with outstretched forewings and long hanging hindwings, drawn in fine engraved detail" width="1536" height="977" fetchPriority="high" decoding="async" />
+          <img src={`${import.meta.env.BASE_URL}images/moth.png`} alt="A pale grey moth with outstretched forewings and long hanging hindwings, drawn in fine engraved detail" width="1536" height="977" fetchPriority="high" decoding="async" />
         </picture>
         <RibbonLayer layer="fore" className="ribbons ribbons-front" />
       </motion.div>

@@ -10,6 +10,14 @@
 
 <div align="center"><samp>The personal portfolio of Yoson, a CSE student specializing in AI / ML, with hands-on work across ESP32 robotics, embedded builds, full-stack software and game development.</samp></div>
 
+<div align="center">
+
+**[View Live Portfolio](https://yo5on.github.io/Portfolio/)** · [Source Code](https://github.com/yo5on/Portfolio)
+
+<sub>Deployed to GitHub Pages automatically with GitHub Actions on pushes to `main`.</sub>
+
+</div>
+
 ---
 
 <div align="center">

@@ -4,8 +4,8 @@ import { HandwritingText } from '@/components/ui/handwriting-text'
 // exactly: Instrument Serif Italic (Latin subset) for display statements, IBM Plex Mono Italic (Fontsource
 // Latin WOFF) for technical annotations. SIL OFL; licences: /fonts/OFL-InstrumentSerif.txt, /fonts/OFL-IBMPlexMono.txt
 export const INK_FONTS = {
-  display: '/fonts/InstrumentSerif-Italic-latin.ttf',
-  code: '/fonts/IBMPlexMono-Italic-latin.woff',
+  display: `${import.meta.env.BASE_URL}fonts/InstrumentSerif-Italic-latin.ttf`,
+  code: `${import.meta.env.BASE_URL}fonts/IBMPlexMono-Italic-latin.woff`,
 }
 
 /**

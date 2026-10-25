@@ -15,7 +15,7 @@ const items = certificates.flatMap(g => g.items.map(c => ({ ...c, group: g.group
 const N = items.length
 // preview images: named after the PDF; the Udemy credential (PDF not hosted) names its own preview
 const slug = c => c.preview ?? c.file.split('/').pop().replace(/\.pdf$/, '')
-const preview = (c, w) => `/certificates/previews/${slug(c)}-${w}.webp`
+const preview = (c, w) => `${import.meta.env.BASE_URL}certificates/previews/${slug(c)}-${w}.webp`
 const two = n => String(n).padStart(2, '0')
 const SLIDE = 18 // px the incoming certificate travels
 const reveal = (reduced, delay = 0) => ({ initial: reduced ? false : { opacity: 0, y: 22 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.2 }, transition: { duration: reduced ? 0 : 1.1, delay: reduced ? 0 : delay, ease } })

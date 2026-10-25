@@ -8,7 +8,7 @@ const ease = [0.22, 1, 0.36, 1]
 // Responsive moth: phones and 1x screens get the 900px file, larger/denser screens the 1536px one.
 // `sizes` mirrors the CSS: the moth is 75% of the art box (min(78vw, 132svh) desktop,
 // min(86vw, 118svh) tablet, 122vw phone).
-const MOTH_SRCSET = '/images/moth-900.webp 900w, /images/moth.webp 1536w'
+const MOTH_SRCSET = `${import.meta.env.BASE_URL}images/moth-900.webp 900w, ${import.meta.env.BASE_URL}images/moth.webp 1536w`
 const MOTH_SIZES = '(max-width: 760px) 92vw, (max-width: 1080px) 65vw, 59vw'
 
 // "Small, sharp tools over big, vague ideas." — set as four lines: the claim in
@@ -53,7 +53,7 @@ export default function Hero() {
             behind the moth are never darkened and every crossing stays clean. */}
         <picture className="moth moth-shadow" aria-hidden="true">
           <source srcSet={MOTH_SRCSET} sizes={MOTH_SIZES} type="image/webp" />
-          <img src="/images/moth.png" alt="" width="1536" height="977" decoding="async" />
+          <img src={`${import.meta.env.BASE_URL}images/moth.png`} alt="" width="1536" height="977" decoding="async" />
         </picture>
         <RibbonLayer layer="back" className="ribbons ribbons-back" />
         <picture className="moth">

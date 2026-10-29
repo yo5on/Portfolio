@@ -178,3 +178,9 @@ src/
 <samp>LinkedIn: <a href="https://www.linkedin.com/in/yo5on">linkedin.com/in/yo5on</a></samp>
 
 </div>
+
+---
+
+<div align="center"><samp><b>License</b></samp></div>
+
+<samp>This project's original code is licensed under the MIT License. See [LICENSE](LICENSE) for details. Third-party assets and dependencies remain under their respective licenses.</samp>

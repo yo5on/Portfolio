@@ -12,7 +12,7 @@
 
 <div align="center">
 
-**[View Live Portfolio](https://yo5on.github.io/Portfolio/)** · [Source Code](https://github.com/yo5on/Portfolio)
+<samp>**[View Live Portfolio](https://yo5on.github.io/Portfolio/)** · [Source Code](https://github.com/yo5on/Portfolio)</samp>
 
 <sub>Deployed to GitHub Pages automatically with GitHub Actions on pushes to `main`.</sub>
 
